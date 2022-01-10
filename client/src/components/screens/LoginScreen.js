@@ -1,37 +1,32 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { usePostLogin } from "../../hooks/Api/useAuth";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { usePostLogin } from '../../hooks/Api/useAuth';
 
-const LoginScreen = ({ history }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+const LoginScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   let navigate = useNavigate();
   const createUser = usePostLogin(email, password);
 
-
-   
-
-  
-
   useEffect(() => {
     if (createUser.isSuccess) {
-      navigate("/")
+      navigate('/');
     }
   }, [createUser.isSuccess]);
 
   useEffect(() => {
     if (createUser.isError) {
       setError(createUser?.error?.response?.data);
-      console.log(createUser?.error?.response?.data)
+      console.log(createUser?.error?.response?.data);
     }
   }, [createUser.isError]);
 
   const loginHandler = async (e) => {
     e.preventDefault();
 
-    createUser.mutate(email, password)
+    createUser.mutate(email, password);
   };
 
   return (
@@ -53,7 +48,7 @@ const LoginScreen = ({ history }) => {
         </div>
         <div className="form-group">
           <label htmlFor="password">
-            Password:{" "}
+            Password:{' '}
             <Link to="/forgotpassword" className="login-screen__forgotpassword">
               Forgot Password?
             </Link>
@@ -73,7 +68,7 @@ const LoginScreen = ({ history }) => {
         </button>
 
         <span className="login-screen__subtext">
-          Don't have an account? <Link to="/register">Register</Link>
+          Dont have an account? <Link to="/register">Register</Link>
         </span>
       </form>
     </div>

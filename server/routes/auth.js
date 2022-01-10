@@ -1,84 +1,84 @@
-const router = require('express').Router();
-const User = require('../models/User');
+const router = require("express").Router();
+const User = require("../models/User");
 const crypto = require("crypto");
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const {registerValidation, loginValidation, forgotPasswordValidation} = require('../routes/validation');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const {
+  registerValidation,
+  loginValidation,
+  forgotPasswordValidation,
+} = require("../routes/validation");
 const ErrorResponse = require("../utils/errorResponse");
-const sendEmail = require('../utils/sentEmail');
-
-
+const sendEmail = require("../utils/sentEmail");
 
 // Register
-router.post('/register', async (req,res) => {
-     // Validate Data before we create user
-    const {error} = registerValidation(req.body);
-   
-    if (error) return res.status(400).send(error.details[0].message);
+router.post("/register", async (req, res) => {
+  // Validate Data before we create user
+  const { error } = registerValidation(req.body);
 
-    //Check if User is already in db
-    const emailExist = await User.findOne({email: req.body.email});
-    if(emailExist) return res.status(400).send('L\'email est déjà utilisé');
+  if (error) return res.status(400).send(error.details[0].message);
 
-    //Hash passwords
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+  //Check if User is already in db
+  const emailExist = await User.findOne({ email: req.body.email });
+  if (emailExist) return res.status(400).send("L'email est déjà utilisé");
 
-   // Create New User 
-   const user = new User({
-      email: req.body.email,
-      name: req.body.name,
-      password: req.body.password
-    });
-    try {
-        const savedUser = await user.save();
-        res.status(201).send({user});
-    } catch (err) {
-        res.status(400).send(err);
-    } 
+  //Hash passwords
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+  // Create New User
+  const user = new User({
+    email: req.body.email,
+    name: req.body.name,
+    password: req.body.password,
+  });
+  try {
+    const savedUser = await user.save();
+    res.status(201).send({ user });
+  } catch (err) {
+    res.status(400).send(err);
+  }
 });
 
 // Login
-router.post('/login', async (req, res) => {
-    // Validate Data before we create user
-    const {error} = loginValidation(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+router.post("/login", async (req, res) => {
+  // Validate Data before we create user
+  const { error } = loginValidation(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
-    //Check if email exist
-    const user = await User.findOne({email: req.body.email});
-    if(!user) return res.status(400).send('Cet email n\'existe pas !');
+  //Check if email exist
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) return res.status(400).send("Cet email n'existe pas !");
 
-    //Check Password is correct
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validPassword) return res.status(400).send('Le mot de passe est incorrect !');
+  //Check Password is correct
+  const validPassword = await bcrypt.compare(req.body.password, user.password);
+  if (!validPassword)
+    return res.status(400).send("Le mot de passe est incorrect !");
 
-    //Create and assign token
-    const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET , {
-        expiresIn : '24h'
-    });
-    res.header('auth-token', token).send({user, token})
+  //Create and assign token
+  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+    expiresIn: "24h",
+  });
+  res.header("auth-token", token).send({ user, token });
 });
 
 //Forgot password
-router.post('/forgotpassword', async (req, res, next) => {
-    // Validate Data before we create user
-    const {error} = forgotPasswordValidation(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+router.post("/forgotpassword", async (req, res, next) => {
+  // Validate Data before we create user
+  const { error } = forgotPasswordValidation(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
-    
-    
+  try {
+    const user = await User.findOne({ email: req.body.email });
 
-    try {
-    const user = await User.findOne({email: req.body.email});
-
-    if(!user){
-        return next(new ErrorResponse("L'email ne peut être envoyé", 404))
+    if (!user) {
+      return next(new ErrorResponse("L'email ne peut être envoyé", 404));
     }
 
     // Reset Token Gen and add to database hashed (private) version of token
     const resetToken = user.getResetPasswordToken();
 
-    await user.save()
+    await user.save();
 
     // Create reset url to email to provided email
     const resetUrl = `http://localhost:3000/passwordreset/${resetToken}`;
@@ -174,51 +174,47 @@ You can change your password by clicking on the button below:
     `;
 
     try {
-        await sendEmail({
-          to: user.email,
-          subject: "Password Reset Request",
-          text: message,
-        });
-  
-        res.status(200).json({ success: true, data: "Email Sent" });
-      } catch (err) {
-        console.log(err);
-  
-        user.resetPasswordToken = undefined;
-        user.resetPasswordExpire = undefined;
-  
-        await user.save();
-  
-        return next(new ErrorResponse("Email could not be sent", 500));
-      }
+      await sendEmail({
+        to: user.email,
+        subject: "Password Reset Request",
+        text: message,
+      });
 
-        
-    } catch (error) {
-        next(error);
+      res.status(200).json({ success: true, data: "Email Sent" });
+    } catch (err) {
+      console.log(err);
+
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpire = undefined;
+
+      await user.save();
+
+      return next(new ErrorResponse("Email could not be sent", 500));
     }
-
+  } catch (error) {
+    next(error);
+  }
 });
 
 //Reset password
-router.put('/resetpassword/:resetToken', async (req, res, next) => {
-   
-    // Compare token in URL params to hashed token
+router.put("/resetpassword/:resetToken", async (req, res, next) => {
+  // Compare token in URL params to hashed token
   const resetPasswordToken = crypto
-  .createHash("sha256")
-  .update(req.params.resetToken)
-  .digest("hex");
+    .createHash("sha256")
+    .update(req.params.resetToken)
+    .digest("hex");
 
   try {
     const user = await User.findOne({
-        resetPasswordToken,
-        resetPasswordExpire: { $gt: Date.now() },
-      });
+      resetPasswordToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    });
 
-      if (!user) {
-        return next(new ErrorResponse("Invalid Token", 400));
-      }
+    if (!user) {
+      return next(new ErrorResponse("Invalid Token", 400));
+    }
 
-      user.date= Date.now()
+    user.date = Date.now();
 
     user.password = req.body.password;
     user.resetPasswordToken = undefined;
@@ -231,18 +227,14 @@ router.put('/resetpassword/:resetToken', async (req, res, next) => {
       data: "Password Updated Success",
       token: user.getSignedJwtToken(),
     });
-
-
   } catch (error) {
     next(error);
   }
-
-
 });
 
 const sendToken = (user, statusCode, res) => {
-    const token = user.getSignedJwtToken();
-    res.status(statusCode).json({ sucess: true, token });
-  };
+  const token = user.getSignedJwtToken();
+  res.status(statusCode).json({ sucess: true, token });
+};
 
 module.exports = router;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -16,10 +16,9 @@ const PrivateScreen = () => {
       };
 
       try {
-        const { data } = await axios.get('/api/private', config);
+        const { data } = await axios.get('http://localhost:8081/private', config);
         setPrivateData(data.data || 'Helloooo');
       } catch (error) {
-        localStorage.removeItem('authToken');
         setError('You are not authorized please login');
       }
     };

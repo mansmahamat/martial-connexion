@@ -1,18 +1,11 @@
-import { Navigate, Route } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        localStorage.getItem("authToken") ? (
-          <Component {...props} />
-        ) : (
-          <Navigate to="/login" />
-        )
-      }
-    />
-  );
-};
+function ProtectedRoute({ children }) {
+  console.log('authenticated');
 
-export default PrivateRoute;
+  return localStorage.getItem('authToken') ? children : <Navigate to="/login" replace />;
+}
+
+export default ProtectedRoute;
