@@ -37,11 +37,8 @@ app.use("/private", protect, getPrivateRoute);
 app.use("/api/posts", postRoute);
 app.use("/api", mentors);
 
-// Making Build Folder as Public
-app.use(express.static(path.join(__dirname, "build")));
-
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+app.get("/", (req, res) => {
+  res.send("Hello from Express!");
 });
 
 app.listen(process.env.PORT || 5000, () => console.log("App is here"));
