@@ -6,7 +6,7 @@ import RegisterTypes from '../../types/RegisterTypes';
 import ResetPassword from '../../types/ResetPassword';
 
 const postLogin = async (email : string, password: string): Promise<LoginTypes> => {
-  const { data } = await axios.post('http://localhost:5000/api/user/login', {
+  const { data } = await axios.post('/api/user/login', {
     email,
     password
   });
@@ -22,7 +22,7 @@ export function usePostLogin(email: string, password: string) {
 }
 
 const postRegister = async (name : string,email : string, password: string): Promise<RegisterTypes> => {
-  const { data } = await axios.post('http://localhost:5000/api/user/register', {
+  const { data } = await axios.post('/api/user/register', {
     name,
     email,
     password
@@ -38,7 +38,7 @@ export function usePostRegister(name: string,email: string, password: string) {
 
 
 const forgotPassword = async (email : string): Promise<ForgotPassword> => {
-  const { data } = await axios.post('http://localhost:5000/api/user/forgotpassword', {
+  const { data } = await axios.post('/api/user/forgotpassword', {
     email,
   });
 
@@ -52,7 +52,7 @@ export function useForgotPassword(email: string) {
 }
 
 const resetPassword = async (password : string, resetToken: string): Promise<ResetPassword> => {
-  const { data } = await axios.put(`http://localhost:5000/api/user/resetpassword/${resetToken}`, {
+  const { data } = await axios.put(`/api/user/resetpassword/${resetToken}`, {
     password,
   });
 
