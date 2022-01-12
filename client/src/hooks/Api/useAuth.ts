@@ -3,6 +3,7 @@ import { useMutation } from 'react-query';
 import ForgotPassword from '../../types/ForgotPasswordTypes';
 import LoginTypes from '../../types/LoginTypes';
 import RegisterTypes from '../../types/RegisterTypes';
+import ResetPassword from '../../types/ResetPassword';
 
 const postLogin = async (email : string, password: string): Promise<LoginTypes> => {
   const { data } = await axios.post('http://localhost:5000/api/user/login', {
@@ -48,4 +49,18 @@ const forgotPassword = async (email : string): Promise<ForgotPassword> => {
 
 export function useForgotPassword(email: string) {
   return useMutation(() => forgotPassword(email));
+}
+
+const resetPassword = async (password : string, resetToken: string): Promise<ResetPassword> => {
+  const { data } = await axios.put(`http://localhost:5000/api/user/resetpassword/${resetToken}`, {
+    password,
+  });
+
+
+
+  return data;
+};
+
+export function useResetPassword(password : string, resetToken: string) {
+  return useMutation(() => resetPassword(password, resetToken));
 }

@@ -65,10 +65,10 @@ const LoginScreen = () => {
         <div className="md:flex md:items-center md:justify-center  sm:w-auto md:h-full w-2/5 xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none ">
           <div className="max-w-md w-full space-y-8">
             <div className="text-center">
-              <h2 className="mt-6 text-3xl font-bold ">Welcome Back!</h2>
+              <h2 className="mt-6 text-3xl font-bold ">Connectez vous</h2>
               <Toggle />
-              <p className="my-4 text-sm ">Please sign in to your account</p>
-              <span className="text-red-700 text-lg italic ml-3"> {error}</span>
+              {/* <p className="my-4 text-sm ">Please sign in to your account</p> */}
+              <span className="text-red-700 text-lg italic ml-3">{error}</span>
             </div>
 
             <form
@@ -114,7 +114,8 @@ const LoginScreen = () => {
               <div>
                 <button
                   type="submit"
-                  className="w-full flex justify-center bg-red-600  hover:bg-red-400 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+                  disabled={errors.email || errors.password ? true : false}
+                  className="w-full flex disabled:bg-red-200 disabled:cursor-not-allowed justify-center bg-red-600  hover:bg-red-400 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
                   Se connecter
                 </button>
               </div>

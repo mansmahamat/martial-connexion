@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import { ForgotPasswordValidation } from './validation';
 import { useForgotPassword } from '../../hooks/Api/useAuth';
 import Toggle from '../../components/routing/ToggleTheme';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const ForgotPasswordScreen = () => {
   const [error, setError] = useState('');
@@ -34,6 +35,7 @@ const ForgotPasswordScreen = () => {
     if (forgotPassword.isSuccess) {
       setSuccess('Un email vient de vous être envoyé');
       setError('');
+      setSuccess('');
     }
   }, [forgotPassword.isSuccess]);
 
@@ -69,9 +71,17 @@ const ForgotPasswordScreen = () => {
         <div className="md:flex md:items-center md:justify-center  sm:w-auto md:h-full w-2/5 xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none ">
           <div className="max-w-md w-full space-y-8">
             <div className="text-center">
-              <h2 className="mt-6 text-3xl font-bold ">Welcome Back!</h2>
-              <Toggle />
-              <p className="my-4 text-sm ">Please sign in to your account</p>
+              <div>
+                <Link to="/login">
+                  <FaArrowLeft className=" text-2xl cursor-pointer" />
+                </Link>
+                <h2 className="mt-4 text-3xl font-bold ">Mot de passe oublié ?</h2>
+              </div>
+
+              <p className="my-4 text-sm ">
+                Entrez ladresse e-mail indiquée au moment de la création de votre compte. Vous
+                recevrez un lien pour réinitialiser votre mot de passe.
+              </p>
               <span className="text-red-700 text-lg italic ml-3"> {error}</span>
               <span className="text-green-700 text-lg italic ml-3"> {success}</span>
             </div>
@@ -96,30 +106,14 @@ const ForgotPasswordScreen = () => {
                 <span className="text-red-700  italic ml-3 mt-2"> {errors.email}</span>
               </div>
 
-              <div className="flex items-center justify-between">
-                <div className="text-sm">
-                  <Link
-                    to="/forgotpassword"
-                    className="dark:text-white text-black ml-3  hover:underline">
-                    Mot de passe oublié ?
-                  </Link>
-                </div>
-              </div>
               <div>
                 <button
+                  disabled={errors.email ? true : false}
                   type="submit"
-                  className="w-full flex justify-center bg-red-600  hover:bg-red-400 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+                  className="w-full flex justify-center disabled:bg-red-200 disabled:cursor-not-allowed bg-red-600  hover:bg-red-400 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
                   Se connecter
                 </button>
               </div>
-              <p className="flex flex-col items-center justify-center mt-10 text-center text-md ">
-                <span>Vous n'avez pas de compte ?</span>
-                <Link
-                  to="/login"
-                  className="text-red-600 no-underline hover:underline cursor-pointer transition ease-in duration-300">
-                  Créer un compte
-                </Link>
-              </p>
             </form>
           </div>
         </div>

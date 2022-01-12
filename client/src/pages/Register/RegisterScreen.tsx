@@ -59,23 +59,16 @@ const RegisterScreen = () => {
           }}>
           <div className="absolute bg-red-500 opacity-40 inset-0 z-0"></div>
           <div className="w-full  max-w-md z-10">
-            <div className="sm:text-4xl xl:text-5xl font-bold leading-tight mb-6">
-              Reference site about Lorem Ipsum..
-            </div>
-            <div className="sm:text-sm xl:text-md  font-normal">
-              What is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-              when an unknown printer took a galley of type and scrambled it to make a type specimen
-              book it has?
-            </div>
+            <div className="sm:text-4xl xl:text-5xl font-bold leading-tight mb-6"></div>
+            <div className="sm:text-sm xl:text-md  font-normal"></div>
           </div>
         </div>
         <div className="md:flex md:items-center md:justify-center  sm:w-auto md:h-full w-2/5 xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none ">
           <div className="max-w-md w-full space-y-8">
             <div className="text-center">
-              <h2 className="mt-6 text-3xl font-bold ">Welcome !</h2>
+              <h2 className="mt-6 text-3xl font-bold ">Inscrivez vous</h2>
               <Toggle />
-              <p className="my-4 text-sm ">Please register</p>
+              {/* <p className="my-4 text-sm ">Please register</p> */}
               <span className="text-red-700 text-lg italic ml-3"> {error}</span>
             </div>
 
@@ -150,17 +143,22 @@ const RegisterScreen = () => {
               </div>
               <div>
                 <button
+                  disabled={
+                    errors.email || errors.password || errors.name || errors.passwordConfirmation
+                      ? true
+                      : false
+                  }
                   type="submit"
-                  className="w-full flex justify-center bg-red-600  hover:bg-red-400 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
-                  Se connecter
+                  className="w-full flex justify-center bg-red-600 disabled:bg-red-200 disabled:cursor-not-allowed  hover:bg-red-400 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+                  S'inscrire
                 </button>
               </div>
               <p className="flex flex-col items-center justify-center mt-10 text-center text-md ">
-                <span>Vous n'avez pas de compte ?</span>
+                <span>Déjà un compte ? </span>
                 <Link
                   to="/login"
                   className="text-red-600 no-underline hover:underline cursor-pointer transition ease-in duration-300">
-                  Créer un compte
+                  Connectez vous
                 </Link>
               </p>
             </form>

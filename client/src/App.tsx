@@ -7,7 +7,7 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import LoginScreen from './pages/Login/LoginScreen';
 import RegisterScreen from './pages/Register/RegisterScreen';
 import ForgotPasswordScreen from './pages/ForgotPassword/ForgotPasswordScreen';
-import ResetPasswordScreen from './pages/ResetPasswordScreen';
+import ResetPasswordScreen from './pages/ResetPassword/ResetPasswordScreen';
 import Home from './pages/Home';
 
 const App = () => {
@@ -17,6 +17,8 @@ const App = () => {
         <Route
           path="/"
           element={
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
             <PrivateRoute>
               <Home />
             </PrivateRoute>

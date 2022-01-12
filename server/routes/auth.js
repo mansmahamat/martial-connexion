@@ -211,7 +211,7 @@ router.put("/resetpassword/:resetToken", async (req, res, next) => {
     });
 
     if (!user) {
-      return next(new ErrorResponse("Invalid Token", 400));
+      return res.status(400).send("Token invalide");
     }
 
     user.date = Date.now();
@@ -228,7 +228,7 @@ router.put("/resetpassword/:resetToken", async (req, res, next) => {
       token: user.getSignedJwtToken(),
     });
   } catch (error) {
-    next(error);
+    return res.status(400).send(error);
   }
 });
 
