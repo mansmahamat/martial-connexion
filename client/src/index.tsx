@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Background from './utils/Background';
+import { ThemeProvider } from './context/ThemeContext';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,9 +20,17 @@ const queryClient = new QueryClient({
 
 ReactDOM.render(
   <React.StrictMode>
-     <QueryClientProvider client={queryClient}>
-       <App />
-     </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <React.Suspense fallback="Loading...">
+        <ThemeProvider initialTheme="">
+          <Background>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </Background>
+        </ThemeProvider>
+      </React.Suspense>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

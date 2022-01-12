@@ -72,7 +72,7 @@ router.post("/forgotpassword", async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
-      return next(new ErrorResponse("L'email ne peut être envoyé", 404));
+      return res.status(400).send("L'email ne peut être envoyé");
     }
 
     // Reset Token Gen and add to database hashed (private) version of token

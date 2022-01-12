@@ -37,4 +37,4 @@ app.use("/private", protect, getPrivateRoute);
 app.use("/api/posts", postRoute);
 app.use("/api", mentors);
 
-app.listen(process.env.PORT || 8081, () => console.log("App is here"));
+app.listen(process.env.PORT || 5000, () => console.log("App is here"));
