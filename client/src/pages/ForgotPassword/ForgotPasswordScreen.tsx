@@ -52,12 +52,6 @@ const ForgotPasswordScreen = () => {
     <div className="flex justify-center h-screen  antialiased">
       <div className=" sm:mt-40 mt-24 my-auto max-w-md  p-3 ">
         <div className="text-center m-6">
-          <div className="mb-6">
-            <Link to="/login">
-              <FaArrowLeft className=" text-2xl cursor-pointer" />
-            </Link>
-          </div>
-
           <h1 className="text-3xl font-semibold ">Forgot your password?</h1>
           <p className="">
             Just enter your email address below and we'll send you a link to reset your password!

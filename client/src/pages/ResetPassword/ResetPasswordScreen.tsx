@@ -55,16 +55,9 @@ const ResetPasswordScreen = () => {
   }, [resetPassword.isError]);
 
   return (
-    <div className="w-full flex flex-wrap">
-      <div className="w-full md:w-1/2 flex flex-col">
-        <div className="flex items-center justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">
-          <a href="#" className="bg-black text-white font-bold text-xl p-4">
-            Logo
-          </a>
-          <Toggle />
-        </div>
-
-        <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
+    <div className="w-full flex h-screen flex-wrap">
+      <div className="w-full lg:w-1/2 flex flex-col">
+        <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8">
           <p className="text-center text-3xl">Welcome.</p>
           <div className="text-center mt-4">
             {resetPassword.isError && (
@@ -132,9 +125,9 @@ const ResetPasswordScreen = () => {
         </div>
       </div>
 
-      <div className="w-1/2 bg-blend-screen bg-red-500">
+      <div className="w-1/2 bg-blend-screen hidden lg:block bg-red-500">
         <div
-          className=" w-full  opacity-40 h-screen hidden md:block relative"
+          className=" w-full  opacity-40 h-screen hidden lg:block relative"
           style={{
             backgroundImage:
               'url(' +
