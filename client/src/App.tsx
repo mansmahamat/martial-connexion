@@ -9,26 +9,30 @@ import RegisterScreen from './pages/Register/RegisterScreen';
 import ForgotPasswordScreen from './pages/ForgotPassword/ForgotPasswordScreen';
 import ResetPasswordScreen from './pages/ResetPassword/ResetPasswordScreen';
 import Home from './pages/Home';
+import Navbar from './components/routing/Navbar';
 
 const App = () => {
   return (
-    <div className="h-screen">
-      <Routes>
-        <Route
-          path="/"
-          element={
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-            <PrivateRoute>
+    <div className="root">
+      <Navbar />
+      <div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              //@ts-ignore
+              // <PrivateRoute>
               <Home />
-            </PrivateRoute>
-          }
-        />
-        <Route path="/login" element={<LoginScreen />} />
-        <Route path="/register" element={<RegisterScreen />} />
-        <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
-        <Route path="/passwordreset/:resetToken" element={<ResetPasswordScreen />} />
-      </Routes>
+              // </PrivateRoute>
+            }
+          />
+          <Route path="/login" element={<LoginScreen />} />
+          <Route path="/register" element={<RegisterScreen />} />
+          <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
+          <Route path="/passwordreset/:resetToken" element={<ResetPasswordScreen />} />
+        </Routes>
+      </div>
     </div>
   );
 };
