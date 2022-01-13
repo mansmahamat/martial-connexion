@@ -43,7 +43,7 @@ const LoginScreen = () => {
   }, [createUser.isError]);
 
   return (
-    <div className="h-screen  flex ">
+    <div className=" flex ">
       <div className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 ">
         <div
           className="sm:w-1/2 xl:w-3/5 h-full hidden md:flex flex-auto items-center justify-center p-10 overflow-hidden bg-purple-900  bg-no-repeat bg-cover relative"
@@ -62,8 +62,8 @@ const LoginScreen = () => {
             <div className="sm:text-sm xl:text-md  font-normal"></div>
           </div>
         </div>
-        <div className="md:flex md:items-center md:justify-center  sm:w-auto md:h-full w-2/5 xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none ">
-          <div className="max-w-md w-full space-y-8">
+        <div className="md:flex md:items-center md:justify-center  sm:w-auto md:h-full  xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none ">
+          <div className=" w-full space-y-8">
             <div className="text-center">
               <h2 className="mt-6 text-3xl font-bold ">Connectez vous</h2>
               <Toggle />
