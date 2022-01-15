@@ -122,9 +122,9 @@ const LoginScreen = () => {
         </div>
       </div>
 
-      <div className="w-1/2 hidden lg:block bg-blend-screen bg-red-500">
+      <div className="w-1/2 hidden -z-0  lg:block bg-blend-screen bg-red-500">
         <div
-          className=" w-full  opacity-40 h-screen hidden lg:block relative"
+          className=" w-full opacity-40 h-screen hidden lg:block relative"
           style={{
             backgroundImage:
               'url(' +

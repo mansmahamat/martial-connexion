@@ -22,9 +22,9 @@ const App = () => {
             element={
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               //@ts-ignore
-              // <PrivateRoute>
-              <Home />
-              // </PrivateRoute>
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
             }
           />
           <Route path="/login" element={<LoginScreen />} />
