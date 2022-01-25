@@ -21,9 +21,8 @@ export function usePostLogin(email: string, password: string) {
   return useMutation(() => postLogin(email, password));
 }
 
-const postRegister = async (name : string,email : string, password: string): Promise<RegisterTypes> => {
+const postRegister = async (email : string, password: string): Promise<RegisterTypes> => {
   const { data } = await axios.post('/api/user/register', {
-    name,
     email,
     password
   });
@@ -32,8 +31,8 @@ const postRegister = async (name : string,email : string, password: string): Pro
   return data;
 };
 
-export function usePostRegister(name: string,email: string, password: string) {
-  return useMutation(() => postRegister(name,email, password));
+export function usePostRegister(email: string, password: string) {
+  return useMutation(() => postRegister(email, password));
 }
 
 

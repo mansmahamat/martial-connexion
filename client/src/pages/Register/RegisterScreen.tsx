@@ -12,7 +12,7 @@ const RegisterScreen = () => {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const initialValues = { name: '', email: '', password: '', passwordConfirmation: '' };
+  const initialValues = { email: '', password: '', passwordConfirmation: '' };
 
   const { errors, values, handleChange, handleSubmit } = useFormik({
     initialValues,
@@ -23,7 +23,7 @@ const RegisterScreen = () => {
       submitForm();
     }
   });
-  const createUser = usePostRegister(values.name, values.email, values.password);
+  const createUser = usePostRegister(values.email, values.password);
 
   const submitForm = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -70,6 +70,27 @@ const RegisterScreen = () => {
               <span className="text-red-700  italic ml-3 mt-2"> {errors.name}</span>
             </div>
 
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit();
+              }}
+              className="mt-8 space-y-6">
+              <div className="relative">
+                <div className="absolute right-3 mt-4"></div>
+                <label className="ml-3 text-sm font-bold  tracking-wide">Email</label>
+                <input
+                  className=" w-full my-2 text-base text-red-600 px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                  name="email"
+                  id="email"
+                  type="email"
+                  onChange={handleChange}
+                  placeholder="mail@gmail.com"
+                />
+                <span className="text-red-700  italic ml-3 mt-2"> {errors.email}</span>
+              </div>
+              <div className="mt-8 content-center">
+                <label className="ml-3 text-sm font-bold  tracking-wide">Mot de passe</label>
             <div className="flex flex-col pt-4">
               <label className="text-lg">Email</label>
               <input
@@ -117,6 +138,29 @@ const RegisterScreen = () => {
                   placeholder="********"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
                 />
+                <span className="text-red-700 italic ml-3 mt-2">
+                  {' '}
+                  {errors.passwordConfirmation}
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="text-sm">
+                  <Link
+                    to="/forgotpassword"
+                    className="dark:text-white text-black ml-3  hover:underline">
+                    Mot de passe oublié ?
+                  </Link>
+                </div>
+              </div>
+              <div>
+                <button
+                  disabled={
+                    errors.email || errors.password || errors.passwordConfirmation ? true : false
+                  }
+                  type="submit"
+                  className="w-full flex justify-center bg-red-600 disabled:bg-red-200 disabled:cursor-not-allowed  hover:bg-red-400 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+                  S'inscrire
+                </button>
               </div>
               <span className="text-red-700  italic ml-3 mt-2"> {errors.passwordConfirmation}</span>
             </div>
