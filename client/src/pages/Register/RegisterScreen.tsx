@@ -6,9 +6,11 @@ import Toggle from '../../components/routing/ToggleTheme';
 import { RegisterValidation } from './validation';
 import { usePostRegister } from '../../hooks/Api/useAuth';
 import { useFormik } from 'formik';
+import { FaEye, FaEyeDropper, FaEyeSlash } from 'react-icons/fa';
 
 const RegisterScreen = () => {
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const initialValues = { email: '', password: '', passwordConfirmation: '' };
 
@@ -44,32 +46,28 @@ const RegisterScreen = () => {
   }, [createUser.isError]);
 
   return (
-    <div className="h-screen  flex ">
-      <div className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 ">
-        <div
-          className="sm:w-1/2 xl:w-3/5 h-full hidden md:flex flex-auto items-center justify-center p-10 overflow-hidden bg-purple-900  bg-no-repeat bg-cover relative"
-          style={{
-            backgroundImage:
-              'url(' +
-              'https://images.pexels.com/photos/6296010/pexels-photo-6296010.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' +
-              ')',
-            backgroundPosition: 'left',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat'
-          }}>
-          <div className="absolute bg-red-500 opacity-40 inset-0 z-0"></div>
-          <div className="w-full  max-w-md z-10">
-            <div className="sm:text-4xl xl:text-5xl font-bold leading-tight mb-6"></div>
-            <div className="sm:text-sm xl:text-md  font-normal"></div>
-          </div>
-        </div>
-        <div className="md:flex md:items-center md:justify-center  sm:w-auto md:h-full w-2/5 xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none ">
-          <div className="max-w-md w-full space-y-8">
-            <div className="text-center">
-              <h2 className="mt-6 text-3xl font-bold ">Inscrivez vous</h2>
-              <Toggle />
-              {/* <p className="my-4 text-sm ">Please register</p> */}
-              <span className="text-red-700 text-lg italic ml-3"> {error}</span>
+    <div className="w-full h-screen flex flex-wrap">
+      <div className="w-full lg:w-1/2 flex flex-col">
+        <span className="text-red-700 text-lg italic ml-3"> {error}</span>
+
+        <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
+          <p className="text-center text-3xl">Register</p>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+            className="flex flex-col pt-3 md:pt-8">
+            <div className="flex flex-col pt-4">
+              <label className="text-lg">Name</label>
+              <input
+                name="name"
+                id="name"
+                onChange={handleChange}
+                placeholder="Aaron Smith"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+              />
+              <span className="text-red-700  italic ml-3 mt-2"> {errors.name}</span>
             </div>
 
             <form
@@ -93,27 +91,52 @@ const RegisterScreen = () => {
               </div>
               <div className="mt-8 content-center">
                 <label className="ml-3 text-sm font-bold  tracking-wide">Mot de passe</label>
+            <div className="flex flex-col pt-4">
+              <label className="text-lg">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                onChange={handleChange}
+                placeholder="Aaron@email.fr"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+              />
+              <span className="text-red-700  italic ml-3 mt-2"> {errors.email}</span>
+            </div>
+
+            <div className="flex flex-col pt-4">
+              <label className="text-lg">Password</label>
+              <div className="flex space-x-4 items-center">
                 <input
-                  className="w-full content-center text-red-600  my-2 text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-indigo-500"
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   onChange={handleChange}
-                  placeholder="Enter your password"
+                  placeholder="********"
+                  className="shadow appearance-none border   rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
                 />
-                <span className="text-red-700 italic ml-3 mt-2"> {errors.password}</span>
+                <span onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? (
+                    <FaEye className="h-6 w-6" />
+                  ) : (
+                    <FaEyeSlash className="h-6 w-6" />
+                  )}
+                </span>
               </div>
-              <div className="mt-8 content-center">
-                <label className="ml-3 text-sm font-bold  tracking-wide">
-                  Confirm Mot de passe
-                </label>
+
+              <span className="text-red-700  italic ml-3 mt-2"> {errors.password}</span>
+            </div>
+
+            <div className="flex flex-col pt-4">
+              <label className="text-lg">Confirm Password</label>
+              <div className="flex space-x-4 items-center">
                 <input
-                  className="w-full content-center text-red-600  my-2 text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-indigo-500"
                   id="passwordConfirmation"
                   name="passwordConfirmation"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   onChange={handleChange}
-                  placeholder="Enter your password"
+                  placeholder="********"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
                 />
                 <span className="text-red-700 italic ml-3 mt-2">
                   {' '}
@@ -139,17 +162,45 @@ const RegisterScreen = () => {
                   S'inscrire
                 </button>
               </div>
-              <p className="flex flex-col items-center justify-center mt-10 text-center text-md ">
-                <span>Déjà un compte ? </span>
-                <Link
-                  to="/login"
-                  className="text-red-600 no-underline hover:underline cursor-pointer transition ease-in duration-300">
-                  Connectez vous
-                </Link>
-              </p>
-            </form>
+              <span className="text-red-700  italic ml-3 mt-2"> {errors.passwordConfirmation}</span>
+            </div>
+
+            <button
+              disabled={
+                errors.email || errors.password || errors.name || errors.passwordConfirmation
+                  ? true
+                  : false
+              }
+              type="submit"
+              className="w-full mt-6 flex justify-center bg-red-600 disabled:bg-red-200 disabled:cursor-not-allowed  hover:bg-red-400 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+              S'inscrire
+            </button>
+          </form>
+          <div className="text-center pt-12 pb-12">
+            <p>
+              Do you have an account?{' '}
+              <Link to="/login" className="underline font-semibold">
+                Login here.
+              </Link>
+            </p>
           </div>
         </div>
+      </div>
+
+      <div className="w-1/2 bg-blend-screen hidden lg:block bg-red-500">
+        <div
+          className=" w-full  opacity-40 h-screen hidden lg:block relative"
+          style={{
+            backgroundImage:
+              'url(' +
+              'https://images.pexels.com/photos/6296010/pexels-photo-6296010.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' +
+              ')',
+            backgroundPosition: 'left',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: 'blueviolet'
+          }}
+        />
       </div>
     </div>
   );

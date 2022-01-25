@@ -23,6 +23,7 @@ type User = {
   __v: number;
   _id: string;
 };
+import Navbar from './components/routing/Navbar';
 
 const App = () => {
   const [user, setUser] = useState<User>({
@@ -72,6 +73,26 @@ const App = () => {
         <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
         <Route path="/passwordreset/:resetToken" element={<ResetPasswordScreen />} />
       </Routes>
+    <div className="root">
+      <Navbar />
+      <div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              //@ts-ignore
+              // <PrivateRoute>
+              <Home />
+              // </PrivateRoute>
+            }
+          />
+          <Route path="/login" element={<LoginScreen />} />
+          <Route path="/register" element={<RegisterScreen />} />
+          <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
+          <Route path="/passwordreset/:resetToken" element={<ResetPasswordScreen />} />
+        </Routes>
+      </div>
     </div>
   );
 };
