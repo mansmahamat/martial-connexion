@@ -52,45 +52,27 @@ const RegisterScreen = () => {
 
         <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
           <p className="text-center text-3xl">Register</p>
+
           <form
             onSubmit={(e) => {
               e.preventDefault();
               handleSubmit();
             }}
-            className="flex flex-col pt-3 md:pt-8">
-            <div className="flex flex-col pt-4">
-              <label className="text-lg">Name</label>
+            className="mt-8 space-y-6">
+            <div className="relative">
+              <div className="absolute right-3 mt-4"></div>
+              <label className="ml-3 text-sm font-bold  tracking-wide">Email</label>
               <input
-                name="name"
-                id="name"
+                className=" w-full my-2 text-base text-red-600 px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                name="email"
+                id="email"
+                type="email"
                 onChange={handleChange}
-                placeholder="Aaron Smith"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="mail@gmail.com"
               />
-              <span className="text-red-700  italic ml-3 mt-2"> {errors.name}</span>
+              <span className="text-red-700  italic ml-3 mt-2"> {errors.email}</span>
             </div>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSubmit();
-              }}
-              className="mt-8 space-y-6">
-              <div className="relative">
-                <div className="absolute right-3 mt-4"></div>
-                <label className="ml-3 text-sm font-bold  tracking-wide">Email</label>
-                <input
-                  className=" w-full my-2 text-base text-red-600 px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
-                  name="email"
-                  id="email"
-                  type="email"
-                  onChange={handleChange}
-                  placeholder="mail@gmail.com"
-                />
-                <span className="text-red-700  italic ml-3 mt-2"> {errors.email}</span>
-              </div>
-              <div className="mt-8 content-center">
-                <label className="ml-3 text-sm font-bold  tracking-wide">Mot de passe</label>
+            <label className="ml-3 text-sm font-bold  tracking-wide">Mot de passe</label>
             <div className="flex flex-col pt-4">
               <label className="text-lg">Email</label>
               <input
@@ -167,9 +149,7 @@ const RegisterScreen = () => {
 
             <button
               disabled={
-                errors.email || errors.password || errors.name || errors.passwordConfirmation
-                  ? true
-                  : false
+                errors.email || errors.password || errors.passwordConfirmation ? true : false
               }
               type="submit"
               className="w-full mt-6 flex justify-center bg-red-600 disabled:bg-red-200 disabled:cursor-not-allowed  hover:bg-red-400 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">

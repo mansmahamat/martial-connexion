@@ -47,6 +47,8 @@ const App = () => {
 
   return (
     <div className="h-screen">
+      <Navbar />
+
       <Routes>
         <Route
           path="/"
@@ -73,26 +75,6 @@ const App = () => {
         <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
         <Route path="/passwordreset/:resetToken" element={<ResetPasswordScreen />} />
       </Routes>
-    <div className="root">
-      <Navbar />
-      <div>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              //@ts-ignore
-              // <PrivateRoute>
-              <Home />
-              // </PrivateRoute>
-            }
-          />
-          <Route path="/login" element={<LoginScreen />} />
-          <Route path="/register" element={<RegisterScreen />} />
-          <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
-          <Route path="/passwordreset/:resetToken" element={<ResetPasswordScreen />} />
-        </Routes>
-      </div>
     </div>
   );
 };

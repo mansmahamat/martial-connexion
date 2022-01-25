@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* This example requires Tailwind CSS v2.0+ */
 import React, { Fragment } from 'react';
+//@ts-ignore
+
 import { Disclosure, Menu, Transition } from '@headlessui/react';
+//@ts-ignore
+
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+
+//@ts-ignore
 import { PlusSmIcon } from '@heroicons/react/solid';
 import Toggle from './ToggleTheme';
 import { Link } from 'react-router-dom';
@@ -33,6 +39,8 @@ function classNames(...classes: string[]) {
 export default function Navbar() {
   return (
     <Disclosure as="nav" className=" bg-black">
+      {/* @ts-ignore */}
+
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -117,6 +125,7 @@ export default function Navbar() {
                       <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                         {userNavigation.map((item) => (
                           <Menu.Item key={item.name}>
+                            {/* @ts-ignore */}
                             {({ active }) => (
                               <a
                                 href={item.href}
