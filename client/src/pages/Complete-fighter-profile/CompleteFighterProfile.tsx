@@ -226,7 +226,6 @@ function CompleteFighterProfile() {
                 type: 'city',
                 language: 'fr',
                 countries: ['FR']
-                // Other options from https://community.algolia.com/places/documentation.html#options
               }}
               //@ts-ignore
               onChange={(suggestion) => {
