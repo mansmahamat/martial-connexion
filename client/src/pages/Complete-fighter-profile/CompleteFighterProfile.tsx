@@ -221,8 +221,8 @@ function CompleteFighterProfile() {
             <AlgoliaPlaces
               placeholder="Write an address here"
               options={{
-                appId: 'plLTZK09YPDA',
-                apiKey: '2228f96dc699082219425c9404ff75a1',
+                appId: process.env.REACT_APP_ALGOLIA_ID,
+                apiKey: process.env.REACT_APP_ALGOLIA_API_KEY,
                 type: 'city',
                 language: 'fr',
                 countries: ['FR']
