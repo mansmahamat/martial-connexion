@@ -7,9 +7,10 @@ const cors = require("cors");
 //Import Route
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/post");
-const mentors = require("./routes/mentors");
+const fighter = require("./routes/fighter");
 const { protect } = require("./middleware/auth");
 const { getPrivateRoute } = require("./controllers/private");
+const CreateFighterRoute = require("./routes/createFighterRoute");
 
 dotenv.config();
 
@@ -35,7 +36,7 @@ app.use(cors());
 app.use("/api/user", authRoute);
 app.use("/private", protect, getPrivateRoute);
 app.use("/api/posts", postRoute);
-app.use("/api", mentors);
+app.use("/api", fighter);
 
 app.get("/", (req, res) => {
   res.send("Hello from Express!");

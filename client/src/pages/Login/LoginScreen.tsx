@@ -31,6 +31,7 @@ const LoginScreen = () => {
   useEffect(() => {
     if (createUser.isSuccess) {
       navigate('/');
+      window.location.reload();
     }
   }, [createUser.isSuccess]);
 
