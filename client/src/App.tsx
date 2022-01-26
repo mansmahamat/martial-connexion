@@ -49,8 +49,10 @@ const App = () => {
   }, [window.localStorage.getItem('user')]);
 
   return (
+
     <div className="h-screen">
       <Navbar User={user} />
+
 
       <Routes>
         <Route
