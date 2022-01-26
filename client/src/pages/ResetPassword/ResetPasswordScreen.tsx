@@ -55,10 +55,13 @@ const ResetPasswordScreen = () => {
   }, [resetPassword.isError]);
 
   return (
-    <div className="w-full flex h-screen flex-wrap">
-      <div className="w-full lg:w-1/2 flex flex-col">
-        <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8">
-          <p className="text-center text-3xl">Welcome.</p>
+    <div className="min-h-screen flex">
+      <div className="flex-1 overflow-hidden flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+        <div className="mx-auto w-full max-w-sm lg:w-96">
+          <div>
+            <h2 className="mt-6 text-3xl text-center font-extrabold ">Reset Password</h2>
+          </div>
+
           <div className="text-center mt-4">
             {resetPassword.isError && (
               <span className="text-red-700 text-center text-lg italic ml-3"> {error}</span>
@@ -74,58 +77,59 @@ const ResetPasswordScreen = () => {
               </div>
             )}
           </div>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSubmit();
-            }}
-            className="flex flex-col pt-3 md:pt-8">
-            <div className="flex flex-col pt-4">
-              <label className="text-lg">Password</label>
-              <div className="flex space-x-4 items-center">
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  onChange={handleChange}
-                  placeholder="********"
-                  className="shadow appearance-none border   rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
-                />
-                <span onClick={() => setShowPassword(!showPassword)}>
-                  {showPassword ? (
-                    <FaEye className="h-6 w-6" />
-                  ) : (
-                    <FaEyeSlash className="h-6 w-6" />
-                  )}
-                </span>
-              </div>
 
-              <span className="text-red-700  italic ml-3 mt-2"> {errors.password}</span>
-            </div>
-            <div className="flex flex-col pt-4">
-              <label className="text-lg">Confirmez mot de passe </label>
-              <input
-                id="passwordConfirmation"
-                name="passwordConfirmation"
-                type={showPassword ? 'text' : 'password'}
-                onChange={handleChange}
-                placeholder="***********"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
-              />
-              <span className="text-red-700 italic ml-3 mt-2">{errors.passwordConfirmation}</span>
-            </div>
+          <div className="mt-8">
+            <div className="mt-6">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSubmit();
+                }}
+                className="space-y-6">
+                <div className="space-y-1">
+                  <label htmlFor="password" className="block text-sm font-medium ">
+                    Password
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="password"
+                      name="password"
+                      type={showPassword ? 'text' : 'password'}
+                      onChange={handleChange}
+                      placeholder="********"
+                      className="appearance-none relative text-gray-800 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
+                    <span className="relative left-80 -top-8">
+                      {showPassword ? (
+                        <FaEyeSlash
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="h-6 text-red-700 w-6"
+                        />
+                      ) : (
+                        <FaEye
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="h-6 text-red-700 w-6"
+                        />
+                      )}
+                    </span>
+                    <span className="text-red-700  italic"> {errors.password}</span>
+                  </div>
+                </div>
 
-            <button
-              disabled={errors.password || errors.passwordConfirmation ? true : false}
-              type="submit"
-              className="w-full mt-6 flex justify-center bg-red-600 disabled:bg-red-200 disabled:cursor-not-allowed  hover:bg-red-400 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
-              Modifier mon mot de passe
-            </button>
-          </form>
+                <div>
+                  <button
+                    disabled={errors.password ? true : false}
+                    type="submit"
+                    className="w-full mt-6 flex justify-center bg-red-600 hover:bg-re disabled:bg-red-200 disabled:cursor-not-allowed  hover:bg-red-400 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+                    Modifier mon mot de passe
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="w-1/2 bg-blend-screen hidden lg:block bg-red-500">
+      <div className="hidden lg:block relative  bg-red-600 w-0 flex-1">
         <div
           className=" w-full  opacity-40 h-screen hidden lg:block relative"
           style={{
@@ -135,8 +139,7 @@ const ResetPasswordScreen = () => {
               ')',
             backgroundPosition: 'left',
             backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: 'blueviolet'
+            backgroundRepeat: 'no-repeat'
           }}
         />
       </div>

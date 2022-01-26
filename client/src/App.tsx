@@ -46,7 +46,7 @@ const App = () => {
   }, [window.localStorage.getItem('user')]);
 
   return (
-    <div className="h-screen">
+    <div className="">
       <Navbar />
 
       <Routes>
