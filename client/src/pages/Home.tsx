@@ -9,6 +9,7 @@ type Props = {
     date: string;
     email: string;
     name: string;
+    avatar: string;
     password: string;
     resetPasswordExpire: string;
     resetPasswordToken: string;
@@ -33,9 +34,6 @@ function Home({ User }: Props) {
   return (
     <div className="h-screen">
       {!user?.isComplete && <Banner id={user?._id} />}
-      <h1>Hello {user.name}</h1>
-      <img className="h-24 w-24" src={user?.avatar} />
-      <Toggle />
       <Hero />
     </div>
   );

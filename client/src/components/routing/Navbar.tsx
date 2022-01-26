@@ -25,18 +25,38 @@ const navigation = [
   { name: 'Projects', href: '#', current: false },
   { name: 'Calendar', href: '#', current: false }
 ];
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' }
-];
 
 //@ts-ignore
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
+type Props = {
+  User: {
+    date: string;
+    email: string;
+    name: string;
+    password: string;
+    avatar: string;
+    resetPasswordExpire: string;
+    resetPasswordToken: string;
+    __v: number;
+    _id: string;
+  };
+};
 
-export default function Navbar() {
+const logoutHandler = () => {
+  localStorage.removeItem('authToken');
+  localStorage.removeItem('user');
+  window.location.reload();
+};
+
+export default function Navbar({ User }: Props) {
+  const userNavigation = [
+    { name: 'Your Profile', href: `/complete-fighter-profile/${User._id}` },
+    { name: 'Settings', href: '#' },
+    { name: 'Sign out', href: '#' }
+  ];
+
   return (
     <Disclosure as="nav" className=" bg-black">
       {/* @ts-ignore */}
@@ -61,12 +81,12 @@ export default function Navbar() {
                   <Link to="/">
                     <img
                       className="block lg:hidden h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                      src="https://cdn.worldvectorlogo.com/logos/ucc-2.svg"
                       alt="Workflow"
                     />
                     <img
                       className="hidden lg:block h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                      src="https://cdn.worldvectorlogo.com/logos/ucc-2.svg"
                       alt="Workflow"
                     />
                   </Link>
@@ -111,7 +131,9 @@ export default function Navbar() {
                     <div>
                       <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                         <span className="sr-only">Open user menu</span>
-                        <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                        {User.name && (
+                          <img className="h-12 w-12 rounded-full" src={User.avatar} alt="" />
+                        )}
                       </Menu.Button>
                     </div>
                     <Transition
@@ -122,19 +144,21 @@ export default function Navbar() {
                       leave="transition ease-in duration-75"
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95">
-                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="origin-top-right absolute z-50 right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                         {userNavigation.map((item) => (
                           <Menu.Item key={item.name}>
                             {/* @ts-ignore */}
                             {({ active }) => (
-                              <a
-                                href={item.href}
-                                className={classNames(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
-                                )}>
-                                {item.name}
-                              </a>
+                              <Link to={item.href}>
+                                <span
+                                  // onClick={() => logoutHandler()}
+                                  className={classNames(
+                                    active ? 'bg-gray-100' : '',
+                                    'block px-4 py-2 text-sm text-gray-700'
+                                  )}>
+                                  {item.name}
+                                </span>
+                              </Link>
                             )}
                           </Menu.Item>
                         ))}
@@ -182,13 +206,15 @@ export default function Navbar() {
               </div>
               <div className="mt-3 px-2 space-y-1 sm:px-3">
                 {userNavigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
-                    {item.name}
-                  </Disclosure.Button>
+                  <>
+                    <Disclosure.Button
+                      key={item.name}
+                      as="a"
+                      href={item.href}
+                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
+                      {item.name} dd
+                    </Disclosure.Button>
+                  </>
                 ))}
               </div>
             </div>

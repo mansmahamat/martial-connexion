@@ -17,6 +17,7 @@ type User = {
   date: string;
   email: string;
   name: string;
+  avatar: string;
   password: string;
   resetPasswordExpire: string;
   resetPasswordToken: string;
@@ -24,12 +25,14 @@ type User = {
   _id: string;
 };
 import Navbar from './components/routing/Navbar';
+import UpdateFighterProfile from './pages/UpdateFighterProfile';
 
 const App = () => {
   const [user, setUser] = useState<User>({
     date: '',
     email: '',
     name: '',
+    avatar: '',
     password: '',
     resetPasswordExpire: '',
     resetPasswordToken: '',
@@ -46,8 +49,10 @@ const App = () => {
   }, [window.localStorage.getItem('user')]);
 
   return (
-    <div className="">
-      <Navbar />
+
+    <div className="h-screen">
+      <Navbar User={user} />
+
 
       <Routes>
         <Route
@@ -67,6 +72,16 @@ const App = () => {
             //@ts-ignore
             <PrivateRoute>
               <CompleteFighterProfile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/update-fighter-profile/:id"
+          element={
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            <PrivateRoute>
+              <UpdateFighterProfile />
             </PrivateRoute>
           }
         />

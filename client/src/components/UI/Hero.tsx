@@ -4,9 +4,9 @@ import React, { Fragment } from 'react';
 export default function Hero() {
   return (
     <div className="h-screen">
-      <main>
+      <main className="py-12">
         {/* Hero card */}
-        <div className="relative">
+        <div className="relative z-0">
           <div className="absolute  h-1/2  " />
           <div className="max-w-7xl mx-auto  sm:px-6 lg:px-8">
             <div className="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
