@@ -34,7 +34,7 @@ type Props = {
   User: {
     date: string;
     email: string;
-    name: string;
+    firstName: string;
     password: string;
     avatar: string;
     resetPasswordExpire: string;
@@ -131,7 +131,7 @@ export default function Navbar({ User }: Props) {
                     <div>
                       <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                         <span className="sr-only">Open user menu</span>
-                        {User.name && (
+                        {User.firstName && (
                           <img className="h-12 w-12 rounded-full" src={User.avatar} alt="" />
                         )}
                       </Menu.Button>

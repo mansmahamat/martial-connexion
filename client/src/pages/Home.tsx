@@ -20,7 +20,7 @@ type Props = {
 
 function Home({ User }: Props) {
   const [user, setUser] = useState({ _id: '', isComplete: false, avatar: '', name: '' });
-  console.log(User?.name);
+  console.log(User);
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem('user');

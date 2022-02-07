@@ -11,6 +11,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 type Props = {
   User: {
     date: string;
+    firstName: string;
+    lastName: string;
     email: string;
     name: string;
     password: string;
@@ -21,7 +23,7 @@ type Props = {
   };
 };
 
-function UpdateFighterProfile() {
+function UpdateFighterProfile({ User }: Props) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [item, setItem] = useState({
@@ -33,7 +35,7 @@ function UpdateFighterProfile() {
     webkitRelativePath: ''
   });
 
-  console.log(id);
+  console.log(User);
 
   const [city, setCity] = useState<string | ''>('');
   const [postalCode, setPostalCode] = useState<string | ''>('');
@@ -41,7 +43,7 @@ function UpdateFighterProfile() {
   const [selectedImage, setSelectedImage] = useState();
 
   const initialValues = {
-    firstName: '',
+    firstName: User?.name,
     lastName: '',
     avatar: '',
     city: '',
@@ -124,7 +126,7 @@ function UpdateFighterProfile() {
             submitForm();
           }}
           className="">
-          <h1 className=" text-center font-bold text-2xl mb-1">Update your profile</h1>
+          <h1 className=" text-center font-bold text-2xl mb-1">Update your profile {User?.name}</h1>
           <Toggle />
           <div className="max-w-2xl rounded-lg  ">
             <div className="m-4  text-center">
@@ -198,11 +200,10 @@ function UpdateFighterProfile() {
               type="text"
               name="firstName"
               onChange={handleChange}
-              placeholder="First Name"
+              defaultValue={User.firstName}
             />
             <span className="text-red-700  italic ml-3 mt-2"> {errors.firstName}</span>
           </div>
-
           <div className="mt-4 content-center">
             <label className="ml-3 text-sm font-bold  tracking-wide">Last Name</label>
             <input
@@ -211,15 +212,15 @@ function UpdateFighterProfile() {
               type="text"
               name="lastName"
               onChange={handleChange}
+              defaultValue={User.lastName}
               placeholder="Last Name"
             />
             <span className="text-red-700  italic ml-3 mt-2"> {errors.lastName}</span>
           </div>
-
           <div className="mt-4 content-center">
             <label className="ml-3 text-sm font-bold  tracking-wide">City</label>
             <AlgoliaPlaces
-              placeholder="Write an address here"
+              placeholder={User.lastName}
               options={{
                 appId: process.env.REACT_APP_ALGOLIA_ID,
                 apiKey: process.env.REACT_APP_ALGOLIA_API_KEY,
@@ -234,7 +235,6 @@ function UpdateFighterProfile() {
               }}
             />
           </div>
-
           <div className="mt-2 content-center">
             <label className="ml-3 text-sm font-bold  tracking-wide">Discipline</label>
             <select
@@ -251,7 +251,6 @@ function UpdateFighterProfile() {
             </select>
             <span className="text-red-700  italic ml-3 mt-2"> {errors.discipline}</span>
           </div>
-
           <button
             type="submit"
             className="block w-full bg-red-600 hover:bg-red-400 my-4 py-2 rounded-2xl text-white font-semibold mb-2">

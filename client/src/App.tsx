@@ -18,6 +18,8 @@ type User = {
   email: string;
   name: string;
   avatar: string;
+  firstName: string;
+  lastName: string;
   password: string;
   resetPasswordExpire: string;
   resetPasswordToken: string;
@@ -29,6 +31,8 @@ import UpdateFighterProfile from './pages/UpdateFighterProfile';
 
 const App = () => {
   const [user, setUser] = useState<User>({
+    firstName: '',
+    lastName: '',
     date: '',
     email: '',
     name: '',
@@ -49,10 +53,8 @@ const App = () => {
   }, [window.localStorage.getItem('user')]);
 
   return (
-
     <div className="h-screen">
       <Navbar User={user} />
-
 
       <Routes>
         <Route
@@ -81,7 +83,7 @@ const App = () => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
             <PrivateRoute>
-              <UpdateFighterProfile />
+              <UpdateFighterProfile User={user} />
             </PrivateRoute>
           }
         />
