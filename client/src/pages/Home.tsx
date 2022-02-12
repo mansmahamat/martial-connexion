@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState } from 'react';
 import Toggle from '../components/routing/ToggleTheme';
 import Banner from '../components/UI/Banner';

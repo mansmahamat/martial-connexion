@@ -26,6 +26,7 @@ type User = {
 };
 import Navbar from './components/routing/Navbar';
 import UpdateFighterProfile from './pages/UpdateFighterProfile';
+import Calendar from './pages/Calendar';
 
 const App = () => {
   const [user, setUser] = useState<User>({
@@ -49,10 +50,8 @@ const App = () => {
   }, [window.localStorage.getItem('user')]);
 
   return (
-
     <div className="h-screen">
       <Navbar User={user} />
-
 
       <Routes>
         <Route
@@ -85,6 +84,7 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        <Route path="/calendar" element={<Calendar />} />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
