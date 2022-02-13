@@ -39,8 +39,8 @@ const upload = multer({
 const cloudinary = require("cloudinary").v2;
 cloudinary.config({
   cloud_name: "mansdesmez",
-  api_key: "318321927792211",
-  api_secret: "je9hSnY8_brgN7vLlMvEMvYSXzE",
+  api_key: process.env.API_KEY_CLOUDINARY,
+  api_secret: process.env.API_SECRET_CLOUDINARY,
 });
 
 router.post("/fighter", upload.single("avatar"), async (req, res) => {
