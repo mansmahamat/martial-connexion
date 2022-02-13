@@ -1,23 +1,23 @@
-const Mentor = require("../models/Fighter");
+const Fighter = require("../models/Fighter");
 
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Mentor.findByIdAndRemove(id)
+  Fighter.findByIdAndRemove(id)
     .then((data) => {
       if (!data) {
         res.status(404).send({
-          message: `Ce Mentor n'existe pas`,
+          message: `This fighter doesn't exist`,
         });
       } else {
         res.send({
-          message: "Mentor supprimé!",
+          message: "User deleted!",
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Erreur" + id,
+        message: "Error" + id,
       });
     });
 };

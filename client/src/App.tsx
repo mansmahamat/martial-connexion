@@ -14,14 +14,15 @@ import CompleteFighterProfile from './pages/Complete-fighter-profile/CompleteFig
 import { useGetFighter } from './hooks/Api/useFighter';
 
 type User = {
-  date: string;
-  email: string;
-  name: string;
   avatar: string;
+  city: string;
+  date: string;
+  discipline: string;
+  email: string;
+  firstName: string;
+  lastName: string;
   password: string;
-  resetPasswordExpire: string;
-  resetPasswordToken: string;
-  __v: number;
+  postalCode: string;
   _id: string;
 };
 import Navbar from './components/routing/Navbar';
@@ -31,12 +32,13 @@ const App = () => {
   const [user, setUser] = useState<User>({
     date: '',
     email: '',
-    name: '',
+    firstName: '',
+    lastName: '',
     avatar: '',
     password: '',
-    resetPasswordExpire: '',
-    resetPasswordToken: '',
-    __v: 0,
+    city: '',
+    postalCode: '',
+    discipline: '',
     _id: ''
   });
 
@@ -49,10 +51,8 @@ const App = () => {
   }, [window.localStorage.getItem('user')]);
 
   return (
-
     <div className="h-screen">
       <Navbar User={user} />
-
 
       <Routes>
         <Route

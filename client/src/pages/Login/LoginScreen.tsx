@@ -72,7 +72,7 @@ const LoginScreen = () => {
                       type="email"
                       onChange={handleChange}
                       placeholder="Aaron@email.fr"
-                      className="appearance-none block w-full mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="appearance-none block text-gray-800  w-full mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                     <span className="text-red-700  italic "> {errors.email}</span>
                   </div>
@@ -104,6 +104,13 @@ const LoginScreen = () => {
                         />
                       )}
                     </span>
+                    <div className="flex items-center justify-between">
+                      <div className="text-sm">
+                        <Link to="/forgotpassword" className="font-medium underline ">
+                          Forgot your password?
+                        </Link>
+                      </div>
+                    </div>
                     <span className="text-red-700  italic"> {errors.password}</span>
                   </div>
                 </div>
@@ -111,9 +118,9 @@ const LoginScreen = () => {
                 <div className="flex items-center justify-between">
                   <div className="text-sm">
                     <Link
-                      to="/forgotpassword"
+                      to="/register"
                       className="font-medium underline text-red-600 hover:text-red-500">
-                      Forgot your password?
+                      Don't have an account ? Register
                     </Link>
                   </div>
                 </div>

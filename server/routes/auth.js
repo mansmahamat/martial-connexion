@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const crypto = require("crypto");
+const dotenv = require("dotenv");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const {
@@ -11,8 +12,45 @@ const {
 const ErrorResponse = require("../utils/errorResponse");
 const sendEmail = require("../utils/sentEmail");
 
+const multer = require("multer");
+dotenv.config();
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype == "image/jpeg" ||
+    file.mimetype == "image/png" ||
+    file.mimetype == "image/jpg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(new Error("Mauvais format"), false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: { fileSize: 1024 * 1024 * 3 },
+});
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: "mansdesmez",
+  api_key: "318321927792211",
+  api_secret: "je9hSnY8_brgN7vLlMvEMvYSXzE",
+});
+
 // Register
-router.post("/register", async (req, res) => {
+router.post("/register", upload.single("avatar"), async (req, res) => {
+  const result = await cloudinary.uploader.upload(req.file.path);
   // Validate Data before we create user
   const { error } = registerValidation(req.body);
 
@@ -30,7 +68,15 @@ router.post("/register", async (req, res) => {
   const user = new User({
     email: req.body.email,
     password: req.body.password,
-    isComplete: false,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    avatar: result.secure_url,
+    //avatar: req.body.avatar,
+    city: req.body.city,
+    postalCode: req.body.postalCode,
+    discipline: req.body.discipline,
+    userId: req.body.userId,
+    cloudinary_id: result.public_id,
   });
   try {
     const savedUser = await user.save();
