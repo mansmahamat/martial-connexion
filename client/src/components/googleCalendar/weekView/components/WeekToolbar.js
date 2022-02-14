@@ -8,7 +8,7 @@ function WeekToolbar(props) {
   const formattedDate = moment(props.startDate).format('MMM YYYY');
   return (
     <Row type="flex" gutter={4} style={toolbar}>
-      <Col span={3} offset={8} style={alignRight}>
+      <Col span={2} offset={8} style={alignRight}>
         <Tooltip placement="topLeft" title={moment().format('dddd, MMM D')}>
           <Button onClick={props.goToToday}>Today</Button>
         </Tooltip>

@@ -4,7 +4,7 @@ import './index.css';
 
 function Calendar() {
   return (
-    <div>
+    <div className=" h-32">
       <GoogleCalendar />
     </div>
   );

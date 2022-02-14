@@ -7,7 +7,7 @@ import moment from 'moment';
 import uuid from 'react-uuid';
 
 function TimeSlotGroup(props) {
-  const formattedTime = moment().set('hours', props.time).format('h a');
+  const formattedTime = moment().set('hours', props.time).format('hh ');
   return (
     <Row type="flex" key={props.time} style={row}>
       <Col style={timeCol} span={3}>

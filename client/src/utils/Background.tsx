@@ -6,9 +6,8 @@ type Props = {
 
 const Background = ({ children }: Props) => {
   return (
-    <div className="bg-white dark:bg-black text-black dark:text-white  text-base m-0 transition-all">
-      {children}
-    </div>
+    //  <div className="bg-white dark:bg-black text-black dark:text-white  text-base m-0 transition-all">
+    <div className="bg-white  text-black  text-base m-0 transition-all">{children}</div>
   );
 };
 

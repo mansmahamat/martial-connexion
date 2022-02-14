@@ -27,6 +27,7 @@ type User = {
 import Navbar from './components/routing/Navbar';
 import UpdateFighterProfile from './pages/UpdateFighterProfile';
 import Calendar from './pages/Calendar';
+import CreateClub from './pages/Create-club';
 
 const App = () => {
   const [user, setUser] = useState<User>({
@@ -88,6 +89,7 @@ const App = () => {
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
+        <Route path="/create-club" element={<CreateClub />} />
         <Route path="/passwordreset/:resetToken" element={<ResetPasswordScreen />} />
       </Routes>
     </div>
