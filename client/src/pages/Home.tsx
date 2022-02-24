@@ -12,15 +12,16 @@ const stripePromise = loadStripe(
 
 type Props = {
   User: {
-    date: string;
-    email: string;
-    name: string;
     avatar: string;
-    password: string;
+    city: string;
+    date: string;
+    discipline: string;
+    email: string;
+    firstName: string;
+    lastName: string;
     billingID: string;
-    resetPasswordExpire: string;
-    resetPasswordToken: string;
-    __v: number;
+    password: string;
+    postalCode: string;
     _id: string;
   };
 };
@@ -40,21 +41,23 @@ type Props = {
 // };
 
 function Home({ User }: Props) {
-  const [user, setUser] = useState({ _id: '', isComplete: false, avatar: '', name: '' });
-  console.log(User?.name);
+  //const [user, setUser] = useState({ _id: '', isComplete: false, avatar: '', fir: '' });
+  console.log(User);
 
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem('user');
-    console.log('e');
-    if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-      setUser(foundUser);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const loggedInUser = localStorage.getItem('user');
+  //   if (loggedInUser) {
+  //     const foundUser = JSON.parse(loggedInUser);
+  //     setUser(foundUser);
+  //   }
+  // }, []);
 
   return (
     <div className="h-screen">
-      {!user?.isComplete && <Banner id={user?._id} />}
+      <h1 className="text-xl">
+        {' '}
+        Hello, {User?.firstName} {User?.lastName}
+      </h1>
       <Hero />
 
       <form action="/customer-portal" method="POST">

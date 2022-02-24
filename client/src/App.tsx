@@ -14,34 +14,36 @@ import CompleteFighterProfile from './pages/Complete-fighter-profile/CompleteFig
 import { useGetFighter } from './hooks/Api/useFighter';
 
 type User = {
-  date: string;
-  email: string;
-  name: string;
   avatar: string;
+  city: string;
+  date: string;
+  discipline: string;
+  email: string;
+  firstName: string;
+  lastName: string;
   billingID: string;
   password: string;
-  resetPasswordExpire: string;
-  resetPasswordToken: string;
-  __v: number;
+  postalCode: string;
   _id: string;
 };
 import Navbar from './components/routing/Navbar';
 import UpdateFighterProfile from './pages/UpdateFighterProfile';
 import Pricing from './pages/Pricing';
-import Footer from './components/UI/Footer';
 import { SuccessDisplay } from './pages/Success-stripe/Index';
+import Footer from './components/UI/Footer';
 
 const App = () => {
   const [user, setUser] = useState<User>({
     date: '',
     email: '',
-    name: '',
+    firstName: '',
+    lastName: '',
     avatar: '',
     password: '',
+    city: '',
+    postalCode: '',
+    discipline: '',
     billingID: '',
-    resetPasswordExpire: '',
-    resetPasswordToken: '',
-    __v: 0,
     _id: ''
   });
 

@@ -96,15 +96,16 @@ const faqs = [
 
 type Props = {
   User: {
-    date: string;
-    email: string;
-    name: string;
     avatar: string;
-    password: string;
+    city: string;
+    date: string;
+    discipline: string;
+    email: string;
+    firstName: string;
+    lastName: string;
     billingID: string;
-    resetPasswordExpire: string;
-    resetPasswordToken: string;
-    __v: number;
+    password: string;
+    postalCode: string;
     _id: string;
   };
 };

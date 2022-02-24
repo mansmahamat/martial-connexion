@@ -22,13 +22,13 @@ const userSchema = new mongoose.Schema({
   },
   firstName: {
     type: String,
-    required: false,
+    required: true,
     min: 3,
     max: 100,
   },
   lastName: {
     type: String,
-    required: false,
+    required: true,
     max: 100,
     min: 6,
   },
@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
   },
   city: {
     type: String,
-    required: false,
+    required: true,
     max: 1024,
     min: 6,
   },
@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
     max: 1024,
-    min: 6,
+    min: 5,
   },
   session: {
     type: String,
@@ -57,10 +57,10 @@ const userSchema = new mongoose.Schema({
     min: 6,
   },
   discipline: {
-    type: String,
-    required: false,
+    type: Array,
+    required: true,
     max: 1024,
-    min: 6,
+    min: 2,
   },
   isComplete: {
     type: Boolean,

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const crypto = require("crypto");
+const dotenv = require("dotenv");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -16,8 +17,45 @@ const stripe = require("stripe")(
   "sk_test_51KEwIMLXQl0DCJw6d0bLud77pQXePWgdms4nsY9BxszujE3ZTXCtvua7NzlOy0CcdnsBhHQrYDWgjAepP6Pr2Y6Z00vkDwTP76"
 );
 
+const multer = require("multer");
+dotenv.config();
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype == "image/jpeg" ||
+    file.mimetype == "image/png" ||
+    file.mimetype == "image/jpg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(new Error("Mauvais format"), false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: { fileSize: 1024 * 1024 * 3 },
+});
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
+
 // Register
-router.post("/register", async (req, res) => {
+router.post("/register", upload.single("avatar"), async (req, res) => {
+  const result = await cloudinary.uploader.upload(req.file.path);
   // Validate Data before we create user
   const { error } = registerValidation(req.body);
 
@@ -38,6 +76,15 @@ router.post("/register", async (req, res) => {
   const user = new User({
     email: req.body.email,
     password: req.body.password,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    avatar: result.secure_url,
+    //avatar: req.body.avatar,
+    city: req.body.city,
+    postalCode: req.body.postalCode,
+    discipline: req.body.discipline,
+    userId: req.body.userId,
+    cloudinary_id: result.public_id,
     isComplete: false,
     billingID: customerInfo.id,
     plan: "none",

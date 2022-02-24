@@ -36,12 +36,12 @@ const upload = multer({
   fileFilter: fileFilter,
   limits: { fileSize: 1024 * 1024 * 3 },
 });
-const cloudinary = require("cloudinary").v2;
-cloudinary.config({
-  cloud_name: "mansdesmez",
-  api_key: "318321927792211",
-  api_secret: "je9hSnY8_brgN7vLlMvEMvYSXzE",
-});
+// const cloudinary = require("cloudinary").v2;
+// cloudinary.config({
+//   cloud_name: "mansdesmez",
+//   api_key: "318321927792211",
+//   api_secret: "je9hSnY8_brgN7vLlMvEMvYSXzE",
+// });
 
 router.post("/fighter", upload.single("avatar"), async (req, res) => {
   const result = await cloudinary.uploader.upload(req.file.path);
