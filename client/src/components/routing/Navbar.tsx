@@ -10,7 +10,7 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 
 //@ts-ignore
 import { PlusSmIcon } from '@heroicons/react/solid';
-import Toggle from './ToggleTheme';
+// import Toggle from './ToggleTheme';
 import { Link } from 'react-router-dom';
 
 const user = {
@@ -32,14 +32,16 @@ function classNames(...classes: string[]) {
 }
 type Props = {
   User: {
-    date: string;
-    email: string;
-    name: string;
-    password: string;
     avatar: string;
-    resetPasswordExpire: string;
-    resetPasswordToken: string;
-    __v: number;
+    city: string;
+    date: string;
+    discipline: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    billingID: string;
+    password: string;
+    postalCode: string;
     _id: string;
   };
 };
@@ -58,7 +60,7 @@ export default function Navbar({ User }: Props) {
   ];
 
   return (
-    <Disclosure as="nav" className=" bg-black">
+    <Disclosure as="nav" className=" bg-black ">
       {/* @ts-ignore */}
 
       {({ open }) => (
@@ -106,11 +108,17 @@ export default function Navbar({ User }: Props) {
                       {item.name}
                     </a>
                   ))}
+                  <span
+                    onClick={() => logoutHandler()}
+                    className={classNames(
+                      'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium'
+                    )}>
+                    LOGOUT
+                  </span>
                 </div>
               </div>
               <div className="flex items-center">
                 <div className="flex-shrink-0 flex ">
-                  <Toggle />
                   <button
                     type="button"
                     className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
@@ -131,7 +139,7 @@ export default function Navbar({ User }: Props) {
                     <div>
                       <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                         <span className="sr-only">Open user menu</span>
-                        {User.name && (
+                        {User.firstName && (
                           <img className="h-12 w-12 rounded-full" src={User.avatar} alt="" />
                         )}
                       </Menu.Button>

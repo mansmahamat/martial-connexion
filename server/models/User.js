@@ -22,13 +22,13 @@ const userSchema = new mongoose.Schema({
   },
   firstName: {
     type: String,
-    required: false,
+    required: true,
     min: 3,
     max: 100,
   },
   lastName: {
     type: String,
-    required: false,
+    required: true,
     max: 100,
     min: 6,
   },
@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
   },
   city: {
     type: String,
-    required: false,
+    required: true,
     max: 1024,
     min: 6,
   },
@@ -48,13 +48,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
     max: 1024,
-    min: 6,
+    min: 5,
   },
-  discipline: {
+  session: {
     type: String,
     required: false,
     max: 1024,
     min: 6,
+  },
+  discipline: {
+    type: Array,
+    required: true,
+    max: 1024,
+    min: 2,
   },
   isComplete: {
     type: Boolean,
@@ -77,6 +83,22 @@ const userSchema = new mongoose.Schema({
   },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
+  billingID: {
+    type: String,
+    required: false,
+    max: 1024,
+    min: 1,
+  },
+  plan: {
+    type: String,
+    required: false,
+    max: 1024,
+    min: 1,
+  },
+  endDate: {
+    type: Date,
+    default: null,
+  },
 });
 
 userSchema.pre("save", async function (next) {

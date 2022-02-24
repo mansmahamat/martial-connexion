@@ -14,31 +14,38 @@ import CompleteFighterProfile from './pages/Complete-fighter-profile/CompleteFig
 import { useGetFighter } from './hooks/Api/useFighter';
 
 type User = {
-  date: string;
-  email: string;
-  name: string;
   avatar: string;
+  city: string;
+  date: string;
+  discipline: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  billingID: string;
   password: string;
-  resetPasswordExpire: string;
-  resetPasswordToken: string;
-  __v: number;
+  postalCode: string;
   _id: string;
 };
 import Navbar from './components/routing/Navbar';
 import UpdateFighterProfile from './pages/UpdateFighterProfile';
 import Calendar from './pages/Calendar';
 import CreateClub from './pages/Create-club';
+import Pricing from './pages/Pricing';
+import { SuccessDisplay } from './pages/Success-stripe/Index';
+import Footer from './components/UI/Footer';
 
 const App = () => {
   const [user, setUser] = useState<User>({
     date: '',
     email: '',
-    name: '',
+    firstName: '',
+    lastName: '',
     avatar: '',
     password: '',
-    resetPasswordExpire: '',
-    resetPasswordToken: '',
-    __v: 0,
+    city: '',
+    postalCode: '',
+    discipline: '',
+    billingID: '',
     _id: ''
   });
 
@@ -90,8 +97,12 @@ const App = () => {
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
         <Route path="/create-club" element={<CreateClub />} />
+        <Route path="/pricing" element={<Pricing User={user} />} />
+        {/* @ts-ignore */}
+        <Route path="/success" element={<SuccessDisplay />} />
         <Route path="/passwordreset/:resetToken" element={<ResetPasswordScreen />} />
       </Routes>
+      <Footer />
     </div>
   );
 };
