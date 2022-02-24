@@ -43,9 +43,9 @@ const upload = multer({
 });
 const cloudinary = require("cloudinary").v2;
 cloudinary.config({
-  cloud_name: "mansdesmez",
-  api_key: "318321927792211",
-  api_secret: "je9hSnY8_brgN7vLlMvEMvYSXzE",
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
 });
 
 // Register
