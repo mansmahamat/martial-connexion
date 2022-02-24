@@ -39,6 +39,7 @@ type Props = {
     email: string;
     firstName: string;
     lastName: string;
+    billingID: string;
     password: string;
     postalCode: string;
     _id: string;

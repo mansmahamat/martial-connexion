@@ -2,6 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+//@ts-ignore
 import Select from 'react-select';
 import { Link, useNavigate } from 'react-router-dom';
 import Toggle from '../../components/routing/ToggleTheme';

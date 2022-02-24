@@ -46,7 +46,7 @@ const LoginScreen = () => {
   }, [createUser.isError]);
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen justify-center flex">
       <div className="flex-1 overflow-hidden flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
@@ -72,7 +72,7 @@ const LoginScreen = () => {
                       type="email"
                       onChange={handleChange}
                       placeholder="Aaron@email.fr"
-                      className="appearance-none block text-gray-800  w-full mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="appearance-none text-gray-800 block w-full mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                     <span className="text-red-700  italic "> {errors.email}</span>
                   </div>
@@ -137,20 +137,6 @@ const LoginScreen = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="hidden lg:block relative  bg-red-600 w-0 flex-1">
-        <div
-          className=" w-full  opacity-40 h-screen hidden lg:block relative"
-          style={{
-            backgroundImage:
-              'url(' +
-              'https://images.unsplash.com/photo-1623517948841-ec5830154eff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80' +
-              ')',
-            backgroundPosition: 'left',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat'
-          }}
-        />
       </div>
     </div>
   );

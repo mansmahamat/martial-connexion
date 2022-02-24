@@ -50,6 +50,12 @@ const userSchema = new mongoose.Schema({
     max: 1024,
     min: 5,
   },
+  session: {
+    type: String,
+    required: false,
+    max: 1024,
+    min: 6,
+  },
   discipline: {
     type: Array,
     required: true,
@@ -77,6 +83,22 @@ const userSchema = new mongoose.Schema({
   },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
+  billingID: {
+    type: String,
+    required: false,
+    max: 1024,
+    min: 1,
+  },
+  plan: {
+    type: String,
+    required: false,
+    max: 1024,
+    min: 1,
+  },
+  endDate: {
+    type: Date,
+    default: null,
+  },
 });
 
 userSchema.pre("save", async function (next) {
