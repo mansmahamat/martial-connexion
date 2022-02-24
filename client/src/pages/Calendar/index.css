@@ -1,0 +1,5 @@
+@import '~antd/dist/antd.css';
+
+.anticon.anticon-cross-circle.ant-calendar-picker-clear {
+  display: none;
+}

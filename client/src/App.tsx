@@ -28,6 +28,8 @@ type User = {
 };
 import Navbar from './components/routing/Navbar';
 import UpdateFighterProfile from './pages/UpdateFighterProfile';
+import Calendar from './pages/Calendar';
+import CreateClub from './pages/Create-club';
 import Pricing from './pages/Pricing';
 import { SuccessDisplay } from './pages/Success-stripe/Index';
 import Footer from './components/UI/Footer';
@@ -90,9 +92,11 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        <Route path="/calendar" element={<Calendar />} />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
+        <Route path="/create-club" element={<CreateClub />} />
         <Route path="/pricing" element={<Pricing User={user} />} />
         {/* @ts-ignore */}
         <Route path="/success" element={<SuccessDisplay />} />

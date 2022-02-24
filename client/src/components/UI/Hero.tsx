@@ -13,7 +13,7 @@ export default function Hero() {
               <div className="absolute inset-0">
                 <img
                   className="h-full w-full object-cover"
-                  src="https://images.unsplash.com/photo-1591978638709-bd73f437243d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+                  src="ahttps://images.unsplash.com/photo-1591978638709-bd73f437243d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
                   alt="People working on laptops"
                 />
                 <div className="absolute inset-0 opacity-80 bg-red-600 mix-blend-multiply" />
