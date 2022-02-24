@@ -18,6 +18,7 @@ type User = {
   email: string;
   name: string;
   avatar: string;
+  billingID: string;
   password: string;
   resetPasswordExpire: string;
   resetPasswordToken: string;
@@ -26,6 +27,9 @@ type User = {
 };
 import Navbar from './components/routing/Navbar';
 import UpdateFighterProfile from './pages/UpdateFighterProfile';
+import Pricing from './pages/Pricing';
+import Footer from './components/UI/Footer';
+import { SuccessDisplay } from './pages/Success-stripe/Index';
 
 const App = () => {
   const [user, setUser] = useState<User>({
@@ -34,6 +38,7 @@ const App = () => {
     name: '',
     avatar: '',
     password: '',
+    billingID: '',
     resetPasswordExpire: '',
     resetPasswordToken: '',
     __v: 0,
@@ -49,10 +54,8 @@ const App = () => {
   }, [window.localStorage.getItem('user')]);
 
   return (
-
     <div className="h-screen">
       <Navbar User={user} />
-
 
       <Routes>
         <Route
@@ -88,8 +91,12 @@ const App = () => {
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
+        <Route path="/pricing" element={<Pricing User={user} />} />
+        {/* @ts-ignore */}
+        <Route path="/success" element={<SuccessDisplay />} />
         <Route path="/passwordreset/:resetToken" element={<ResetPasswordScreen />} />
       </Routes>
+      <Footer />
     </div>
   );
 };

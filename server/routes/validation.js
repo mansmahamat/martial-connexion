@@ -15,6 +15,9 @@ const loginValidation = (data) => {
   const schema = {
     email: Joi.string().min(6).required().email(),
     password: Joi.string().min(6).required(),
+    billingID: Joi.string(),
+    plan: Joi.string(),
+    endDate: Joi.date(),
   };
 
   return Joi.validate(data, schema);

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const crypto = require("crypto");
+const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const {
@@ -10,6 +11,10 @@ const {
 } = require("../routes/validation");
 const ErrorResponse = require("../utils/errorResponse");
 const sendEmail = require("../utils/sentEmail");
+const Stripe = require("../stripe");
+const stripe = require("stripe")(
+  "sk_test_51KEwIMLXQl0DCJw6d0bLud77pQXePWgdms4nsY9BxszujE3ZTXCtvua7NzlOy0CcdnsBhHQrYDWgjAepP6Pr2Y6Z00vkDwTP76"
+);
 
 // Register
 router.post("/register", async (req, res) => {
@@ -25,12 +30,18 @@ router.post("/register", async (req, res) => {
   //Hash passwords
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
+  let customerInfo = {};
+
+  customerInfo = await Stripe.addNewCustomer(req.body.email);
 
   // Create New User
   const user = new User({
     email: req.body.email,
     password: req.body.password,
     isComplete: false,
+    billingID: customerInfo.id,
+    plan: "none",
+    endDate: null,
   });
   try {
     const savedUser = await user.save();
@@ -59,6 +70,20 @@ router.post("/login", async (req, res) => {
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
     expiresIn: "24h",
   });
+
+  //console.log(user);
+
+  const subscriptions = await stripe.subscriptions.list({
+    customer: user.billingID,
+    status: "all",
+    expand: ["data.default_payment_method"],
+  });
+
+  console.log(subscriptions);
+
+  // if (!subscriptions.data.length) return res.json([]);
+
+  req.session.email = user;
   res.header("auth-token", token).send({ user, token });
 });
 
