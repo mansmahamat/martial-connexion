@@ -16,7 +16,7 @@ export default function CreateClub() {
   const getStep = () => {
     switch (selectSteps) {
       case 1:
-        return <CreateClubForm />;
+        return <CreateClubForm setSelectSteps />;
       case 2:
         return <GoogleCalendar />;
       case 3:
