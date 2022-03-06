@@ -1,33 +1,89 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { CheckIcon } from '@heroicons/react/solid';
 import CreateClubForm from '../../components/UI/Forms/CreateClubForm';
 import GoogleCalendar from '../../components/googleCalendar';
+import InputPrice from '../../components/UI/Input-price-club';
 
 const steps = [
   { id: 1, name: 'Club informations', href: '#', status: 'complete' },
   { id: 2, name: 'Planning', href: '#', status: 'current' },
-  { id: 3, name: 'Review', href: '#', status: 'upcoming' }
+  { id: 3, name: 'Price', href: '#', status: 'upcoming' }
 ];
 
 export default function CreateClub() {
-  const [selectSteps, setSelectSteps] = useState(1);
+  const [selectSteps, setSelectSteps] = useState<number>(1);
+  const [clubName, setClubName] = useState<string>('');
+  const [emailContact, setEmailContact] = useState<string>('');
+  const [number, setNumber] = useState<string>('');
+  const [discipline, setDiscipline] = useState<Array<string>>([]);
+  const [description, setDescription] = useState<string>('');
+  const [logo, setLogo] = useState({
+    lastModified: '',
+    lastModifiedDate: '',
+    name: '',
+    size: 0,
+    type: '',
+    webkitRelativePath: ''
+  });
+  const [city, setCity] = useState<string | ''>('');
+  const [postalCode, setPostalCode] = useState<string | ''>('');
+  const [county, setCounty] = useState<string | ''>('');
+  const [coverImage, setCoverImage] = useState({
+    lastModified: '',
+    lastModifiedDate: '',
+    name: '',
+    size: 0,
+    type: '',
+    webkitRelativePath: ''
+  });
+  const [kids, setKids] = useState<boolean>(false);
+
+  console.log(kids);
 
   const getStep = () => {
     switch (selectSteps) {
       case 1:
-        return <CreateClubForm setSelectSteps />;
+        return (
+          <CreateClubForm
+            setSelectSteps={setSelectSteps}
+            setClubName={setClubName}
+            setDiscipline={setDiscipline}
+            setDescription={setDescription}
+            setLogo={setLogo}
+            setEmailContact={setEmailContact}
+            setCity={setCity}
+            setPostalCode={setPostalCode}
+            setCounty={setCounty}
+            setCoverImage={setCoverImage}
+            setNumber={setNumber}
+            setKids={setKids}
+            kids={kids}
+            city={city}
+            postalCode={postalCode}
+            county={county}
+          />
+        );
       case 2:
-        return <GoogleCalendar />;
+        return <GoogleCalendar setSelectSteps={setSelectSteps} />;
       case 3:
-        return '<InvestmentProfile setStep={setStep} />';
+        return <InputPrice />;
 
       default:
         return <>error</>;
     }
   };
 
-  console.log(selectSteps);
+  function string_to_slug(str: string) {
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
+    str = str.toLowerCase();
+
+    str = str
+      .replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+      .replace(/\s+/g, '-') // collapse whitespace and replace by -
+      .replace(/-+/g, '-'); // collapse dashes
+
+    return str;
+  }
+
   return (
     <div className="container mt-8 lg:w-full">
       <nav aria-label="Progress">

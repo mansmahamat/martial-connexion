@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import WeekView from './weekView';
 import CalendarEventHandler from './calendarEventHandler';
@@ -68,12 +69,20 @@ class GoogleCalendar extends Component {
   render() {
     const { events } = this.state;
     return (
-      <WeekView
-        events={events}
-        onNewEvent={this.addNewEvent}
-        onEventUpdate={this.updateEvent}
-        onEventDelete={this.deleteEvent}
-      />
+      <>
+        <WeekView
+          events={events}
+          onNewEvent={this.addNewEvent}
+          onEventUpdate={this.updateEvent}
+          onEventDelete={this.deleteEvent}
+        />
+        <button
+          onClick={() => this.props.setSelectSteps(3)}
+          type="button"
+          className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          next
+        </button>
+      </>
     );
   }
 }
