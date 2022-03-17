@@ -26,31 +26,11 @@ type Props = {
   };
 };
 
-// const handleClick = async (event) => {
-//   // Call your backend to create the Checkout session.
-//   const { sessionId } = await fetchCheckoutSession();
-//   // When the customer clicks on the button, redirect them to Checkout.
-//   const stripe = await stripePromise;
-//   //@ts-ignore
-//   const { error } = await stripe.redirectToCheckout({
-//     sessionId
-//   });
-//   // If `redirectToCheckout` fails due to a browser or network
-//   // error, display the localized error message to your customer
-//   // using `error.message`.
-// };
+
 
 function Home({ User }: Props) {
-  //const [user, setUser] = useState({ _id: '', isComplete: false, avatar: '', fir: '' });
-  console.log(User);
 
-  // useEffect(() => {
-  //   const loggedInUser = localStorage.getItem('user');
-  //   if (loggedInUser) {
-  //     const foundUser = JSON.parse(loggedInUser);
-  //     setUser(foundUser);
-  //   }
-  // }, []);
+
 
   return (
     <div className="h-screen">

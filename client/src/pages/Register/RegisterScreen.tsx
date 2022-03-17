@@ -44,7 +44,6 @@ const RegisterScreen = () => {
     passwordConfirmation: ''
   };
 
-  console.log(discipline);
 
   const Capitalize = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -95,7 +94,7 @@ const RegisterScreen = () => {
     }
 
     await axios
-      .post(`http://localhost:5000/api/user/register`, formaData)
+      .post(`http://localhost:8080/api/user/register`, formaData)
       .then((res) => {
         const user = {
           //@ts-ignore

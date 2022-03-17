@@ -1,8 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useState } from 'react';
 
-function InputPrice() {
+type Props = {
+  setPrice: React.Dispatch<React.SetStateAction<Array<object>>>;
+};
+
+function InputPrice({setPrice}: Props) {
   const [inputList, setInputList] = useState([{ discipline: '', price: '' }]);
+
 
   // @ts-ignore
   const handleInputChange = (e, index) => {
@@ -62,6 +67,12 @@ function InputPrice() {
         );
       })}
       <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
+      <button
+      onClick={() => setPrice(inputList)}
+            type="submit"
+            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Save
+          </button>
     </div>
   );
 }

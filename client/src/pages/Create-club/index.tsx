@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CreateClubForm from '../../components/UI/Forms/CreateClubForm';
+import CreateClubForm from '../../components/UI/Forms/CreateClubForm/CreateClubForm';
 import GoogleCalendar from '../../components/googleCalendar';
 import InputPrice from '../../components/UI/Input-price-club';
 
@@ -13,7 +13,7 @@ export default function CreateClub() {
   const [selectSteps, setSelectSteps] = useState<number>(1);
   const [clubName, setClubName] = useState<string>('');
   const [emailContact, setEmailContact] = useState<string>('');
-  const [number, setNumber] = useState<string>('');
+  const [number, setNumber] = useState<number>(0);
   const [discipline, setDiscipline] = useState<Array<string>>([]);
   const [description, setDescription] = useState<string>('');
   const [logo, setLogo] = useState({
@@ -35,9 +35,13 @@ export default function CreateClub() {
     type: '',
     webkitRelativePath: ''
   });
-  const [kids, setKids] = useState<boolean>(false);
+  const [kids, setKids] = useState<boolean>(false)
+  const [schedule, setSchedule] = useState<object>({})
+  const [price, setPrice] = useState<Array<object>>([])
 
-  console.log(kids);
+  console.log(price)
+
+
 
   const getStep = () => {
     switch (selectSteps) {
@@ -63,9 +67,9 @@ export default function CreateClub() {
           />
         );
       case 2:
-        return <GoogleCalendar setSelectSteps={setSelectSteps} />;
+        return <GoogleCalendar setSchedule={setSchedule} setSelectSteps={setSelectSteps} />;
       case 3:
-        return <InputPrice />;
+        return <InputPrice setPrice={setPrice} />;
 
       default:
         return <>error</>;
@@ -135,6 +139,7 @@ export default function CreateClub() {
         </ol>
       </nav>
       <div>{getStep()}</div>
+      <div>{county} {city}</div>
     </div>
   );
 }

@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 //@ts-ignore
 import AlgoliaPlaces from 'algolia-places-react';
 import Select from 'react-select';
-import { sports } from '../../../data/sport';
+import { sports } from '../../../../data/sport';
+import { CreateClubFormValidation } from './validation';
+import { useFormik } from 'formik';
 
 type Props = {
   setSelectSteps: React.Dispatch<React.SetStateAction<number>>;
@@ -16,7 +18,7 @@ type Props = {
   setCity: React.Dispatch<React.SetStateAction<string>>;
   setPostalCode: React.Dispatch<React.SetStateAction<string>>;
   setCounty: React.Dispatch<React.SetStateAction<string>>;
-  setNumber: React.Dispatch<React.SetStateAction<string>>;
+  setNumber: React.Dispatch<React.SetStateAction<number>>;
   setKids: React.Dispatch<React.SetStateAction<boolean>>;
   city: string;
   postalCode: string;
@@ -50,7 +52,13 @@ function CreateClubForm({
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('submission prevented');
+    setClubName(values.clubName);
+    setEmailContact(values.email)
+    setNumber(values.number)
+    setDescription(values.about)
+    setSelectSteps(2)
   };
+
 
   const removeSelectedImage = () => {
     //@ts-ignore
@@ -64,6 +72,7 @@ function CreateClubForm({
 
   const handleNameClubChange = (e: React.FormEvent<HTMLInputElement>) => {
     setClubName(e.currentTarget.value);
+    handleChange
   };
 
   const handleDisciplineChange = (e: any) => {
@@ -86,9 +95,6 @@ function CreateClubForm({
     setEmailContact(e.currentTarget.value);
   };
 
-  const handleNumberChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setNumber(e.currentTarget.value);
-  };
 
   const handleCoverImage = (e: any) => {
     setCoverImage(e.target.files[0]);
@@ -97,6 +103,37 @@ function CreateClubForm({
       setSelecteCoverImage(e.target.files[0]);
     }
   };
+
+  const initialValues = {
+    clubName: '',
+    email: '',
+    number: 0,
+    discipline: '',
+    about: '',
+    
+  };
+
+  const { errors, values, handleChange, handleSubmit } = useFormik({
+    initialValues,
+    validationSchema: CreateClubFormValidation,
+    validateOnBlur: true,
+    validateOnChange: true,
+    validateOnMount: true,
+    onSubmit: () => {
+      submitForm();
+    }
+  });
+
+
+
+  const submitForm = async () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+   console.log("good")
+
+
+    
+  };
+
 
   return (
     <form onSubmit={onSubmit} className="space-y-8 divide-y divide-gray-200">
@@ -119,11 +156,12 @@ function CreateClubForm({
                   id="clubName"
                   name="clubName"
                   type="text"
-                  onChange={handleNameClubChange}
+                  onChange={handleChange}
                   placeholder="Nom du club"
                   className="appearance-none block w-full mb-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
               </div>
+              <span className="text-red-700  italic "> {errors.clubName}</span>
             </div>
 
             <div className="sm:col-span-4">
@@ -136,11 +174,13 @@ function CreateClubForm({
                   name="email"
                   type="email"
                   autoComplete="email"
-                  onChange={handleEmailChange}
+                  onChange={handleChange}
                   placeholder="club@gmail.fr"
                   className="shadow-sm focus:ring-indigo-500 px-3 py-2 border focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
+              <span className="text-red-700  italic "> {errors.email}</span>
+
             </div>
 
             <div className="sm:col-span-4">
@@ -152,11 +192,12 @@ function CreateClubForm({
                   id="number"
                   name="number"
                   type="number"
-                  onChange={handleNumberChange}
+                  onChange={handleChange}
                   placeholder="06xxxxxxxx"
                   className="shadow-sm focus:ring-indigo-500 px-3 py-2 border focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
+              <span className="text-red-700  italic "> {errors.number}</span>
             </div>
 
             <div className="sm:col-span-6">
@@ -204,6 +245,7 @@ function CreateClubForm({
                   className="shadow-sm focus:ring-indigo-500 px-3 py-2 border focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
+
             </div>
 
             <div className="sm:col-span-2">
@@ -261,13 +303,14 @@ function CreateClubForm({
               <textarea
                 id="about"
                 name="about"
-                onChange={handleDescriptionChange}
+                onChange={handleChange}
                 rows={3}
                 className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
                 defaultValue={''}
               />
             </div>
             <p className="mt-2 text-sm text-gray-500">Write a few sentences about yourself.</p>
+            <span className="text-red-700  italic "> {errors.about}</span>
           </div>
 
           <div className="sm:col-span-6">
@@ -398,60 +441,9 @@ function CreateClubForm({
                     <p className="text-gray-500">Cours enfants</p>
                   </div>
                 </div>
-                <div className="relative flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="candidates"
-                      name="candidates"
-                      type="checkbox"
-                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label htmlFor="candidates" className="font-medium text-gray-700">
-                      Pro
-                    </label>
-                    <p className="text-gray-500">
-                      Get notified when a candidate applies for a job.
-                    </p>
-                  </div>
-                </div>
-                <div className="relative flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="candidates"
-                      name="candidates"
-                      type="checkbox"
-                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label htmlFor="candidates" className="font-medium text-gray-700">
-                      Womans
-                    </label>
-                    <p className="text-gray-500">
-                      Get notified when a candidate applies for a job.
-                    </p>
-                  </div>
-                </div>
-                <div className="relative flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="offers"
-                      name="offers"
-                      type="checkbox"
-                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label htmlFor="offers" className="font-medium text-gray-700">
-                      Amateur
-                    </label>
-                    <p className="text-gray-500">
-                      Get notified when a candidate accepts or rejects an offer.
-                    </p>
-                  </div>
-                </div>
+                
+                
+      
               </div>
             </fieldset>
           </div>
@@ -467,8 +459,9 @@ function CreateClubForm({
             next
           </button>
           <button
+          disabled={errors.clubName || errors.number || errors.email || errors.about  ? true : false}
             type="submit"
-            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 disabled:bg-red-700 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Save
           </button>
         </div>
