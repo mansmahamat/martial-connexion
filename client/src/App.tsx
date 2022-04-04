@@ -33,6 +33,9 @@ import CreateClub from './pages/Create-club';
 import Pricing from './pages/Pricing';
 import { SuccessDisplay } from './pages/Success-stripe/Index';
 import Footer from './components/UI/Footer';
+import StripeSuccess from './pages/Stripe-Sucess';
+import StripeCancel from './pages/Stripe-cancel';
+import Account from './pages/Account';
 
 const App = () => {
   const [user, setUser] = useState<User>({
@@ -94,15 +97,18 @@ const App = () => {
         />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/login" element={<LoginScreen />} />
+        <Route path="/account" element={<Account />} />
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
         <Route path="/create-club" element={<CreateClub />} />
         <Route path="/pricing" element={<Pricing User={user} />} />
+        <Route path="/stripe/success" element={<StripeSuccess />} />
+        <Route path="/stripe/cancel" element={<StripeCancel />} />
         {/* @ts-ignore */}
         <Route path="/success" element={<SuccessDisplay />} />
         <Route path="/passwordreset/:resetToken" element={<ResetPasswordScreen />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

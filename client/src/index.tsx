@@ -8,6 +8,7 @@ import Background from './utils/Background';
 import { ThemeProvider } from './context/ThemeContext';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import { UserProvider } from './context';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,9 +25,12 @@ ReactDOM.render(
       <React.Suspense fallback="Loading...">
         <ThemeProvider initialTheme="">
           <Background>
-            <BrowserRouter>
+            <UserProvider>
+               <BrowserRouter>
               <App />
             </BrowserRouter>
+            </UserProvider>
+           
           </Background>
         </ThemeProvider>
       </React.Suspense>

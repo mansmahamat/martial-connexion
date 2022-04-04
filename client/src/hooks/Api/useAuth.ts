@@ -6,13 +6,13 @@ import RegisterTypes from '../../types/RegisterTypes';
 import ResetPassword from '../../types/ResetPassword';
 
 const postLogin = async (email : string, password: string): Promise<LoginTypes> => {
-  const { data } = await axios.post('/api/user/login', {
+  const { data } = await axios.post('/user/login', {
     email,
     password
   });
 
   localStorage.setItem('authToken', data.token);
-  localStorage.setItem('user', JSON.stringify(data.user));
+  localStorage.setItem('user', JSON.stringify(data.user),);
 
   return data;
 };

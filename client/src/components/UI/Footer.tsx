@@ -92,7 +92,7 @@ const footer = {
 
 function Footer() {
   return (
-    <footer className="bg-gray-50" aria-labelledby="footer-heading">
+    <footer className="bg-gray-50 mt-20" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>

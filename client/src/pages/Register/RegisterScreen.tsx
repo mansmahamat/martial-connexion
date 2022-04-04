@@ -94,7 +94,7 @@ const RegisterScreen = () => {
     }
 
     await axios
-      .post(`http://localhost:5000/api/user/register`, formaData)
+      .post(`http://localhost:8080/api/user/register`, formaData)
       .then((res) => {
         const user = {
           //@ts-ignore
