@@ -4,6 +4,8 @@ import { MailIcon, PhoneIcon } from '@heroicons/react/solid'
 import axios from 'axios';
 import { json } from 'stream/consumers';
 import moment from 'moment';
+import { useNavigate } from "react-router-dom";
+
 
 
 const profile = {
@@ -28,9 +30,14 @@ const profile = {
 function Account() {
   const [subscriptions, setSubscriptions] = useState([]);
   const [user, setUser] = useState();
+  const history = useNavigate();
+
 
   const manageSubscriptions = async () => {
-    const { data } = await axios.get("/customer-portal");
+    const { data } = await axios.post("/customer-portal", {
+      //@ts-ignore
+        user: user
+    });
     window.open(data);
   };
 
@@ -55,6 +62,8 @@ const oneSub = subscriptions.filter(item => item.customer === user?.billingID);
   //  if (state && state.token)
   getSubscriptions();
   }, [user]);
+
+ 
 
   return (
     <div>
@@ -126,7 +135,7 @@ const oneSub = subscriptions.filter(item => item.customer === user?.billingID);
                 <button
                   onClick={() =>
                        // @ts-ignore */
-                    history.push(`/${sub.plan.nickname.toLowerCase()}`)
+                    history(`/${sub.plan.nickname.toLowerCase()}`)
                   }
                   className="bg-indigo-400 py-4 px-4 border border-black"
                 >

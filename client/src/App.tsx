@@ -36,6 +36,7 @@ import Footer from './components/UI/Footer';
 import StripeSuccess from './pages/Stripe-Sucess';
 import StripeCancel from './pages/Stripe-cancel';
 import Account from './pages/Account';
+import Pro from './pages/Plans/Pro';
 
 const App = () => {
   const [user, setUser] = useState<User>({
@@ -104,6 +105,7 @@ const App = () => {
         <Route path="/pricing" element={<Pricing User={user} />} />
         <Route path="/stripe/success" element={<StripeSuccess />} />
         <Route path="/stripe/cancel" element={<StripeCancel />} />
+        <Route path="/pro" element={<Pro />} />
         {/* @ts-ignore */}
         <Route path="/success" element={<SuccessDisplay />} />
         <Route path="/passwordreset/:resetToken" element={<ResetPasswordScreen />} />

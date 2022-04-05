@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const { subscriptions } = require("../controllers/subs")
+const { subscriptions, customerPortal } = require("../controllers/subs")
 const requireSignin = require("../middleware")
 const { protect } = require("../middleware/auth")
 const User = require("../models/User")
@@ -63,5 +63,7 @@ router.post("/subscription-status", async (req, res) => {
 })
 
 router.get("/subscriptions", subscriptions)
+
+router.post("/customer-portal", customerPortal)
 
 module.exports = router

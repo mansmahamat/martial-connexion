@@ -16,3 +16,16 @@ module.exports.subscriptions = async (req, res) => {
     console.log(err)
   }
 }
+
+module.exports.customerPortal = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.user.email })
+    const portalSession = await stripe.billingPortal.sessions.create({
+      customer: user.billingID,
+      return_url: process.env.STRIPE_SUCCESS_URL,
+    })
+    res.json(portalSession.url)
+  } catch (err) {
+    console.log(err)
+  }
+}

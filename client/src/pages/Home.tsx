@@ -10,6 +10,8 @@ import axios from 'axios';
 import { CheckIcon } from '@heroicons/react/outline'
 import PricesTypes from '../types/PricesTypes';
 import { UserContext } from '../context';
+import { useNavigate } from "react-router-dom";
+
 
 
 const stripePromise = loadStripe(
@@ -81,6 +83,9 @@ function Home({ User }: Props) {
   const [authToken] = useContext(UserContext);
   const [userSubscriptions, setUserSubscriptions] = useState([]);
 
+  const history = useNavigate();
+
+
 
 
 useEffect(() => {
@@ -96,11 +101,14 @@ const fetchPrices = async () => {
 
 const handleSubscription = async (price: any) => {
 
-  // if (userSubscriptions && userSubscriptions.includes(price.id)) {
-  //   history.push(`/${price.nickname.toLowerCase()}`);
-  //   return;
-  // }
-  // // console.log("plan clicked", price.id);
+
+
+  //@ts-ignore
+  if (userSubscriptions && userSubscriptions.includes(price.id)) {
+  //@ts-ignore
+    history(`/${price.nickname.toLowerCase()}`);
+    return;
+  }
   if (authToken) {
     console.log("plan clicked", price);
 
@@ -143,7 +151,6 @@ const handleSubscription = async (price: any) => {
     setUserSubscriptions(result);
   }, [state]);
 
-console.log(state)
 
 
   return (
