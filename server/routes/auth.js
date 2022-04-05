@@ -1,33 +1,33 @@
-const router = require("express").Router();
-const User = require("../models/User");
-const crypto = require("crypto");
-const dotenv = require("dotenv");
-const session = require("express-session");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const router = require("express").Router()
+const User = require("../models/User")
+const crypto = require("crypto")
+const dotenv = require("dotenv")
+const session = require("express-session")
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
 const {
   registerValidation,
   loginValidation,
   forgotPasswordValidation,
-} = require("../routes/validation");
-const ErrorResponse = require("../utils/errorResponse");
-const sendEmail = require("../utils/sentEmail");
-const Stripe = require("../stripe");
+} = require("../routes/validation")
+const ErrorResponse = require("../utils/errorResponse")
+const sendEmail = require("../utils/sentEmail")
+const Stripe = require("../stripe")
 const stripe = require("stripe")(
   "sk_test_51KEwIMLXQl0DCJw6d0bLud77pQXePWgdms4nsY9BxszujE3ZTXCtvua7NzlOy0CcdnsBhHQrYDWgjAepP6Pr2Y6Z00vkDwTP76"
-);
+)
 
-const multer = require("multer");
-dotenv.config();
+const multer = require("multer")
+dotenv.config()
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./uploads");
+    cb(null, "./uploads")
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    cb(null, file.originalname)
   },
-});
+})
 
 const fileFilter = (req, file, cb) => {
   if (
@@ -35,42 +35,42 @@ const fileFilter = (req, file, cb) => {
     file.mimetype == "image/png" ||
     file.mimetype == "image/jpg"
   ) {
-    cb(null, true);
+    cb(null, true)
   } else {
-    cb(new Error("Mauvais format"), false);
+    cb(new Error("Mauvais format"), false)
   }
-};
+}
 
 const upload = multer({
   storage: storage,
   fileFilter: fileFilter,
   limits: { fileSize: 1024 * 1024 * 3 },
-});
-const cloudinary = require("cloudinary").v2;
+})
+const cloudinary = require("cloudinary").v2
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET,
-});
+})
 
 // Register
 router.post("/register", upload.single("avatar"), async (req, res) => {
-  const result = await cloudinary.uploader.upload(req.file.path);
+  const result = await cloudinary.uploader.upload(req.file.path)
   // Validate Data before we create user
-  const { error } = registerValidation(req.body);
+  const { error } = registerValidation(req.body)
 
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send(error.details[0].message)
 
   //Check if User is already in db
-  const emailExist = await User.findOne({ email: req.body.email });
-  if (emailExist) return res.status(400).send("L'email est déjà utilisé");
+  const emailExist = await User.findOne({ email: req.body.email })
+  if (emailExist) return res.status(400).send("L'email est déjà utilisé")
 
   //Hash passwords
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
-  let customerInfo = {};
+  const salt = await bcrypt.genSalt(10)
+  const hashedPassword = await bcrypt.hash(req.body.password, salt)
+  let customerInfo = {}
 
-  customerInfo = await Stripe.addNewCustomer(req.body.email);
+  customerInfo = await Stripe.addNewCustomer(req.body.email)
 
   // Create New User
   const user = new User({
@@ -89,34 +89,43 @@ router.post("/register", upload.single("avatar"), async (req, res) => {
     billingID: customerInfo.id,
     plan: "none",
     endDate: null,
-  });
+  })
   try {
-    const savedUser = await user.save();
-    res.status(201).send({ user });
+    const savedUser = await user.save()
+
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    })
+
+    const { password, ...rest } = user._doc
+    res.json({
+      token,
+      user: rest,
+    })
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send(err)
   }
-});
+})
 
 // Login
 router.post("/login", async (req, res) => {
   // Validate Data before we create user
-  const { error } = loginValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  const { error } = loginValidation(req.body)
+  if (error) return res.status(400).send(error.details[0].message)
 
   //Check if email exist
-  const user = await User.findOne({ email: req.body.email });
-  if (!user) return res.status(400).send("Cet email n'existe pas !");
+  const user = await User.findOne({ email: req.body.email })
+  if (!user) return res.status(400).send("Cet email n'existe pas !")
 
   //Check Password is correct
-  const validPassword = await bcrypt.compare(req.body.password, user.password);
+  const validPassword = await bcrypt.compare(req.body.password, user.password)
   if (!validPassword)
-    return res.status(400).send("Le mot de passe est incorrect !");
+    return res.status(400).send("Le mot de passe est incorrect !")
 
   //Create and assign token
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
     expiresIn: "24h",
-  });
+  })
 
   //console.log(user);
 
@@ -124,36 +133,40 @@ router.post("/login", async (req, res) => {
     customer: user.billingID,
     status: "all",
     expand: ["data.default_payment_method"],
-  });
-
-  console.log(subscriptions);
+  })
 
   // if (!subscriptions.data.length) return res.json([]);
 
-  req.session.email = user;
-  res.header("auth-token", token).send({ user, token });
-});
+  // req.session.email = user
+  // res.header("auth-token", token).send({ user, token })
+  const { password, ...rest } = user._doc
+
+  res.json({
+    token,
+    user: rest,
+  })
+})
 
 //Forgot password
 router.post("/forgotpassword", async (req, res, next) => {
   // Validate Data before we create user
-  const { error } = forgotPasswordValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  const { error } = forgotPasswordValidation(req.body)
+  if (error) return res.status(400).send(error.details[0].message)
 
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email })
 
     if (!user) {
-      return res.status(400).send("L'email ne peut être envoyé");
+      return res.status(400).send("L'email ne peut être envoyé")
     }
 
     // Reset Token Gen and add to database hashed (private) version of token
-    const resetToken = user.getResetPasswordToken();
+    const resetToken = user.getResetPasswordToken()
 
-    await user.save();
+    await user.save()
 
     // Create reset url to email to provided email
-    const resetUrl = `http://localhost:3000/passwordreset/${resetToken}`;
+    const resetUrl = `http://localhost:3000/passwordreset/${resetToken}`
 
     // HTML Message
     const message = `
@@ -243,30 +256,30 @@ You can change your password by clicking on the button below:
 </body>
 
 </html>
-    `;
+    `
 
     try {
       await sendEmail({
         to: user.email,
         subject: "Password Reset Request",
         text: message,
-      });
+      })
 
-      res.status(200).json({ success: true, data: "Email Sent" });
+      res.status(200).json({ success: true, data: "Email Sent" })
     } catch (err) {
-      console.log(err);
+      console.log(err)
 
-      user.resetPasswordToken = undefined;
-      user.resetPasswordExpire = undefined;
+      user.resetPasswordToken = undefined
+      user.resetPasswordExpire = undefined
 
-      await user.save();
+      await user.save()
 
-      return next(new ErrorResponse("Email could not be sent", 500));
+      return next(new ErrorResponse("Email could not be sent", 500))
     }
   } catch (error) {
-    next(error);
+    next(error)
   }
-});
+})
 
 //Reset password
 router.put("/resetpassword/:resetToken", async (req, res, next) => {
@@ -274,39 +287,39 @@ router.put("/resetpassword/:resetToken", async (req, res, next) => {
   const resetPasswordToken = crypto
     .createHash("sha256")
     .update(req.params.resetToken)
-    .digest("hex");
+    .digest("hex")
 
   try {
     const user = await User.findOne({
       resetPasswordToken,
       resetPasswordExpire: { $gt: Date.now() },
-    });
+    })
 
     if (!user) {
-      return res.status(400).send("Token invalide");
+      return res.status(400).send("Token invalide")
     }
 
-    user.date = Date.now();
+    user.date = Date.now()
 
-    user.password = req.body.password;
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpire = undefined;
+    user.password = req.body.password
+    user.resetPasswordToken = undefined
+    user.resetPasswordExpire = undefined
 
-    await user.save();
+    await user.save()
 
     res.status(201).json({
       success: true,
       data: "Password Updated Success",
       token: user.getSignedJwtToken(),
-    });
+    })
   } catch (error) {
-    return res.status(400).send(error);
+    return res.status(400).send(error)
   }
-});
+})
 
 const sendToken = (user, statusCode, res) => {
-  const token = user.getSignedJwtToken();
-  res.status(statusCode).json({ sucess: true, token });
-};
+  const token = user.getSignedJwtToken()
+  res.status(statusCode).json({ sucess: true, token })
+}
 
-module.exports = router;
+module.exports = router
