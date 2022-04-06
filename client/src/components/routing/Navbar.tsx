@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* This example requires Tailwind CSS v2.0+ */
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 //@ts-ignore
 
 import { Disclosure, Menu, Transition } from '@headlessui/react';
@@ -12,6 +12,7 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import { PlusSmIcon } from '@heroicons/react/solid';
 // import Toggle from './ToggleTheme';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../context';
 
 const user = {
   name: 'Tom Cook',
@@ -49,15 +50,18 @@ type Props = {
 const logoutHandler = () => {
   localStorage.removeItem('authToken');
   localStorage.removeItem('user');
+  localStorage.removeItem('auth');
   window.location.reload();
 };
 
 export default function Navbar({ User }: Props) {
   const userNavigation = [
-    { name: 'Your Profile', href: `/complete-fighter-profile/${User._id}` },
+    { name: 'Your Profile', href: `/account` },
     { name: 'Settings', href: '#' },
     { name: 'Sign out', href: '#' }
   ];
+  const [authToken] = useContext(UserContext);
+
 
   return (
     <Disclosure as="nav" className=" bg-black ">
@@ -108,13 +112,13 @@ export default function Navbar({ User }: Props) {
                       {item.name}
                     </a>
                   ))}
-                  <span
+                 {authToken && <span
                     onClick={() => logoutHandler()}
                     className={classNames(
                       'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium'
                     )}>
                     LOGOUT
-                  </span>
+                  </span>}
                 </div>
               </div>
               <div className="flex items-center">

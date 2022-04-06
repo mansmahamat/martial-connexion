@@ -27,14 +27,6 @@ export default function CreateClub() {
   const [city, setCity] = useState<string | ''>('');
   const [postalCode, setPostalCode] = useState<string | ''>('');
   const [county, setCounty] = useState<string | ''>('');
-  const [coverImage, setCoverImage] = useState({
-    lastModified: '',
-    lastModifiedDate: '',
-    name: '',
-    size: 0,
-    type: '',
-    webkitRelativePath: ''
-  });
   const [kids, setKids] = useState<boolean>(false)
   const [schedule, setSchedule] = useState<object>({})
   const [price, setPrice] = useState<Array<object>>([])
@@ -57,7 +49,6 @@ export default function CreateClub() {
             setCity={setCity}
             setPostalCode={setPostalCode}
             setCounty={setCounty}
-            setCoverImage={setCoverImage}
             setNumber={setNumber}
             setKids={setKids}
             kids={kids}
