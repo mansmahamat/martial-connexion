@@ -16,11 +16,12 @@ export const weekDayName = {
 export const container = {
   paddingRight: '10em',
   paddingTop: '2em',
-  paddingBottom: '2em'
+  paddingBottom: '2em',
+  width: '900px'
 };
 
 export const weekDates = {
-  fontSize: 40,
+  fontSize: 20,
   lineHeight: '12px',
   color: '#9e9e9e',
   marginLeft: 10

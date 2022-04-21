@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 
 type Props = {
   setPrice: React.Dispatch<React.SetStateAction<Array<object>>>;
+  setSelectSteps: React.Dispatch<React.SetStateAction<number>>;
 };
 
-function InputPrice({setPrice}: Props) {
+function InputPrice({setPrice, setSelectSteps}: Props) {
   const [inputList, setInputList] = useState([{ discipline: '', price: '' }]);
 
 
@@ -72,6 +73,13 @@ function InputPrice({setPrice}: Props) {
             type="submit"
             className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Save
+          </button>
+          <hr />
+          <button
+            onClick={() => setSelectSteps(4)}
+            type="button"
+            className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            next
           </button>
     </div>
   );

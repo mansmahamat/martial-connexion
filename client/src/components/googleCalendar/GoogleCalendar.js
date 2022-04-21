@@ -68,10 +68,13 @@ class GoogleCalendar extends Component {
 
   render() {
     const { events } = this.state;
+    console.log(events);
+
     return (
       <>
         <WeekView
           events={events}
+          showModal={true}
           onNewEvent={this.addNewEvent}
           onEventUpdate={this.updateEvent}
           onEventDelete={this.deleteEvent}
@@ -83,7 +86,7 @@ class GoogleCalendar extends Component {
           next
         </button>
         <button
-          onClick={() => this.props.setSchedule(events)} 
+          onClick={() => this.props.setSchedule(events)}
           type="button"
           className="bg-red-300 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           oooooooo

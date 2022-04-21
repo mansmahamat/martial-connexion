@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import React, { useEffect, useState } from 'react';
 import CreateClubForm from '../../components/UI/Forms/CreateClubForm/CreateClubForm';
 import GoogleCalendar from '../../components/googleCalendar';
 import InputPrice from '../../components/UI/Input-price-club';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+import GetFighterTypes from '../../types/CreateFighterTypes';
 
 const steps = [
   { id: 1, name: 'Club informations', href: '#', status: 'complete' },
   { id: 2, name: 'Planning', href: '#', status: 'current' },
-  { id: 3, name: 'Price', href: '#', status: 'upcoming' }
+  { id: 3, name: 'Price', href: '#', status: 'upcoming' },
+  { id: 4, name: 'Create', href: '#', status: 'upcoming' }
 ];
 
 export default function CreateClub() {
-  const [selectSteps, setSelectSteps] = useState<number>(1);
+  const [user, setUser] = useState<GetFighterTypes>();
+  const [selectSteps, setSelectSteps] = useState<number>(4);
   const [clubName, setClubName] = useState<string>('');
   const [emailContact, setEmailContact] = useState<string>('');
   const [number, setNumber] = useState<number>(0);
@@ -25,13 +34,98 @@ export default function CreateClub() {
     webkitRelativePath: ''
   });
   const [city, setCity] = useState<string | ''>('');
+  const [address, setAddress] = useState<string | ''>('');
   const [postalCode, setPostalCode] = useState<string | ''>('');
   const [county, setCounty] = useState<string | ''>('');
+  const [latitude, setLatitude] = useState<string | ''>('');
+  const [longitude, setLongitude] = useState<string | ''>('');
   const [kids, setKids] = useState<boolean>(false)
-  const [schedule, setSchedule] = useState<object>({})
+  const [schedule, setSchedule] = useState<Array<object>>([])
   const [price, setPrice] = useState<Array<object>>([])
+  const [error, setError] = useState('');
 
-  console.log(price)
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // @ts-ignore
+      setUser(JSON.parse(localStorage.getItem('user')));
+    }, []);
+
+  const Capitalize = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
+  function string_to_slug(str: string) {
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
+    str = str.toLowerCase();
+
+    str = str
+      .replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+      .replace(/\s+/g, '-') // collapse whitespace and replace by -
+      .replace(/-+/g, '-'); // collapse dashes
+
+    return str;
+  }
+
+
+
+    const submitForm = async () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      const formaData = new FormData();
+       //@ts-ignore
+      formaData.append('logo', logo, logo.name);
+      formaData.append('clubName', Capitalize(clubName));
+      formaData.append('emailContact', Capitalize(emailContact));
+      formaData.append('number', number.toString());
+      formaData.append('description', Capitalize(description));
+      formaData.append('city', Capitalize(city));
+      formaData.append('address', Capitalize(address));
+      formaData.append('postalCode', postalCode);
+      formaData.append('latitude', latitude);
+      formaData.append('longitude', longitude);
+       //@ts-ignore
+      formaData.append('userId', user?._id);
+      formaData.append('county', Capitalize(county));
+      formaData.append('slug', string_to_slug(clubName));
+       //@ts-ignore
+      formaData.append('kids', kids);
+  
+      for (let i = 0; i < discipline.length; i++) {
+        formaData.append('discipline', discipline[i]);
+      }
+
+
+          formaData.append(`schedule`, JSON.stringify(schedule));
+
+            formaData.append(`price`, JSON.stringify(price));
+
+            
+      
+  
+      await axios
+        .post(`http://localhost:8080/api/team`, formaData)
+        .then((res) => {
+          const team = {
+            //@ts-ignore
+            ...JSON.parse(localStorage.getItem('team')),
+            ...res.data
+          };
+          localStorage.setItem('team', JSON.stringify(team));
+          toast.success('Success Team create', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+          navigate('/');
+        })
+        .catch((err) => setError(err?.response?.data));
+    };
+
 
 
 
@@ -47,10 +141,13 @@ export default function CreateClub() {
             setLogo={setLogo}
             setEmailContact={setEmailContact}
             setCity={setCity}
+            setAddress={setAddress}
             setPostalCode={setPostalCode}
             setCounty={setCounty}
             setNumber={setNumber}
             setKids={setKids}
+            setLatitude={setLatitude}
+            setLongitude={setLongitude}
             kids={kids}
             city={city}
             postalCode={postalCode}
@@ -60,24 +157,34 @@ export default function CreateClub() {
       case 2:
         return <GoogleCalendar setSchedule={setSchedule} setSelectSteps={setSelectSteps} />;
       case 3:
-        return <InputPrice setPrice={setPrice} />;
+        return <InputPrice setPrice={setPrice} setSelectSteps={setSelectSteps} />;
+        case 4:
+          return <button onClick={() => submitForm()}>SAVE TEAM</button>;
 
       default:
-        return <>error</>;
+        return <CreateClubForm
+        setSelectSteps={setSelectSteps}
+        setClubName={setClubName}
+        setDiscipline={setDiscipline}
+        setDescription={setDescription}
+        setLogo={setLogo}
+        setEmailContact={setEmailContact}
+        setAddress={setAddress}
+        setCity={setCity}
+        setLatitude={setLatitude}
+            setLongitude={setLongitude}
+        setPostalCode={setPostalCode}
+        setCounty={setCounty}
+        setNumber={setNumber}
+        setKids={setKids}
+        kids={kids}
+        city={city}
+        postalCode={postalCode}
+        county={county}
+      />;
     }
   };
 
-  function string_to_slug(str: string) {
-    str = str.replace(/^\s+|\s+$/g, ''); // trim
-    str = str.toLowerCase();
-
-    str = str
-      .replace(/[^a-z0-9 -]/g, '') // remove invalid chars
-      .replace(/\s+/g, '-') // collapse whitespace and replace by -
-      .replace(/-+/g, '-'); // collapse dashes
-
-    return str;
-  }
 
   return (
     <div className="container mt-8 lg:w-full">
@@ -130,7 +237,6 @@ export default function CreateClub() {
         </ol>
       </nav>
       <div>{getStep()}</div>
-      <div>{county} {city}</div>
     </div>
   );
 }

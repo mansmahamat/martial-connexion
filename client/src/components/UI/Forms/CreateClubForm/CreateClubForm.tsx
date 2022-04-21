@@ -15,10 +15,13 @@ type Props = {
   setLogo: any;
   setEmailContact: React.Dispatch<React.SetStateAction<string>>;
   setCity: React.Dispatch<React.SetStateAction<string>>;
+  setAddress: React.Dispatch<React.SetStateAction<string>>;
   setPostalCode: React.Dispatch<React.SetStateAction<string>>;
   setCounty: React.Dispatch<React.SetStateAction<string>>;
   setNumber: React.Dispatch<React.SetStateAction<number>>;
   setKids: React.Dispatch<React.SetStateAction<boolean>>;
+  setLatitude:  React.Dispatch<React.SetStateAction<string>>;
+  setLongitude:  React.Dispatch<React.SetStateAction<string>>;
   city: string;
   postalCode: string;
   county: string;
@@ -34,8 +37,11 @@ function CreateClubForm({
   setEmailContact,
   setCity,
   setPostalCode,
+  setAddress,
   setCounty,
   city,
+  setLongitude,
+  setLatitude,
   postalCode,
   county,
   setNumber,
@@ -46,14 +52,12 @@ function CreateClubForm({
 
   const [selectedImage, setSelectedImage] = useState();
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log('submission prevented');
+  const onSubmit = () => {
     setClubName(values.clubName);
     setEmailContact(values.email)
     setNumber(values.number)
     setDescription(values.about)
-    setSelectSteps(2)
+ //   setSelectSteps(2)
   };
 
 
@@ -111,7 +115,7 @@ function CreateClubForm({
     validateOnChange: true,
     validateOnMount: true,
     onSubmit: () => {
-      submitForm();
+      onSubmit();
     }
   });
 
@@ -119,15 +123,14 @@ function CreateClubForm({
 
   const submitForm = async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-   console.log("good")
-
-
-    
   };
 
 
   return (
-    <form onSubmit={onSubmit} className="space-y-8 divide-y divide-gray-200">
+    <form onSubmit={(e) => {
+      e.preventDefault();
+      onSubmit();
+    }} className="space-y-8 divide-y divide-gray-200">
       <div className="space-y-8 divide-y divide-gray-200">
         <div>
           <div>
@@ -207,6 +210,9 @@ function CreateClubForm({
                   }}
                   //@ts-ignore
                   onChange={(suggestion) => {
+                    setLatitude(suggestion.suggestion.latlng.lat)
+                    setLongitude(suggestion.suggestion.latlng.lng)
+                    setAddress(suggestion.suggestion.name)
                     setCity(suggestion.suggestion.city);
                     setPostalCode(suggestion.suggestion.postcode);
                     setCounty(suggestion.suggestion.administrative);
@@ -391,12 +397,13 @@ function CreateClubForm({
         <div className="flex justify-end">
           <button
             onClick={() => setSelectSteps(2)}
+            disabled={errors.clubName || errors.number || errors.email || errors.about  ? true : false}
             type="button"
             className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             next
           </button>
           <button
-          disabled={errors.clubName || errors.number || errors.email || errors.about  ? true : false}
+        //  disabled={errors.clubName || errors.number || errors.email || errors.about  ? true : false}
             type="submit"
             className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 disabled:bg-red-700 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Save

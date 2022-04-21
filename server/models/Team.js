@@ -7,6 +7,12 @@ const TeamSchema = new mongoose.Schema({
     max: 100,
     min: 6,
   },
+  slug: {
+    type: String,
+    required: true,
+    max: 100,
+    min: 6,
+  },
   discipline: {
     type: Array,
     required: true,
@@ -36,6 +42,24 @@ const TeamSchema = new mongoose.Schema({
     //min: 6
   },
   city: {
+    type: String,
+    required: true,
+    max: 1024,
+    min: 6,
+  },
+  latitude: {
+    type: String,
+    required: true,
+    max: 1024,
+    min: 6,
+  },
+  longitude: {
+    type: String,
+    required: true,
+    max: 1024,
+    min: 6,
+  },
+  address: {
     type: String,
     required: true,
     max: 1024,
@@ -75,6 +99,18 @@ const TeamSchema = new mongoose.Schema({
   cloudinary_id: {
     type: String,
     required: false,
+  },
+  schedule: {
+    type: String,
+    required: false,
+    max: 100,
+    min: 6,
+  },
+  price: {
+    type: Array,
+    required: true,
+    max: 100,
+    min: 6,
   },
 })
 
