@@ -37,7 +37,7 @@ export function usePostRegister(email: string, password: string) {
 
 
 const forgotPassword = async (email : string): Promise<ForgotPassword> => {
-  const { data } = await axios.post('/api/user/forgotpassword', {
+  const { data } = await axios.post('/user/forgotpassword', {
     email,
   });
 
@@ -51,7 +51,7 @@ export function useForgotPassword(email: string) {
 }
 
 const resetPassword = async (password : string, resetToken: string): Promise<ResetPassword> => {
-  const { data } = await axios.put(`/api/user/resetpassword/${resetToken}`, {
+  const { data } = await axios.put(`/user/resetpassword/${resetToken}`, {
     password,
   });
 

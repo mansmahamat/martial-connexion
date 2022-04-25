@@ -37,7 +37,7 @@ const ResetPasswordScreen = () => {
 
   useEffect(() => {
     if (resetPassword.isSuccess) {
-      setSuccess('Un email vient de vous être envoyé');
+      setSuccess('Mot de passe modifié');
       setError('');
 
       setTimeout(() => {

@@ -1,5 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Hero() {
   return (
@@ -11,34 +12,38 @@ export default function Hero() {
           <div className="max-w-7xl mx-auto  sm:px-6 lg:px-8">
             <div className="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
               <div className="absolute inset-0">
-                <img
+                <video
                   className="h-full w-full object-cover"
-                  src="https://images.pexels.com/photos/6295987/pexels-photo-6295987.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
-                  alt="People working on laptops"
-                />
-                <div className="absolute inset-0 opacity-80 bg-red-600 mix-blend-multiply" />
+                  preload="metadata"
+                  loop
+                  autoPlay
+                  muted
+                  poster="https://images.pexels.com/photos/6295987/pexels-photo-6295987.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
+                  src="/videoHero.mov">
+                  <img
+                    src="https://images.pexels.com/photos/6295987/pexels-photo-6295987.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
+                    alt="People working on laptops"
+                  />
+                </video>
+
+                <div className="absolute inset-0 opacity-60 bg-red-600 mix-blend-multiply" />
               </div>
               <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
-                <h1 className="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                  <span className="block text-white">Take control of your</span>
-                  <span className="block text-white">MMA</span>
+                <h1 className="text-center text-4xl  font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                  <span className="block font-black  text-white">Tout vos clubs de</span>
+                  <span className="block font-black text-black">sports de combats</span>
                 </h1>
                 <p className="mt-6 max-w-lg mx-auto text-center text-xl text-white sm:max-w-3xl">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat
-                  commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.
+                  Retrouvez sur la plateforme les clubs de sport de combats qui sont dans votre zone
+                  géographique afin de faire votre choix.
                 </p>
                 <div className="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
                   <div className="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">
-                    <a
-                      href="#"
-                      className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 sm:px-8">
-                      Get started
-                    </a>
-                    <a
-                      href="#"
-                      className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-bold rounded-md shadow-sm bg-white text-red-700 bg-opacity-60 hover:bg-opacity-70 sm:px-8">
-                      Live demo
-                    </a>
+                    <span className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm  bg-white  text-red-600  sm:px-8">
+                      <Link className="text-red-600 " to="/teams">
+                        Voir les clubs
+                      </Link>
+                    </span>
                   </div>
                 </div>
               </div>

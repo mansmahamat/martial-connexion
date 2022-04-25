@@ -130,7 +130,7 @@ const LoginScreen = () => {
                     disabled={errors.email || errors.password ? true : false}
                     type="submit"
                     className="w-full mt-6 flex justify-center bg-red-600 hover:bg-re disabled:bg-red-200 disabled:cursor-not-allowed  hover:bg-red-400 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
-                    S'inscrire
+                    Se connecter
                   </button>
                 </div>
               </form>
