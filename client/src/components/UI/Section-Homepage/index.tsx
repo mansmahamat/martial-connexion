@@ -11,9 +11,9 @@ function SectionHomepage() {
                 <span className="h-12 w-12 rounded-md flex items-center justify-center bg-indigo-600"></span>
               </div>
               <div className="mt-6">
-                <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">
+                <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
                   Stay on top of customer support
-                </h2>
+                </h1>
                 <p className="mt-4 text-lg text-gray-500">
                   Semper curabitur ullamcorper posuere nunc sed. Ornare iaculis bibendum malesuada
                   faucibus lacinia porttitor. Pulvinar laoreet sagittis viverra duis. In venenatis
@@ -58,7 +58,7 @@ function SectionHomepage() {
               <img
                 className="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
                 src="/sectionHomepage.png"
-                alt="Inbox user interface"
+                alt="Section homepage"
               />
             </div>
           </div>
@@ -95,7 +95,7 @@ function SectionHomepage() {
               <img
                 className="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:right-0 lg:h-full lg:w-auto lg:max-w-none"
                 src="/sectionHomepage2.png"
-                alt="Customer profile user interface"
+                alt="Second section"
               />
             </div>
           </div>

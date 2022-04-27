@@ -29,8 +29,6 @@ function TeamPage() {
   //@ts-ignore
   const { data, isLoading, isError } = useGetTeamByID(id);
 
-  console.log(data?.userId[0]._id);
-
   if (isLoading) {
     return <p>looooad</p>;
   }
@@ -44,8 +42,6 @@ function TeamPage() {
 
   //@ts-ignore
   const events = JSON.parse(data?.schedule);
-
-  console.log(events);
 
   return (
     <>

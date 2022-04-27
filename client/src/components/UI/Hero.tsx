@@ -19,10 +19,10 @@ export default function Hero() {
                   autoPlay
                   muted
                   poster="https://images.pexels.com/photos/6295987/pexels-photo-6295987.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
-                  src="/videoHero.mov">
+                  src="/videoHero.mopv">
                   <img
                     src="https://images.pexels.com/photos/6295987/pexels-photo-6295987.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
-                    alt="People working on laptops"
+                    alt="Fighting hero"
                   />
                 </video>
 
@@ -31,7 +31,7 @@ export default function Hero() {
               <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
                 <h1 className="text-center text-4xl  font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
                   <span className="block font-black  text-white">Tout vos clubs de</span>
-                  <span className="block font-black text-black">sports de combats</span>
+                  <span className="block font-black text-black"> sports de combats</span>
                 </h1>
                 <p className="mt-6 max-w-lg mx-auto text-center text-xl text-white sm:max-w-3xl">
                   Retrouvez sur la plateforme les clubs de sport de combats qui sont dans votre zone

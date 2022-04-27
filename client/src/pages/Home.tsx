@@ -117,7 +117,7 @@ function Home({ User }: Props) {
   }, [state]);
 
   return (
-    <div className="h-screen">
+    <div className="">
       <Hero />
 
       <div className="bg-gray-900">

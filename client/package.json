@@ -7,7 +7,6 @@
     "@heroicons/react": "^1.0.6",
     "@stripe/stripe-js": "^1.23.0",
     "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "@toast-ui/react-calendar": "^1.0.6",
     "@types/jest": "^27.4.0",
@@ -54,7 +53,8 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "shared-config"
+      "shared-config",
+      "react-app/jest"
     ],
     "rules": {
       "additional-rule": "warn"
@@ -83,8 +83,12 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^12.1.5",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
+    "@testing-library/jest-dom": "^5.11.8",
+    "@testing-library/user-event": "^12.6.0",
+    "cypress": "^6.4.0",
     "autoprefixer": "^10.4.2",
     "eslint": "^8.6.0",
     "eslint-config-prettier": "^8.3.0",

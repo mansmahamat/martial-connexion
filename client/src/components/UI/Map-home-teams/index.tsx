@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState } from 'react';
 import { getCenter } from 'geolib';
-import Map, { Marker, Popup } from 'react-map-gl';
+import Map, { Marker, Popup, NavigationControl, GeolocateControl } from 'react-map-gl';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -34,6 +34,9 @@ function MapHomeTeams({ data, selectData }: any) {
         zoom: 5
       }}
       style={{ width: '100%', height: '100vh' }}>
+      <NavigationControl />
+      <GeolocateControl />
+
       {data.map((result: any) => (
         <div key={result.longitude}>
           {/* @ts-ignore */}

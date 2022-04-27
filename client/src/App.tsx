@@ -109,12 +109,12 @@ const App = () => {
         <Route path="/stripe/cancel" element={<StripeCancel />} />
         <Route path="/pro" element={<Pro />} />
         <Route path="/teams" element={<Teams />} />
-        <Route path="/team/:id" element={<TeamPage  />} />
+        <Route path="/team/:id" element={<TeamPage />} />
         {/* @ts-ignore */}
         <Route path="/success" element={<SuccessDisplay />} />
         <Route path="/passwordreset/:resetToken" element={<ResetPasswordScreen />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

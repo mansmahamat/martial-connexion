@@ -8,8 +8,6 @@ type Props = {
 };
 
 export default function Banner({ id }: Props) {
-  console.log(id);
-
   return (
     <div className="bg-red-600 ">
       <div className="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">

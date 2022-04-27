@@ -1,15 +1,5 @@
 import React from 'react';
 
-const people = [
-  {
-    name: 'Jane Cooper',
-    title: 'Regional Paradigm Technician',
-    role: 'Admin',
-    email: 'jane.cooper@example.com'
-  }
-  // More people...
-];
-
 type Discipline = {
   discipline: Discipline[];
 };
@@ -36,8 +26,8 @@ function TableDiscipline({ prices }: any) {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {prices.map((person: any) => (
-                  <tr key={person.email}>
+                {prices.map((person: any, index: number) => (
+                  <tr key={index}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {person.discipline}
                     </td>
