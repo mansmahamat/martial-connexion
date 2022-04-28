@@ -15,9 +15,6 @@ const user = {
     'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80'
 };
 
-const MAPBOX_TOKEN =
-  'pk.eyJ1IjoibWFuc2Rlc21leiIsImEiOiJjbDF2NG55b2IwMDlxM2pwbGEwYnh1aDNlIn0.rBwxZ81BZ0mcpoI-jMqKgg';
-
 //@ts-ignore
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -93,7 +90,7 @@ function TeamPage() {
               }}
               style={{ width: '100%', height: 400 }}
               mapStyle="mapbox://styles/mapbox/streets-v9"
-              mapboxAccessToken={MAPBOX_TOKEN}>
+              mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}>
               <Marker
                 longitude={Number(data?.longitude)}
                 latitude={Number(data?.latitude)}

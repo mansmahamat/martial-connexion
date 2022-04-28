@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import AlgoliaPlaces from 'algolia-places-react';
 import { useFormik } from 'formik';
 import axios from 'axios';
-// import { CreateFighterValidation } from './validation';
 import Toggle from '../../components/routing/ToggleTheme';
 import { useNavigate, useParams } from 'react-router-dom';
 

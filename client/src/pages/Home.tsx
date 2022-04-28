@@ -1,48 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState, useContext } from 'react';
-import Toggle from '../components/routing/ToggleTheme';
-import Banner from '../components/UI/Banner';
 import Hero from '../components/UI/Hero';
-import { useGetFighter } from '../hooks/Api/useFighter';
-import { loadStripe } from '@stripe/stripe-js';
-import PricingTable from '../components/UI/Princing';
 import axios from 'axios';
 import { CheckIcon } from '@heroicons/react/outline';
 import PricesTypes from '../types/PricesTypes';
 import { UserContext } from '../context';
 import { useNavigate } from 'react-router-dom';
 import SectionHomepage from '../components/UI/Section-Homepage';
-
-const stripePromise = loadStripe(
-  'pk_test_51KEwIMLXQl0DCJw6DnOm3mqbpIdTiVmUufFshoMeKzhzQ3KIADlARPLud5TKj7yjErn7qFdxGedkYPIcgw5Aq0kQ00ZwUioXcz'
-);
-
-const tiers = [
-  {
-    name: 'Basic',
-    href: '#',
-    priceMonthly: 0,
-    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
-    features: [
-      'Pariatur quod similique',
-      'Sapiente libero doloribus modi nostrum',
-      'Vel ipsa esse repudiandae excepturi',
-      'Itaque cupiditate adipisci quibusdam'
-    ]
-  },
-  {
-    name: 'Pro',
-    href: '#',
-    priceMonthly: 0,
-    description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
-    features: [
-      'Pariatur quod similique',
-      'Sapiente libero doloribus modi nostrum',
-      'Vel ipsa esse repudiandae excepturi',
-      'Itaque cupiditate adipisci quibusdam'
-    ]
-  }
-];
 
 type Props = {
   User: {
@@ -210,12 +174,6 @@ function Home({ User }: Props) {
       </div>
 
       <SectionHomepage />
-      {/* <form action="/customer-portal" method="POST">
-        <input type="hidden" id="customer" name="customer" value={User?.billingID} />
-        <button className="bg-green-500" type="submit">
-          Manage Billing {User?.billingID}
-        </button>
-      </form> */}
     </div>
   );
 }

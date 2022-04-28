@@ -1,4 +1,3 @@
-
 import React, { SVGProps } from 'react';
 import { CheckIcon } from '@heroicons/react/outline';
 
@@ -34,22 +33,6 @@ const pricing = {
       cta: 'Monthly billing',
       mostPopular: true
     }
-    // {
-    //   title: 'Enterprise',
-    //   price: 48,
-    //   frequency: '/month',
-    //   description: 'Dedicated support and infrastructure for your company.',
-    //   features: [
-    //     'Unlimited products',
-    //     'Unlimited subscribers',
-    //     'Advanced analytics',
-    //     '1-hour, dedicated support response time',
-    //     'Marketing automations',
-    //     'Custom integrations'
-    //   ],
-    //   cta: 'Monthly billing',
-    //   mostPopular: false
-    // }
   ]
 };
 const faqs = [
