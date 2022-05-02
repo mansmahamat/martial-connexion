@@ -28,7 +28,7 @@ describe('Success state <ManualBankAccount />', () => {
   it('should render the title with the expected text', () => {
     render(<Hero />, { wrapper: BrowserRouter });
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      'Tout vos clubs de sports de combats'
+      'Tous vos clubs de sports de combats'
     );
   });
 });

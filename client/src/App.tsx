@@ -73,9 +73,8 @@ const App = () => {
           element={
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
-            <PrivateRoute>
-              <Home User={user} />
-            </PrivateRoute>
+
+            <Home User={user} />
           }
         />
         <Route

@@ -68,7 +68,6 @@ class GoogleCalendar extends Component {
 
   render() {
     const { events } = this.state;
-    console.log(events);
 
     return (
       <>

@@ -118,16 +118,16 @@ class WeekView extends Component {
           onTimeChange={this.onCurrentEventTimeChange}
         />
 
-        <WeekToolbar
+        {/* <WeekToolbar
           goToPreviousWeek={this.goToPreviousWeek}
           goToNextWeek={this.goToNextWeek}
           startDate={startDate}
           goToToday={this.goToToday}
-        />
+        /> */}
 
         <WeekHeader weekDays={weekDays} />
 
-        {times.map((time) => (
+        {times.map((time, index) => (
           <TimeSlotGroup
             key={uuid()}
             time={time}

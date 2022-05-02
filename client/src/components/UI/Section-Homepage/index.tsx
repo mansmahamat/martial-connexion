@@ -1,18 +1,22 @@
 import React from 'react';
+import { HiStar } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 
 function SectionHomepage() {
   return (
-    <div className="relative bg-white pt-16 pb-32 overflow-hidden">
+    <div className="relative bg-white mt-14  pb-32 overflow-hidden">
       <div className="relative">
         <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:grid-flow-col-dense lg:gap-24">
           <div className="px-4 max-w-xl mx-auto sm:px-6 lg:py-16 lg:max-w-none lg:mx-0 lg:px-0">
-            <div>
+            <div className="transform transition duration-500 hover:scale-110">
               <div>
-                <span className="h-12 w-12 rounded-md flex items-center justify-center bg-indigo-600"></span>
+                <span className="h-12 w-12 rounded-md flex items-center justify-center bg-red-700">
+                  <HiStar className="text-white " />
+                </span>
               </div>
               <div className="mt-6">
                 <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
-                  Stay on top of customer support
+                  Retrouvez tous vos clubs de sport de combats en France
                 </h1>
                 <p className="mt-4 text-lg text-gray-500">
                   Semper curabitur ullamcorper posuere nunc sed. Ornare iaculis bibendum malesuada
@@ -20,11 +24,13 @@ function SectionHomepage() {
                   sem arcu pretium pharetra at. Lectus viverra dui tellus ornare pharetra.
                 </p>
                 <div className="mt-6">
-                  <a
-                    href="#"
-                    className="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
-                    Get started
-                  </a>
+                  <Link to="/teams">
+                    <button
+                      type="button"
+                      className="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700">
+                      Voir
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -41,12 +47,12 @@ function SectionHomepage() {
                     <div className="flex-shrink-0">
                       <img
                         className="h-6 w-6 rounded-full"
-                        src="https://images.unsplash.com/photo-1509783236416-c9ad59bae472?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+                        src="https://images.pexels.com/photos/4761659/pexels-photo-4761659.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
                         alt=""
                       />
                     </div>
                     <div className="text-base font-medium text-gray-700">
-                      Marcia Hill, Digital Marketing Manager
+                      Thomas Hill, Entraineur de MMA
                     </div>
                   </div>
                 </footer>
@@ -57,7 +63,7 @@ function SectionHomepage() {
             <div className="pl-4 -mr-48 sm:pl-6 md:-mr-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
               <img
                 className="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
-                src="/sectionHomepage.png"
+                src="/map.png"
                 alt="Section homepage"
               />
             </div>
@@ -69,11 +75,13 @@ function SectionHomepage() {
           <div className="px-4 max-w-xl mx-auto sm:px-6 lg:py-32 lg:max-w-none lg:mx-0 lg:px-0 lg:col-start-2">
             <div>
               <div>
-                <span className="h-12 w-12 rounded-md flex items-center justify-center bg-indigo-600"></span>
+                <span className="h-12 w-12 rounded-md flex items-center justify-center bg-red-700">
+                  <HiStar className="text-white " />
+                </span>
               </div>
               <div className="mt-6">
                 <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">
-                  Better understand your customers
+                  Le planning détaillé de votre club préférés
                 </h2>
                 <p className="mt-4 text-lg text-gray-500">
                   Semper curabitur ullamcorper posuere nunc sed. Ornare iaculis bibendum malesuada
@@ -83,7 +91,7 @@ function SectionHomepage() {
                 <div className="mt-6">
                   <a
                     href="#"
-                    className="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                    className="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700">
                     Get started
                   </a>
                 </div>
@@ -94,7 +102,7 @@ function SectionHomepage() {
             <div className="pr-4 -ml-48 sm:pr-6 md:-ml-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
               <img
                 className="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:right-0 lg:h-full lg:w-auto lg:max-w-none"
-                src="/sectionHomepage2.png"
+                src="/planning.png"
                 alt="Second section"
               />
             </div>

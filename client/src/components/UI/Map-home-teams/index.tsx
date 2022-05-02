@@ -33,7 +33,7 @@ function MapHomeTeams({ data, selectData }: any) {
         latitude: 46.227638,
         zoom: 5
       }}
-      style={{ width: '100%', height: '100vh' }}>
+      style={{ width: '100%', height: '100vh', marginRight: '45px' }}>
       <NavigationControl />
       <GeolocateControl />
 
@@ -46,7 +46,7 @@ function MapHomeTeams({ data, selectData }: any) {
               className="cursor-pointer text-2xl "
               aria-label="push-pin"
               role="img">
-              <FaMapMarkerAlt className="h-6 text-red-500" />
+              <img src={result.logo} alt={result.clubName} className="h-8 rounded-full" />
             </p>
           </Marker>
 
@@ -58,7 +58,15 @@ function MapHomeTeams({ data, selectData }: any) {
               latitude={result.latitude}
               longitude={result.longitude}
               className="z-50">
-              <Link to={`/team/${result._id}`}>{result.clubName}</Link>
+              <Link to={`/team/${result._id}`}>
+                <div>
+                  <div className="flex">
+                    <p className="text-red-700">{result.clubName}</p>
+                    <img src={result.logo} alt={result.clubName} className="h-8 ml-2" />
+                  </div>
+                  <p className="text-red-700">{result.city}</p>
+                </div>
+              </Link>
             </Popup>
           ) : (
             <div></div>
@@ -70,8 +78,16 @@ function MapHomeTeams({ data, selectData }: any) {
               closeOnClick={true}
               latitude={result.latitude}
               longitude={result.longitude}
-              className="z-50">
-              <Link to={`/team/${result._id}`}>{result.clubName}</Link>
+              className="z-50 ">
+              <Link to={`/team/${result._id}`}>
+                <div>
+                  <div className="flex">
+                    <p className="text-red-700">{result.clubName}</p>
+                    <img src={result.logo} alt={result.clubName} className="h-8 ml-2" />
+                  </div>
+                  <p className="text-red-700">{result.city}</p>
+                </div>
+              </Link>
             </Popup>
           ) : (
             <div></div>

@@ -57,12 +57,10 @@ const logoutHandler = () => {
 
 export default function Navbar({ User }: Props) {
   const userNavigation = [
-    { name: 'Your Profile', href: `/account` },
-    { name: 'Settings', href: '#' },
-    { name: 'Sign out', href: '#' }
+    { name: 'Mon profil', href: `/account` },
+    { name: 'Settings', href: '#' }
   ];
   const [authToken] = useContext(UserContext);
-
 
   return (
     <Disclosure as="nav" className=" bg-black ">
@@ -86,16 +84,13 @@ export default function Navbar({ User }: Props) {
                 </div>
                 <div className="flex-shrink-0 flex items-center">
                   <Link to="/">
-                    <img
-                      className="block lg:hidden h-8 w-auto"
-                      src="https://cdn.worldvectorlogo.com/logos/ucc-2.svg"
-                      alt="Workflow"
-                    />
-                    <img
-                      className="hidden lg:block h-8 w-auto"
-                      src="https://cdn.worldvectorlogo.com/logos/ucc-2.svg"
-                      alt="Workflow"
-                    />
+                    <img className="block lg:hidden h-8 w-auto" src="/logo2.png" alt="Workflow" />
+                    <div className="hidden  lg:flex h-8 w-auto">
+                      <img className="h-8 w-auto mr-2" src="/logo2.png" alt="Workflow" />
+                      <p className="text-white font-Bodoni text-2xl">
+                        We are <span className="text-red-700">Fighters</span>{' '}
+                      </p>
+                    </div>
                   </Link>
                 </div>
                 <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
@@ -113,22 +108,15 @@ export default function Navbar({ User }: Props) {
                       {item.name}
                     </a>
                   ))}
-                 {authToken && <span
-                    onClick={() => logoutHandler()}
-                    className={classNames(
-                      'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium'
-                    )}>
-                    LOGOUT
-                  </span>}
                 </div>
               </div>
               <div className="flex items-center">
                 <div className="flex-shrink-0 flex ">
                   <Link
                     to="/create-club"
-                    className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
+                    className="relative hover:text-white inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-black bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-red-500">
                     <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-                    <span>New Club</span>
+                    <span>Enrengistrer mon club</span>
                   </Link>
                 </div>
                 <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
@@ -175,6 +163,19 @@ export default function Navbar({ User }: Props) {
                             )}
                           </Menu.Item>
                         ))}
+                        <Menu.Item>
+                          {/* @ts-ignore */}
+                          {({ active }) => (
+                            <span
+                              onClick={() => logoutHandler()}
+                              className={classNames(
+                                active ? 'bg-gray-100' : '',
+                                'block px-4 py-2 text-sm text-gray-700'
+                              )}>
+                              Déconnexion
+                            </span>
+                          )}
+                        </Menu.Item>
                       </Menu.Items>
                     </Transition>
                   </Menu>
@@ -225,10 +226,16 @@ export default function Navbar({ User }: Props) {
                       as="a"
                       href={item.href}
                       className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
-                      {item.name} dd
+                      {item.name}
                     </Disclosure.Button>
                   </>
                 ))}
+                <Disclosure.Button
+                  as="button"
+                  onClick={() => logoutHandler()}
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
+                  Déconnexion
+                </Disclosure.Button>
               </div>
             </div>
           </Disclosure.Panel>
