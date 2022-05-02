@@ -60,7 +60,7 @@ app.use("/api", fighter)
 app.use("/api", team)
 
 app.get("/", (req, res) => {
-  res.send("Hello from Express!")
+  res.send("Hello from Express YEESS!")
 })
 
 app.use("/webhook", bodyParser.raw({ type: "application/json" }))
