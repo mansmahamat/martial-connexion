@@ -4,9 +4,7 @@ import Hero from '../components/UI/Hero';
 import axios from 'axios';
 import PricesTypes from '../types/PricesTypes';
 import { UserContext } from '../context';
-import { useNavigate } from 'react-router-dom';
 import SectionHomepage from '../components/UI/Section-Homepage';
-import PricingTable from '../components/UI/Princing';
 
 type Props = {
   User: {
