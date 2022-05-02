@@ -61,7 +61,7 @@ class WeekView extends Component {
     const end = start.clone().add(1, 'hour');
 
     this.setState({
-      showAddEventModal: true,
+      showAddEventModal: this.props.showModal,
       eventStart: +start,
       eventEnd: +end
     });
@@ -118,16 +118,16 @@ class WeekView extends Component {
           onTimeChange={this.onCurrentEventTimeChange}
         />
 
-        <WeekToolbar
+        {/* <WeekToolbar
           goToPreviousWeek={this.goToPreviousWeek}
           goToNextWeek={this.goToNextWeek}
           startDate={startDate}
           goToToday={this.goToToday}
-        />
+        /> */}
 
         <WeekHeader weekDays={weekDays} />
 
-        {times.map((time) => (
+        {times.map((time, index) => (
           <TimeSlotGroup
             key={uuid()}
             time={time}
@@ -140,6 +140,7 @@ class WeekView extends Component {
                   event.startWeek <= moment(startDate).week() &&
                   event.endWeek >= moment(startDate).week() && (
                     <EventHighlighter
+                      showModal={this.props.showModal}
                       onEventDelete={this.props.onEventDelete}
                       onEventUpdate={this.props.onEventUpdate}
                       key={event.title + event.end + event.start}

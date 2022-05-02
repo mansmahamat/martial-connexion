@@ -37,6 +37,8 @@ import StripeSuccess from './pages/Stripe-Sucess';
 import StripeCancel from './pages/Stripe-cancel';
 import Account from './pages/Account';
 import Pro from './pages/Plans/Pro';
+import Teams from './pages/Teams';
+import TeamPage from './pages/TeamPage';
 
 const App = () => {
   const [user, setUser] = useState<User>({
@@ -71,9 +73,8 @@ const App = () => {
           element={
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
-            <PrivateRoute>
-              <Home User={user} />
-            </PrivateRoute>
+
+            <Home User={user} />
           }
         />
         <Route
@@ -106,11 +107,13 @@ const App = () => {
         <Route path="/stripe/success" element={<StripeSuccess />} />
         <Route path="/stripe/cancel" element={<StripeCancel />} />
         <Route path="/pro" element={<Pro />} />
+        <Route path="/teams" element={<Teams />} />
+        <Route path="/team/:id" element={<TeamPage />} />
         {/* @ts-ignore */}
         <Route path="/success" element={<SuccessDisplay />} />
         <Route path="/passwordreset/:resetToken" element={<ResetPasswordScreen />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

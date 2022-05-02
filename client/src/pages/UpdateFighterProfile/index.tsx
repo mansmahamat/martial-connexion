@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import AlgoliaPlaces from 'algolia-places-react';
 import { useFormik } from 'formik';
 import axios from 'axios';
-// import { CreateFighterValidation } from './validation';
 import Toggle from '../../components/routing/ToggleTheme';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -79,7 +78,7 @@ function UpdateFighterProfile() {
     formaData.append('discipline', values.discipline);
 
     await axios
-      .patch(`http://localhost:5000/api/fighter/${id}`, formaData)
+      .patch(`http://localhost:8080/api/fighter/${id}`, formaData)
       .then((res) => {
         const user = {
           //@ts-ignore

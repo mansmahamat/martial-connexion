@@ -3,7 +3,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-// cs_test_a1dXao8fw6yu4KAXprsEtvMe911duPcBUnlikLOQhvAlQrYbXuX9iqVGWn
 
 export const SuccessDisplay = ({ sessionId }) => {
   return (

@@ -7,11 +7,12 @@ import moment from 'moment';
 import uuid from 'react-uuid';
 
 function TimeSlotGroup(props) {
-  const formattedTime = moment().set('hours', props.time).format('hh ');
+  const formattedTime = moment().set('hours', props.time).format('HH ');
+
   return (
     <Row type="flex" key={props.time} style={row}>
       <Col style={timeCol} span={3}>
-        <span style={timeString}>{formattedTime}</span>
+        <span style={timeString}>{formattedTime}h</span>
       </Col>
       {props.weekDays.map((day, index) => (
         <>

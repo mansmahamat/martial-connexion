@@ -4,7 +4,10 @@ module.exports = {
   theme: {
     container: {
       center: true,
-
+      fontFamily: {
+        OpenSans: ['Open Sans', 'sans-serif'],
+        Bodoni: ['Libre Bodoni', 'serif']
+      },
       padding: {
         DEFAULT: '1rem',
         sm: '2rem',

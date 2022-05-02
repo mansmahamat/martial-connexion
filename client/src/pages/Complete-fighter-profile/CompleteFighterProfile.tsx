@@ -79,7 +79,7 @@ function CompleteFighterProfile() {
     formaData.append('discipline', values.discipline);
 
     await axios
-      .patch(`http://localhost:5000/api/fighter/${id}`, formaData)
+      .patch(`http://localhost:8080/api/fighter/${id}`, formaData)
       .then((res) => {
         const user = {
           //@ts-ignore

@@ -76,6 +76,7 @@ class EventHighlighter extends Component {
     return (
       <React.Fragment>
         <AddEventModal
+          showModal={this.props.showModal}
           editMode={true}
           eventTitle={this.props.event.title}
           visible={showEditEventModal}

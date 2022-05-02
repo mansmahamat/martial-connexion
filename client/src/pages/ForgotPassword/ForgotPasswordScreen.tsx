@@ -52,7 +52,7 @@ const ForgotPasswordScreen = () => {
     <div className="flex justify-center h-screen  antialiased">
       <div className=" sm:mt-40 mt-24 my-auto max-w-md  p-3 ">
         <div className="text-center m-6">
-          <h1 className="text-3xl font-semibold ">Forgot your password?</h1>
+          <h1 className="text-3xl font-semibold ">Mot de passe oublié ?</h1>
           <p className="">
             Just enter your email address below and we'll send you a link to reset your password!
           </p>
@@ -82,7 +82,7 @@ const ForgotPasswordScreen = () => {
                 disabled={errors.email ? true : false}
                 type="submit"
                 className="w-full flex justify-center disabled:bg-red-200 disabled:cursor-not-allowed bg-red-600  hover:bg-red-400 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
-                Se connecter
+                Confirmer
               </button>
             </div>
           </form>

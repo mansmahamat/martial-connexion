@@ -101,6 +101,13 @@ const userSchema = new mongoose.Schema({
   },
   subscriptions: [],
   stripe_customer_id: String,
+  isTeam: {
+    type: Boolean,
+    required: false,
+    max: 1024,
+    min: 6,
+    default: false,
+  },
 })
 
 userSchema.pre("save", async function (next) {
