@@ -495,6 +495,4 @@ app.get("/api/gym/balance/:id", async (req, res) => {
   res.send(stripeReq)
 })
 
-app.listen("https://martial-connexion.herokuapp.com/", () =>
-  console.log("App is here")
-)
+app.listen(process.env.PORT || 8080, () => console.log("App is here"))
