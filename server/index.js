@@ -405,8 +405,8 @@ app.post("/api/create-product", async (req, res) => {
       $push: {
         disciplinePrices: {
           ...disciplinePrices,
-          productId: product?.id,
-          pricesId: price?.id,
+          productId: product.id,
+          pricesId: price.id,
         },
       },
     },
