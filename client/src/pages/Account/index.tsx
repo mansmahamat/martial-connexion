@@ -47,9 +47,6 @@ function Account() {
     window.open(data);
   };
 
-  // //@ts-ignore
-  // console.log(user?.paymentStatus[0].paymentIntent);
-
   //@ts-ignore
   const oneSub = subscriptions.filter((item) => item.customer === user?.billingID);
 
