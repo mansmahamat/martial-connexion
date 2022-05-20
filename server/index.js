@@ -158,7 +158,7 @@ app.post("/api/login_links", async (req, res) => {
   const accountId = req.body.accountId
 
   const loginLink = await stripe.accounts.createLoginLink(`${accountId}`)
-  res.send(loginLink?.url)
+  res.send(loginLink.url)
 })
 
 app.get("/api/account/:id", async (req, res) => {
