@@ -151,7 +151,7 @@ app.post("/api/complete-profile", async (req, res) => {
     return_url: "http://localhost:3000/pro",
     type: "account_onboarding",
   })
-  res.send(accountLink?.url)
+  res.send(accountLink.url)
 })
 
 app.post("/api/login_links", async (req, res) => {
