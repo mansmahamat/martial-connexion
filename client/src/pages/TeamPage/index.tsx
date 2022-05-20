@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { useGetTeamByID } from '../../hooks/Api/useTeams';
@@ -8,19 +8,18 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import TeamCalendar from '../../components/TeamCalendar';
 import TableDiscipline from '../../components/UI/Table-discipline';
 
-const user = {
-  name: 'Whitney Francis',
-  email: 'whitney@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80'
-};
-
 //@ts-ignore
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 function TeamPage() {
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    // @ts-ignore
+    setUser(JSON.parse(localStorage.getItem('user')));
+  }, []);
   const { id } = useParams();
 
   //@ts-ignore
@@ -35,10 +34,12 @@ function TeamPage() {
   }
 
   //@ts-ignore
-  const prices = JSON.parse(data?.price);
+  const prices = data?.disciplinePrices;
 
   //@ts-ignore
   const events = JSON.parse(data?.schedule);
+
+  console.log(user);
 
   return (
     <>
@@ -140,7 +141,17 @@ function TeamPage() {
                           ))}
                         </ul> */}
 
-                        <TableDiscipline prices={prices} />
+                        <TableDiscipline
+                          // @ts-ignore
+                          userEmail={user?.email}
+                          // @ts-ignore
+                          userName={user?.firstName + ' ' + user?.lastName}
+                          // @ts-ignore
+                          customerId={user.billingID}
+                          // @ts-ignore
+                          accountId={data?.userId[0]?.accountId}
+                          prices={prices}
+                        />
                       </div>
                       {/* <div className="sm:col-span-2">
                       <dt className="text-sm font-medium text-gray-500">Attachments</dt>

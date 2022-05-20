@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import ForgotPassword from '../../types/ForgotPasswordTypes';
 import LoginTypes from '../../types/LoginTypes';
 import RegisterTypes from '../../types/RegisterTypes';
@@ -62,4 +62,16 @@ const resetPassword = async (password : string, resetToken: string): Promise<Res
 
 export function useResetPassword(password : string, resetToken: string) {
   return useMutation(() => resetPassword(password, resetToken));
+}
+
+const getUser = async (id: string) => {
+  const { data } = await axios.get(`/user/user/${id}`)
+
+  return data
+}
+
+export function useGetUser(id: string) {
+  return useQuery(["getUser"], () => getUser(id), {
+    retry: 8,
+  })
 }

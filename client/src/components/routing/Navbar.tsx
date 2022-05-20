@@ -52,6 +52,7 @@ const logoutHandler = () => {
   localStorage.removeItem('user');
   localStorage.removeItem('auth');
   localStorage.removeItem('events');
+  localStorage.removeItem('team');
   window.location.reload();
 };
 

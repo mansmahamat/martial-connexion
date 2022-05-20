@@ -108,6 +108,21 @@ const userSchema = new mongoose.Schema({
     min: 6,
     default: false,
   },
+  accountId: {
+    type: String,
+  },
+  paymentStatus: {
+    type: Object,
+  },
+  paymentReceived: {
+    type: Object,
+  },
+  invoicesPaid: {
+    type: Object,
+  },
+  invoicesFailed: {
+    type: Object,
+  },
 })
 
 userSchema.pre("save", async function (next) {

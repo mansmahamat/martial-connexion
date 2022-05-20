@@ -8,9 +8,17 @@ const stripe = require("stripe")(
 )
 
 router.get("/prices", async (req, res) => {
-  const prices = await stripe.prices.list()
-  //   console.log("prices", prices);
-  res.json(prices.data.reverse())
+  const price = await stripe.prices.search({
+    query: "product:'prod_L9lNd1b5i2ajBb ' AND product:'prod_L9lN7Twv3DhqvW'",
+  })
+  res.json(prices)
+})
+
+router.get("/price/:id", async (req, res) => {
+  const priceId = req.params.id
+
+  const price = await stripe.prices.retrieve(priceId)
+  res.json(price)
 })
 
 router.post("/create-subscription", async (req, res) => {
@@ -30,7 +38,6 @@ router.post("/create-subscription", async (req, res) => {
       success_url: process.env.STRIPE_SUCCESS_URL,
       cancel_url: process.env.STRIPE_CANCEL_URL,
     })
-    console.log("checkout session", session)
     res.json(session.url)
   } catch (err) {
     console.log(err)
@@ -56,7 +63,6 @@ router.post("/subscription-status", async (req, res) => {
     )
 
     res.json(updated)
-    console.log(updated)
   } catch (err) {
     console.log(err)
   }

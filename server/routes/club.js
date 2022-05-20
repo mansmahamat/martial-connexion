@@ -65,6 +65,14 @@ router.post("/team", upload.single("logo"), async (req, res) => {
   try {
     const savedTeam = await team.save()
 
+    user = await User.findOneAndUpdate(
+      { _id: req.body.userId },
+      { isTeam: true },
+      {
+        useFindAndModify: false,
+      }
+    )
+
     res.status(201).json({ success: "created", data: savedTeam })
   } catch (err) {
     res.status(400).send(err)

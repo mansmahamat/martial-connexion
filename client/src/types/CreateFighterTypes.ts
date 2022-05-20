@@ -14,7 +14,9 @@ export default interface GetFighterTypes {
   firstName: string,
   lastName: string,
   postalCode: string,
-  userId: string
+  userId: string,
+  accountId: string,
+  paymentReceived: Array<any>
   }
 
   

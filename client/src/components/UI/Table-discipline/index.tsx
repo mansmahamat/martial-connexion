@@ -4,7 +4,7 @@ type Discipline = {
   discipline: Discipline[];
 };
 
-function TableDiscipline({ prices }: any) {
+function TableDiscipline({ prices, accountId, userEmail, customerId, userName }: any) {
   return (
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -36,9 +36,26 @@ function TableDiscipline({ prices }: any) {
                     </td>
 
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a href="#" className="text-red-600 hover:text-red-900">
-                        Payer
-                      </a>
+                      <form action="/create-payment-products" method="POST">
+                        <input
+                          type="hidden"
+                          id="pricesId"
+                          name="pricesId"
+                          value={person.pricesId}
+                        />
+
+                        <input type="hidden" id="price" name="price" value={person.price} />
+                        <input type="hidden" id="userEmail" name="userEmail" value={userEmail} />
+                        <input type="hidden" id="accountId" name="accountId" value={accountId} />
+                        <input type="hidden" id="userName" name="userName" value={userName} />
+                        <input type="hidden" id="customerId" name="customerId" value={customerId} />
+                        <button
+                          className="text-red-500 font-bold"
+                          id="checkout-and-portal-button"
+                          type="submit">
+                          Payer {customerId}
+                        </button>
+                      </form>
                     </td>
                   </tr>
                 ))}

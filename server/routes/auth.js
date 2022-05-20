@@ -72,6 +72,17 @@ router.post("/register", upload.single("avatar"), async (req, res) => {
 
   customerInfo = await Stripe.addNewCustomer(req.body.email)
 
+  const account = await stripe.accounts.create({
+    country: "FR",
+    type: "express",
+    capabilities: {
+      card_payments: { requested: true },
+      transfers: { requested: true },
+    },
+    business_type: "individual",
+    business_profile: { url: "https://exaequoi.com" },
+  })
+
   // Create New User
   const user = new User({
     email: req.body.email,
@@ -89,6 +100,7 @@ router.post("/register", upload.single("avatar"), async (req, res) => {
     billingID: customerInfo.id,
     plan: "none",
     endDate: null,
+    accountId: account.id,
   })
   try {
     const savedUser = await user.save()
@@ -315,6 +327,20 @@ router.put("/resetpassword/:resetToken", async (req, res, next) => {
   } catch (error) {
     return res.status(400).send(error)
   }
+})
+
+router.get("/user/:id", async (req, res) => {
+  const id = req.params.id
+
+  User.findById(id)
+    .then((data) => {
+      if (!data)
+        res.status(404).send({ message: "Not found user with id " + id })
+      else res.status(200).json(data)
+    })
+    .catch((err) => {
+      res.status(500).json(err)
+    })
 })
 
 const sendToken = (user, statusCode, res) => {

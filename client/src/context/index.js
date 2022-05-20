@@ -6,9 +6,7 @@ const UserContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 const UserProvider = ({ children }) => {
-  const [state, setState] = useState({
-    user: {}
-  });
+  const [state, setState] = useState({});
 
   // const [authToken, setAuthToken] = useState({
   //   token: ''
@@ -17,6 +15,8 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     setState(JSON.parse(localStorage.getItem('user')));
   }, []);
+
+  console.log(state);
 
   // useEffect(() => {
   //   setAuthToken(localStorage.getItem('authToken'));

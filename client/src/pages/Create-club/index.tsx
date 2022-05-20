@@ -39,18 +39,17 @@ export default function CreateClub() {
   const [county, setCounty] = useState<string | ''>('');
   const [latitude, setLatitude] = useState<string | ''>('');
   const [longitude, setLongitude] = useState<string | ''>('');
-  const [kids, setKids] = useState<boolean>(false)
-  const [schedule, setSchedule] = useState<Array<object>>([])
-  const [price, setPrice] = useState<Array<object>>([])
+  const [kids, setKids] = useState<boolean>(false);
+  const [schedule, setSchedule] = useState<Array<object>>([]);
+  const [price, setPrice] = useState<Array<object>>([]);
   const [error, setError] = useState('');
-
 
   const navigate = useNavigate();
 
   useEffect(() => {
     // @ts-ignore
-      setUser(JSON.parse(localStorage.getItem('user')));
-    }, []);
+    setUser(JSON.parse(localStorage.getItem('user')));
+  }, []);
 
   const Capitalize = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -68,66 +67,57 @@ export default function CreateClub() {
     return str;
   }
 
+  const submitForm = async () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    const formaData = new FormData();
+    //@ts-ignore
+    formaData.append('logo', logo, logo.name);
+    formaData.append('clubName', Capitalize(clubName));
+    formaData.append('emailContact', Capitalize(emailContact));
+    formaData.append('number', number.toString());
+    formaData.append('description', Capitalize(description));
+    formaData.append('city', Capitalize(city));
+    formaData.append('address', Capitalize(address));
+    formaData.append('postalCode', postalCode);
+    formaData.append('latitude', latitude);
+    formaData.append('longitude', longitude);
+    //@ts-ignore
+    formaData.append('userId', user?._id);
+    formaData.append('county', Capitalize(county));
+    formaData.append('slug', string_to_slug(clubName));
+    //@ts-ignore
+    formaData.append('kids', kids);
 
+    for (let i = 0; i < discipline.length; i++) {
+      formaData.append('discipline', discipline[i]);
+    }
 
-    const submitForm = async () => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      const formaData = new FormData();
-       //@ts-ignore
-      formaData.append('logo', logo, logo.name);
-      formaData.append('clubName', Capitalize(clubName));
-      formaData.append('emailContact', Capitalize(emailContact));
-      formaData.append('number', number.toString());
-      formaData.append('description', Capitalize(description));
-      formaData.append('city', Capitalize(city));
-      formaData.append('address', Capitalize(address));
-      formaData.append('postalCode', postalCode);
-      formaData.append('latitude', latitude);
-      formaData.append('longitude', longitude);
-       //@ts-ignore
-      formaData.append('userId', user?._id);
-      formaData.append('county', Capitalize(county));
-      formaData.append('slug', string_to_slug(clubName));
-       //@ts-ignore
-      formaData.append('kids', kids);
-  
-      for (let i = 0; i < discipline.length; i++) {
-        formaData.append('discipline', discipline[i]);
-      }
+    formaData.append(`schedule`, JSON.stringify(schedule));
 
+    formaData.append(`price`, JSON.stringify(price));
 
-          formaData.append(`schedule`, JSON.stringify(schedule));
-
-            formaData.append(`price`, JSON.stringify(price));
-
-            
-      
-  
-      await axios
-        .post(`http://localhost:8080/api/team`, formaData)
-        .then((res) => {
-          const team = {
-            //@ts-ignore
-            ...JSON.parse(localStorage.getItem('team')),
-            ...res.data
-          };
-          localStorage.setItem('team', JSON.stringify(team));
-          toast.success('Success Team create', {
-            position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            });
-          navigate('/');
-        })
-        .catch((err) => setError(err?.response?.data));
-    };
-
-
-
+    await axios
+      .post(`http://localhost:8080/api/team`, formaData)
+      .then((res) => {
+        const team = {
+          //@ts-ignore
+          ...JSON.parse(localStorage.getItem('team')),
+          ...res.data
+        };
+        localStorage.setItem('team', JSON.stringify(team));
+        toast.success('Success Team create', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        });
+        navigate('/');
+      })
+      .catch((err) => setError(err?.response?.data));
+  };
 
   const getStep = () => {
     switch (selectSteps) {
@@ -158,33 +148,34 @@ export default function CreateClub() {
         return <GoogleCalendar setSchedule={setSchedule} setSelectSteps={setSelectSteps} />;
       case 3:
         return <InputPrice setPrice={setPrice} setSelectSteps={setSelectSteps} />;
-        case 4:
-          return <button onClick={() => submitForm()}>SAVE TEAM</button>;
+      case 4:
+        return <button onClick={() => submitForm()}>SAVE TEAM</button>;
 
       default:
-        return <CreateClubForm
-        setSelectSteps={setSelectSteps}
-        setClubName={setClubName}
-        setDiscipline={setDiscipline}
-        setDescription={setDescription}
-        setLogo={setLogo}
-        setEmailContact={setEmailContact}
-        setAddress={setAddress}
-        setCity={setCity}
-        setLatitude={setLatitude}
+        return (
+          <CreateClubForm
+            setSelectSteps={setSelectSteps}
+            setClubName={setClubName}
+            setDiscipline={setDiscipline}
+            setDescription={setDescription}
+            setLogo={setLogo}
+            setEmailContact={setEmailContact}
+            setAddress={setAddress}
+            setCity={setCity}
+            setLatitude={setLatitude}
             setLongitude={setLongitude}
-        setPostalCode={setPostalCode}
-        setCounty={setCounty}
-        setNumber={setNumber}
-        setKids={setKids}
-        kids={kids}
-        city={city}
-        postalCode={postalCode}
-        county={county}
-      />;
+            setPostalCode={setPostalCode}
+            setCounty={setCounty}
+            setNumber={setNumber}
+            setKids={setKids}
+            kids={kids}
+            city={city}
+            postalCode={postalCode}
+            county={county}
+          />
+        );
     }
   };
-
 
   return (
     <div className="container mt-8 lg:w-full">

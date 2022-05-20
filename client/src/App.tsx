@@ -36,9 +36,14 @@ import Footer from './components/UI/Footer';
 import StripeSuccess from './pages/Stripe-Sucess';
 import StripeCancel from './pages/Stripe-cancel';
 import Account from './pages/Account';
-import Pro from './pages/Plans/Pro';
+import Pro from './pages/AccountPro/Pro';
 import Teams from './pages/Teams';
 import TeamPage from './pages/TeamPage';
+import SetupAccount from './pages/Setup-account';
+import CreateProduct from './pages/Create-product';
+import Payment from './pages/AccountPro/Payment';
+import Balance from './pages/AccountPro/Balance';
+import HomePro from './pages/AccountPro/HomePro';
 
 const App = () => {
   const [user, setUser] = useState<User>({
@@ -106,8 +111,14 @@ const App = () => {
         <Route path="/pricing" element={<Pricing User={user} />} />
         <Route path="/stripe/success" element={<StripeSuccess />} />
         <Route path="/stripe/cancel" element={<StripeCancel />} />
-        <Route path="/pro" element={<Pro />} />
+        <Route path="/pro" element={<Pro />}>
+          <Route path="payment" element={<Payment />} />
+          <Route path="home" element={<HomePro />} />
+          <Route path="balance" element={<Balance />} />
+        </Route>
         <Route path="/teams" element={<Teams />} />
+        <Route path="/setup-account" element={<SetupAccount />} />
+        <Route path="/create-product" element={<CreateProduct />} />
         <Route path="/team/:id" element={<TeamPage />} />
         {/* @ts-ignore */}
         <Route path="/success" element={<SuccessDisplay />} />

@@ -112,6 +112,12 @@ const TeamSchema = new mongoose.Schema({
     max: 100,
     min: 6,
   },
+  disciplinePrices: {
+    type: Array,
+  },
+  payments: {
+    type: Array,
+  },
 })
 
 const Team = mongoose.model("Team", TeamSchema)

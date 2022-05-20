@@ -18,11 +18,25 @@ interface IUser {
   password: string;
   postalCode: string;
   _id: string;
+  paymentStatus: Array<object>;
+}
+
+interface IPaymentStatus {
+  paymentStatus: {
+    checkoutcompleted: {
+      amount_total: number;
+      payment_status: string;
+      id: number;
+      payment_intent: string;
+    };
+  }[];
 }
 
 function Account() {
   const [subscriptions, setSubscriptions] = useState([]);
+  const [customerBalance, setCustomerBalance] = useState([]);
   const [user, setUser] = useState<IUser>();
+  const [userInfos, setUserInfos] = useState<IPaymentStatus>();
   const history = useNavigate();
 
   const manageSubscriptions = async () => {
@@ -33,10 +47,8 @@ function Account() {
     window.open(data);
   };
 
-  console.log(user);
-
-  const background =
-    'https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80';
+  // //@ts-ignore
+  // console.log(user?.paymentStatus[0].paymentIntent);
 
   //@ts-ignore
   const oneSub = subscriptions.filter((item) => item.customer === user?.billingID);
@@ -49,13 +61,34 @@ function Account() {
   useEffect(() => {
     const getSubscriptions = async () => {
       const { data } = await axios.get('/subscriptions');
-      console.log('subs => ', data);
       setSubscriptions(data.data);
     };
 
     //  if (state && state.token)
     getSubscriptions();
   }, [user]);
+
+  useEffect(() => {
+    const getCustomerBalance = async () => {
+      const { data } = await axios.get(`/customer/balance/${user?.billingID}`);
+      setCustomerBalance(data);
+    };
+
+    //  if (state && state.token)
+    getCustomerBalance();
+  }, [user]);
+
+  useEffect(() => {
+    const getUserInfos = async () => {
+      const { data } = await axios.get(`/user/user/${user?._id}`);
+      setUserInfos(data);
+    };
+
+    //  if (state && state.token)
+    getUserInfos();
+  }, [user]);
+
+  console.log(userInfos?.paymentStatus);
 
   return (
     <>
@@ -82,7 +115,7 @@ function Account() {
                   <img
                     alt="..."
                     src={user?.avatar}
-                    className="shadow-xl ml-12 mt-8 rounded-full h-auto align-middle border-none  -m-16 
+                    className="shadow-xl ml-12 mt-8 rounded-full h-24 align-middle border-none  -m-16 
                      max-w-150-px"
                   />
                 </div>
@@ -113,7 +146,7 @@ function Account() {
                   <div className="w-full lg:w-9/12 px-4">
                     <pre className="mx-12 my-12">
                       {subscriptions &&
-                        oneSub.slice(0, 1).map((sub) => (
+                        oneSub.map((sub) => (
                           // @ts-ignore
                           <div key={sub.id}>
                             <section>
@@ -141,14 +174,17 @@ function Account() {
                                   .format('dddd, D MMMM YYYY')
                                   .toString()}
                               </p>
-                              <button
-                                onClick={() =>
-                                  // @ts-ignore */
-                                  history(`/${sub.plan.nickname.toLowerCase()}`)
-                                }
-                                className="bg-black text-white py-4 px-4 border border-black">
-                                Accéder
-                              </button>{' '}
+                              {/*  @ts-ignore */}
+                              {sub.plan.nickname === 'PRO' && (
+                                <button
+                                  onClick={() =>
+                                    // @ts-ignore */
+                                    history(`/${sub.plan.nickname.toLowerCase()}`)
+                                  }
+                                  className="bg-black text-white py-4 px-4 border border-black">
+                                  Accéder
+                                </button>
+                              )}{' '}
                               <button
                                 onClick={manageSubscriptions}
                                 className="bg-red-400 py-4 px-4 border border-black">
@@ -158,40 +194,32 @@ function Account() {
                           </div>
                         ))}
                     </pre>
+                    <pre className="mx-12 my-12">
+                      {userInfos?.paymentStatus.map((sub) => (
+                        <div key={sub?.checkoutcompleted?.id}>
+                          <section>
+                            <hr />
+                            <h5>
+                              {/*  @ts-ignore */}
+                              Amount: {/*  @ts-ignore */}
+                              {sub?.checkoutcompleted?.amount_total / 100} €
+                            </h5>
+                            {/*  @ts-ignore */}
+                            <p>Statut: {sub?.checkoutcompleted?.payment_status}</p>
+                            <p>
+                              Période: {/*  @ts-ignore */}
+                              {sub?.paymentIntent?.created}
+                            </p>
+                          </section>
+                        </div>
+                      ))}
+                    </pre>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <footer className=" bg-blueGray-200 pt-8 pb-6 mt-8">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-wrap items-center md:justify-between justify-center">
-              <div className="w-full md:w-6/12 px-4 mx-auto text-center">
-                <div className="text-sm text-blueGray-500 font-semibold py-1">
-                  Made with{' '}
-                  <a
-                    rel="noreferrer"
-                    href="https://www.creative-tim.com/product/notus-js"
-                    className="text-blueGray-500 hover:text-gray-800"
-                    target="_blank">
-                    Notus JS
-                  </a>{' '}
-                  by{' '}
-                  <a
-                    href="https://www.creative-tim.com"
-                    className="text-blueGray-500 hover:text-blueGray-800"
-                    rel="noreferrer"
-                    target="_blank">
-                    {' '}
-                    Creative Tim
-                  </a>
-                  .
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
       </section>
     </>
   );

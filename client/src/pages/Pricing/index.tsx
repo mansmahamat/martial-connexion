@@ -1,5 +1,10 @@
-import React, { SVGProps } from 'react';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import React, { SVGProps, useContext, useEffect, useState } from 'react';
 import { CheckIcon } from '@heroicons/react/outline';
+import { UserContext } from '../../context';
+import PricesTypes from '../../types/PricesTypes';
+import axios from 'axios';
+import PricingTable from '../../components/UI/Princing';
 
 const pricing = {
   tiers: [
@@ -78,6 +83,52 @@ function classNames(...classes: string[]) {
 }
 
 export default function Pricing({ User }: Props) {
+  const [prices, setPrices] = useState<PricesTypes[]>([]);
+  const [tablePrices, setTablePrices] = useState([]);
+  const [state] = useContext(UserContext);
+  const [userSubscriptions, setUserSubscriptions] = useState([]);
+  const proPriceID = 'price_1KTRrDLXQl0DCJw65Yg1XV5R';
+  const freePriceID = 'price_1KTRqULXQl0DCJw61tfhAiOv';
+
+  console.log(tablePrices);
+
+  useEffect(() => {
+    fetchProPrices();
+    fetchFreePrices();
+  }, []);
+
+  const fetchPrices = async () => {
+    const { data } = await axios.get('http://localhost:8080/api/prices');
+    setPrices(data);
+  };
+
+  const fetchProPrices = async () => {
+    const { data } = await axios.get(`http://localhost:8080/api/price/${proPriceID}`);
+    //@ts-ignore
+    setTablePrices((tablePrices) => [...tablePrices, data]);
+  };
+
+  const fetchFreePrices = async () => {
+    const { data } = await axios.get(`http://localhost:8080/api/price/${freePriceID}`);
+    //@ts-ignore
+    setTablePrices((tablePrices) => [...tablePrices, data]);
+  };
+
+  useEffect(() => {
+    //@ts-ignore
+    const result = [];
+    const check = () =>
+      state &&
+      state.subscriptions &&
+      //@ts-ignore
+      state.subscriptions.map((sub) => {
+        result.push(sub.plan.id);
+      });
+    check();
+    //@ts-ignore
+    setUserSubscriptions(result);
+  }, [state]);
+
   return (
     <div className="bg-white">
       {/* Header and Page Header */}
@@ -97,6 +148,8 @@ export default function Pricing({ User }: Props) {
           </div>
         </div>
       </div>
+
+      <PricingTable User={User} prices={tablePrices} />
 
       <main>
         {/* Pricing Section */}

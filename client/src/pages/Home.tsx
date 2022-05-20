@@ -23,34 +23,6 @@ type Props = {
 };
 
 function Home({ User }: Props) {
-  const [prices, setPrices] = useState<PricesTypes[]>([]);
-  const [state] = useContext(UserContext);
-  const [userSubscriptions, setUserSubscriptions] = useState([]);
-
-  useEffect(() => {
-    fetchPrices();
-  }, []);
-
-  const fetchPrices = async () => {
-    const { data } = await axios.get('http://localhost:8080/api/prices');
-    setPrices(data.slice(2, 4));
-  };
-
-  useEffect(() => {
-    //@ts-ignore
-    const result = [];
-    const check = () =>
-      state &&
-      state.subscriptions &&
-      //@ts-ignore
-      state.subscriptions.map((sub) => {
-        result.push(sub.plan.id);
-      });
-    check();
-    //@ts-ignore
-    setUserSubscriptions(result);
-  }, [state]);
-
   return (
     <div className="">
       <Hero />
