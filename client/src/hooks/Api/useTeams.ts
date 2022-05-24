@@ -14,10 +14,7 @@ import getTeamsTypes from '../../types/getTeamsTypes';
 //   return data;
 // };
 
-// //@ts-ignore
-// export function useCreateFighter(FormData) {
-//   return useMutation(() => createFighter(FormData));
-// }
+
 
 
 const getTeams = async () => {
