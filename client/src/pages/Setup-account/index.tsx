@@ -17,7 +17,7 @@ function SetupAccount() {
 
   useEffect(() => {
     const getSubscriptionStatus = async () => {
-      const { data } = await axios.post('/complete-profile', {
+      const { data } = await axios.post(`${process.env.REACT_APP_SERVER}/complete-profile`, {
         //@ts-ignore
         accountId: user?.accountId
       });

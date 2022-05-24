@@ -98,18 +98,18 @@ export default function Pricing({ User }: Props) {
   }, []);
 
   const fetchPrices = async () => {
-    const { data } = await axios.get('http://localhost:8080/api/prices');
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/api/prices`);
     setPrices(data);
   };
 
   const fetchProPrices = async () => {
-    const { data } = await axios.get(`http://localhost:8080/api/price/${proPriceID}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/api/price/${proPriceID}`);
     //@ts-ignore
     setTablePrices((tablePrices) => [...tablePrices, data]);
   };
 
   const fetchFreePrices = async () => {
-    const { data } = await axios.get(`http://localhost:8080/api/price/${freePriceID}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/api/price/${freePriceID}`);
     //@ts-ignore
     setTablePrices((tablePrices) => [...tablePrices, data]);
   };

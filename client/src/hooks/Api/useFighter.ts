@@ -22,7 +22,7 @@ import GetFighterTypes from '../../types/CreateFighterTypes';
 
 const getFighter = async (id: string): Promise<GetFighterTypes> => {
   const { data } = await axios.get<GetFighterTypes>(
-    `/api/fighters/${id}`
+    `${process.env.REACT_APP_SERVER}/api/fighters/${id}`
   );
 
   return data;

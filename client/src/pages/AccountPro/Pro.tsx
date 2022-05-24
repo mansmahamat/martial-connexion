@@ -67,7 +67,9 @@ export default function Example({ history }: any) {
 
   useEffect(() => {
     const getBalance = async () => {
-      const { data } = await axios.get(`/gym/balance/${user?.accountId}`);
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_SERVER}/gym/balance/${user?.accountId}`
+      );
       setBalance(data);
     };
 
@@ -78,7 +80,9 @@ export default function Example({ history }: any) {
 
   useEffect(() => {
     const getAccountInfos = async () => {
-      const { data } = await axios.get(`/account/${user?.accountId}`);
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_SERVER}/account/${user?.accountId}`
+      );
       setAccount(data);
     };
 

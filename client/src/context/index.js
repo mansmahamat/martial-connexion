@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { useState, useEffect, createContext } from 'react';
 import axios from 'axios';
@@ -19,14 +20,14 @@ const UserProvider = ({ children }) => {
   }, []);
 
   const getCustomerInfo = async () => {
-    const { data } = await axios.get(`/team/${state?.teamId}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/team/${state?.teamId}`);
     localStorage.setItem('team', JSON.stringify(data));
     setTeam(JSON.parse(localStorage.getItem('team')));
   };
 
   useEffect(() => {
     async function fetchMyAPI() {
-      const { data } = await axios.get(`/team/${state?.teamId}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/team/${state?.teamId}`);
       console.log(data);
       localStorage.setItem('team', JSON.stringify(data));
       setTeam(JSON.parse(localStorage.getItem('team')));

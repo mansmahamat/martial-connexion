@@ -58,7 +58,7 @@ function PricingTable({ prices, User }: Props) {
     if (authToken) {
       console.log('plan clicked', price);
 
-      const { data } = await axios.post('/create-subscription', {
+      const { data } = await axios.post(`${process.env.REACT_APP_SERVER}/create-subscription`, {
         priceId: price.id,
         email: User?.email
       });

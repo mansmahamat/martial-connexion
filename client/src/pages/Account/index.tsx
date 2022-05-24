@@ -47,7 +47,7 @@ function Account() {
   //@ts-ignore
 
   const manageSubscriptions = async () => {
-    const { data } = await axios.post('/customer-portal', {
+    const { data } = await axios.post(`${process.env.REACT_APP_SERVER}/customer-portal`, {
       //@ts-ignore
       user: user
     });
@@ -64,7 +64,7 @@ function Account() {
 
   useEffect(() => {
     const getSubscriptions = async () => {
-      const { data } = await axios.get('/subscriptions');
+      const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/subscriptions`);
       setSubscriptions(data.data);
     };
 
@@ -74,7 +74,9 @@ function Account() {
 
   useEffect(() => {
     const getCustomerBalance = async () => {
-      const { data } = await axios.get(`/customer/balance/${user?.billingID}`);
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_SERVER}/customer/balance/${user?.billingID}`
+      );
       setCustomerBalance(data);
     };
 
@@ -84,7 +86,7 @@ function Account() {
 
   useEffect(() => {
     const getUserInfos = async () => {
-      const { data } = await axios.get(`/user/user/${user?._id}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/user/user/${user?._id}`);
       setUserInfos(data);
       localStorage.setItem('user', JSON.stringify(data));
     };
