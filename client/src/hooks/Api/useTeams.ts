@@ -9,9 +9,6 @@ import getTeamsTypes from '../../types/getTeamsTypes';
 // const createFighter = async (FormData): Promise<CreateFighterTypes> => {
 //   const { data } = await axios.post('http://localhost:8080/api/fighter', FormData);
 
-//   localStorage.setItem('fighter', JSON.stringify(data.user));
-
-//   return data;
 // };
 
 
