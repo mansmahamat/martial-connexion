@@ -14,8 +14,8 @@ function Teams() {
   const [searchInput, setSearchInput] = useState('');
   const [filteredResults, setFilteredResults] = useState([]);
 
-  const dataLimit = 2;
-  const pageLimit = 3;
+  const dataLimit = 4;
+  const pageLimit = 1;
   //@ts-ignore
   const [pages] = useState(Math.round(data?.length / dataLimit));
   const [currentPage, setCurrentPage] = useState(1);

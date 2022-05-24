@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* This example requires Tailwind CSS v2.0+ */
 import React, { Fragment, useContext } from 'react';
@@ -61,7 +62,9 @@ export default function Navbar({ User }: Props) {
     { name: 'Mon profil', href: `/account` },
     { name: 'Settings', href: '#' }
   ];
-  const [authToken] = useContext(UserContext);
+  const context = useContext(UserContext);
+
+  console.log(context?.state);
 
   return (
     <Disclosure as="nav" className=" bg-black ">
@@ -112,14 +115,38 @@ export default function Navbar({ User }: Props) {
                 </div>
               </div>
               <div className="flex items-center">
-                <div className="flex-shrink-0 flex ">
-                  <Link
-                    to="/create-club"
-                    className="relative hover:text-white inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-black bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-red-500">
-                    <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-                    <span>Enrengistrer mon club</span>
-                  </Link>
-                </div>
+                {!context?.state && (
+                  <div className="flex-shrink-0 flex ">
+                    <Link
+                      to="/login"
+                      className="relative hover:text-white inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-black bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-red-500">
+                      <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+                      <span>Se connecter</span>
+                    </Link>
+                  </div>
+                )}
+
+                {!context?.state && (
+                  <div className="flex-shrink-0 mx-2 flex ">
+                    <Link
+                      to="/register"
+                      className="relative hover:text-white inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-black bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-red-500">
+                      <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+                      <span>S'inscrire</span>
+                    </Link>
+                  </div>
+                )}
+
+                {!context?.state?.isTeam && (
+                  <div className="flex-shrink-0 flex ">
+                    <Link
+                      to="/create-club"
+                      className="relative hover:text-white inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-black bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-red-500">
+                      <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+                      <span>Enrengistrer mon club</span>
+                    </Link>
+                  </div>
+                )}
                 <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
                   <button
                     type="button"
@@ -164,6 +191,23 @@ export default function Navbar({ User }: Props) {
                             )}
                           </Menu.Item>
                         ))}
+                        {context?.state?.isTeam && (
+                          <Menu.Item>
+                            {/* @ts-ignore */}
+                            {({ active }) => (
+                              <Link to="/create-product">
+                                <span
+                                  // onClick={() => logoutHandler()}
+                                  className={classNames(
+                                    active ? 'bg-gray-100' : '',
+                                    'block px-4 py-2 text-sm text-gray-700'
+                                  )}>
+                                  Créer prix/discipline
+                                </span>
+                              </Link>
+                            )}
+                          </Menu.Item>
+                        )}
                         <Menu.Item>
                           {/* @ts-ignore */}
                           {({ active }) => (

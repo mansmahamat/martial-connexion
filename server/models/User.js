@@ -123,6 +123,12 @@ const userSchema = new mongoose.Schema({
   invoicesFailed: {
     type: Object,
   },
+  teamId: {
+    type: String,
+    required: false,
+    max: 1024,
+    min: 2,
+  },
 })
 
 userSchema.pre("save", async function (next) {

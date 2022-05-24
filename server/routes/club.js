@@ -67,7 +67,7 @@ router.post("/team", upload.single("logo"), async (req, res) => {
 
     user = await User.findOneAndUpdate(
       { _id: req.body.userId },
-      { isTeam: true },
+      { isTeam: true, teamId: team._id },
       {
         useFindAndModify: false,
       }

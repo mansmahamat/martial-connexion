@@ -46,15 +46,15 @@ function TeamPage() {
       <div className="min-h-full">
         <main className="py-10">
           {/* Page header */}
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
+          <div className="max-w-3xl mx-auto mb-12 px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
             <div className="flex items-center space-x-5">
               <div className="flex-shrink-0">
-                <div className="relative">
+                <div className="relative ">
                   <img
-                    className="h-16 w-16 rounded-full"
+                    className="h-20  w-20  rounded-full"
                     //@ts-ignore
                     src={data?.logo}
-                    alt=""
+                    alt={data?.logo}
                   />
                   <span className="absolute inset-0 shadow-inner rounded-full" aria-hidden="true" />
                 </div>
@@ -62,23 +62,11 @@ function TeamPage() {
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">{data?.clubName}</h1>
                 <p className="text-sm font-medium text-gray-500">{data?.address}</p>
+                <p className="text-sm font-medium text-gray-500">{data?.city}</p>
                 <p className="text-sm font-medium text-gray-500">
-                  {data?.city}, {data?.county}
+                  {data?.postalCode}, {data?.county}
                 </p>
-                <p className="text-sm font-medium text-gray-500">{data?.postalCode}</p>
               </div>
-            </div>
-            <div className="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
-              <button
-                type="button"
-                className="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
-                Disqualify
-              </button>
-              <button
-                type="button"
-                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500">
-                Advance to offer
-              </button>
             </div>
           </div>
 
@@ -116,8 +104,8 @@ function TeamPage() {
                   <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
                     <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                       <div className="sm:col-span-1">
-                        <dt className="text-sm font-medium text-gray-500">numero</dt>
-                        <dd className="mt-1 text-sm text-gray-900"> {data?.number}</dd>
+                        <dt className="text-sm font-medium text-gray-500">Numéro de téléphone</dt>
+                        <dd className="mt-1 text-sm text-gray-900"> +33 {data?.number}</dd>
                       </div>
                       <div className="sm:col-span-1">
                         <dt className="text-sm font-medium text-gray-500">Email address</dt>
@@ -236,64 +224,7 @@ function TeamPage() {
                 </div>
               </section>
             </div>
-            {/* <section aria-labelledby="timeline-title" className="lg:col-start-3 lg:col-span-1">
-            <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
-              <h2 id="timeline-title" className="text-lg font-medium text-gray-900">
-                Timeline
-              </h2>
 
-             
-              <div className="mt-6 flow-root">
-                <ul role="list" className="-mb-8">
-                  {timeline.map((item, itemIdx) => (
-                    <li key={item.id}>
-                      <div className="relative pb-8">
-                        {itemIdx !== timeline.length - 1 ? (
-                          <span
-                            className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
-                            aria-hidden="true"
-                          />
-                        ) : null}
-                        <div className="relative flex space-x-3">
-                          <div>
-                            <span
-                              className={classNames(
-                                item.type.bgColorClass,
-                                'h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white'
-                              )}
-                            >
-                              <item.type.icon className="w-5 h-5 text-white" aria-hidden="true" />
-                            </span>
-                          </div>
-                          <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
-                            <div>
-                              <p className="text-sm text-gray-500">
-                                {item.content}{' '}
-                                <a href="#" className="font-medium text-gray-900">
-                                  {item.target}
-                                </a>
-                              </p>
-                            </div>
-                            <div className="text-right text-sm whitespace-nowrap text-gray-500">
-                              <time dateTime={item.datetime}>{item.date}</time>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-6 flex flex-col justify-stretch">
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                  Advance to offer
-                </button>
-              </div>
-            </div>
-          </section>  */}
             <div className=" w-full overflow-scroll">
               <TeamCalendar events={events} />
             </div>

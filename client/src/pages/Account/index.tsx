@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { MailIcon, PhoneIcon } from '@heroicons/react/solid';
 import axios from 'axios';
 import { json } from 'stream/consumers';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../context';
+import { useGetUser } from '../../hooks/Api/useAuth';
 
 interface IUser {
   avatar: string;
@@ -28,6 +30,7 @@ interface IPaymentStatus {
       payment_status: string;
       id: number;
       payment_intent: string;
+      expires_at: number;
     };
   }[];
 }
@@ -38,6 +41,10 @@ function Account() {
   const [user, setUser] = useState<IUser>();
   const [userInfos, setUserInfos] = useState<IPaymentStatus>();
   const history = useNavigate();
+
+  const context = useContext(UserContext);
+
+  //@ts-ignore
 
   const manageSubscriptions = async () => {
     const { data } = await axios.post('/customer-portal', {
@@ -79,6 +86,7 @@ function Account() {
     const getUserInfos = async () => {
       const { data } = await axios.get(`/user/user/${user?._id}`);
       setUserInfos(data);
+      localStorage.setItem('user', JSON.stringify(data));
     };
 
     //  if (state && state.token)
@@ -191,27 +199,57 @@ function Account() {
                           </div>
                         ))}
                     </pre>
+
+                    {userInfos?.paymentStatus && (
+                      <pre className="mx-12 my-12">
+                        {userInfos?.paymentStatus?.map((sub) => (
+                          <div key={sub?.checkoutcompleted?.id}>
+                            {sub?.checkoutcompleted?.amount_total && (
+                              <section>
+                                <hr />
+                                <h5>
+                                  Montant:
+                                  {sub?.checkoutcompleted?.amount_total / 100} €
+                                </h5>
+                                <p>
+                                  Statut:
+                                  {sub?.checkoutcompleted?.payment_status === 'paid'
+                                    ? 'Payé'
+                                    : 'Impayé'}
+                                </p>
+                                <p>
+                                  Date du paiement:
+                                  {moment
+                                    .unix(sub?.checkoutcompleted.expires_at)
+                                    .format('DD/MM/YYYY')}
+                                </p>
+                                {/* {sub?.checkoutcompleted?.payment_intent} */}
+                              </section>
+                            )}
+                          </div>
+                        ))}
+                      </pre>
+                    )}
+                  </div>
+
+                  {context?.team?.disciplinePrices && (
                     <pre className="mx-12 my-12">
-                      {userInfos?.paymentStatus.map((sub) => (
-                        <div key={sub?.checkoutcompleted?.id}>
+                      <h4 className="text-red-800">Discipline</h4>
+                      {context?.team?.disciplinePrices?.map((sub: any) => (
+                        <div key={sub?._id}>
                           <section>
                             <hr />
                             <h5>
                               {/*  @ts-ignore */}
-                              Amount: {/*  @ts-ignore */}
-                              {sub?.checkoutcompleted?.amount_total / 100} €
+                              Amount: {sub?.discipline}
                             </h5>
                             {/*  @ts-ignore */}
-                            <p>Statut: {sub?.checkoutcompleted?.payment_status}</p>
-                            <p>
-                              Période: {/*  @ts-ignore */}
-                              {sub?.paymentIntent?.created}
-                            </p>
+                            <p>Statut: {sub?.price} € </p>
                           </section>
                         </div>
                       ))}
                     </pre>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>

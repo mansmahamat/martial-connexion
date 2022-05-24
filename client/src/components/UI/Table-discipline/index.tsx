@@ -53,7 +53,7 @@ function TableDiscipline({ prices, accountId, userEmail, customerId, userName }:
                           className="text-red-500 font-bold"
                           id="checkout-and-portal-button"
                           type="submit">
-                          Payer {customerId}
+                          Payer ma licence
                         </button>
                       </form>
                     </td>

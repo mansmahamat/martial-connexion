@@ -1,12 +1,14 @@
 import React from 'react';
 import { useState, useEffect, createContext } from 'react';
 import axios from 'axios';
+import { useGetTeamByID } from '../hooks/Api/useTeams';
 
 const UserContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 const UserProvider = ({ children }) => {
-  const [state, setState] = useState({});
+  const [state, setState] = useState();
+  const [team, setTeam] = useState();
 
   // const [authToken, setAuthToken] = useState({
   //   token: ''
@@ -16,18 +18,29 @@ const UserProvider = ({ children }) => {
     setState(JSON.parse(localStorage.getItem('user')));
   }, []);
 
-  console.log(state);
+  const getCustomerInfo = async () => {
+    const { data } = await axios.get(`/team/${state?.teamId}`);
+    localStorage.setItem('team', JSON.stringify(data));
+    setTeam(JSON.parse(localStorage.getItem('team')));
+  };
 
-  // useEffect(() => {
-  //   setAuthToken(localStorage.getItem('authToken'));
-  // }, []);
+  useEffect(() => {
+    async function fetchMyAPI() {
+      const { data } = await axios.get(`/team/${state?.teamId}`);
+      console.log(data);
+      localStorage.setItem('team', JSON.stringify(data));
+      setTeam(JSON.parse(localStorage.getItem('team')));
+    }
+
+    fetchMyAPI();
+  }, [state]);
 
   // axios config
   // const token = authToken && authToken ? authToken : '';
   axios.defaults.baseURL = 'http://localhost:8080/api';
   // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-  return <UserContext.Provider value={[state, setState]}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ state, team }}>{children}</UserContext.Provider>;
 };
 
 export { UserContext, UserProvider };

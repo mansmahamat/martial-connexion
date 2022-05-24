@@ -72,6 +72,5 @@ const getUser = async (id: string) => {
 
 export function useGetUser(id: string) {
   return useQuery(["getUser"], () => getUser(id), {
-    retry: 8,
   })
 }

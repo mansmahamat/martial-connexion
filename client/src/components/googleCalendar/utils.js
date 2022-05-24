@@ -8,43 +8,14 @@ import moment from 'moment';
 export const getAllDaysInTheWeek = (currentDate = moment()) => {
   const weekStart = currentDate.clone().startOf('week');
 
-  const days = [
-    {
-      date: 2,
-      dateStamp: 1651442400000,
-      weekDayName: 'Lundi'
-    },
-    {
-      date: 3,
-      dateStamp: 1651528800000,
-      weekDayName: 'Mardi'
-    },
-    {
-      date: 4,
-      dateStamp: 1651615200000,
-      weekDayName: 'Mercredi'
-    },
-    {
-      date: 5,
-      dateStamp: 1651701600000,
-      weekDayName: 'Jeudi'
-    },
-    {
-      date: 6,
-      dateStamp: 1651788000000,
-      weekDayName: 'Vendredi'
-    },
-    {
-      date: 7,
-      dateStamp: 1651874400000,
-      weekDayName: 'Samedi'
-    },
-    {
-      date: 1,
-      dateStamp: 1651356000000,
-      weekDayName: 'Dimanche'
-    }
-  ];
+  const days = Array.from(Array(7))
+    .map((day, index) => index)
+    .map((day) => moment(weekStart).add(day, 'days').set('minutes', 0).set('seconds', 0))
+    .map((momentObj) => ({
+      date: momentObj.date(),
+      dateStamp: +momentObj,
+      weekDayName: momentObj.format('ddd')
+    }));
 
   return days;
 };
@@ -122,13 +93,13 @@ export const generateWeekViewCoordinates = (event, startDate) => {
   };
 };
 
-// /**
-//  * Checks if the dateStamp represents todays date
-//  * @param {dateStamp} dateStamp - Date Stamp to check
-//  * @return {boolean}
-//  */
-// export const isTodaysDate = (dateStamp) => {
-//   const today = moment();
-//   dateStamp = moment(dateStamp);
-//   return moment.duration(dateStamp.diff(today)).days() === 0 && today.day() === dateStamp.day();
-// };
+/**
+ * Checks if the dateStamp represents todays date
+ * @param {dateStamp} dateStamp - Date Stamp to check
+ * @return {boolean}
+ */
+export const isTodaysDate = (dateStamp) => {
+  const today = moment();
+  dateStamp = moment(dateStamp);
+  return moment.duration(dateStamp.diff(today)).days() === 0 && today.day() === dateStamp.day();
+};

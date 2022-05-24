@@ -13,13 +13,12 @@ import GetFighterTypes from '../../types/CreateFighterTypes';
 const steps = [
   { id: 1, name: 'Club informations', href: '#', status: 'complete' },
   { id: 2, name: 'Planning', href: '#', status: 'current' },
-  { id: 3, name: 'Price', href: '#', status: 'upcoming' },
-  { id: 4, name: 'Create', href: '#', status: 'upcoming' }
+  { id: 3, name: 'Create', href: '#', status: 'upcoming' }
 ];
 
 export default function CreateClub() {
   const [user, setUser] = useState<GetFighterTypes>();
-  const [selectSteps, setSelectSteps] = useState<number>(4);
+  const [selectSteps, setSelectSteps] = useState<number>(1);
   const [clubName, setClubName] = useState<string>('');
   const [emailContact, setEmailContact] = useState<string>('');
   const [number, setNumber] = useState<number>(0);
@@ -66,6 +65,8 @@ export default function CreateClub() {
 
     return str;
   }
+
+  console.log(emailContact);
 
   const submitForm = async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -114,7 +115,7 @@ export default function CreateClub() {
           draggable: true,
           progress: undefined
         });
-        navigate('/');
+        navigate('/account');
       })
       .catch((err) => setError(err?.response?.data));
   };
@@ -146,10 +147,16 @@ export default function CreateClub() {
         );
       case 2:
         return <GoogleCalendar setSchedule={setSchedule} setSelectSteps={setSelectSteps} />;
+      // case 3:
+      //   return <InputPrice setPrice={setPrice} setSelectSteps={setSelectSteps} />;
       case 3:
-        return <InputPrice setPrice={setPrice} setSelectSteps={setSelectSteps} />;
-      case 4:
-        return <button onClick={() => submitForm()}>SAVE TEAM</button>;
+        return (
+          <button
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+            onClick={() => submitForm()}>
+            SAVE TEAM
+          </button>
+        );
 
       default:
         return (
@@ -186,20 +193,17 @@ export default function CreateClub() {
           {steps.map((step, stepIdx) => (
             <li key={step.name} className="relative md:flex-1 md:flex">
               {
-                <a
-                  href={step.href}
+                <span
                   className="px-6 py-4 flex items-center text-sm font-medium"
                   aria-current="step">
                   <span
                     className={`flex-shrink-0 w-10  h-10 flex items-center justify-center border-2 border-indigo-600 rounded-full ${
                       selectSteps === step.id ? 'bg-red-300' : ''
                     }`}>
-                    <span className="text-indigo-600" onClick={() => setSelectSteps(step.id)}>
-                      {step.id}
-                    </span>
+                    <span className="text-indigo-600">{step.id}</span>
                   </span>
                   <span className="ml-4 text-sm font-medium text-indigo-600">{step.name}</span>
-                </a>
+                </span>
               }
 
               {stepIdx !== steps.length - 1 ? (
