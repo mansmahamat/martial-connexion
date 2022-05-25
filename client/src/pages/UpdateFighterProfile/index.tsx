@@ -78,7 +78,7 @@ function UpdateFighterProfile() {
     formaData.append('discipline', values.discipline);
 
     await axios
-      .patch(`http://localhost:8080/api/fighter/${id}`, formaData)
+      .patch(`${process.env.REACT_APP_SERVER}/fighter/${id}`, formaData)
       .then((res) => {
         const user = {
           //@ts-ignore

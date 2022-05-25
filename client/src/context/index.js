@@ -38,7 +38,7 @@ const UserProvider = ({ children }) => {
 
   // axios config
   // const token = authToken && authToken ? authToken : '';
-  axios.defaults.baseURL = 'http://localhost:8080/api';
+  // axios.defaults.baseURL = 'http://localhost:8080/api';
   // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
   return <UserContext.Provider value={{ state, team }}>{children}</UserContext.Provider>;
