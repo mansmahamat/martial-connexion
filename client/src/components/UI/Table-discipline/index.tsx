@@ -36,7 +36,9 @@ function TableDiscipline({ prices, accountId, userEmail, customerId, userName }:
                     </td>
 
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <form action="/create-payment-products" method="POST">
+                      <form
+                        action={`${process.env.REACT_APP_SERVER_INDEX}/create-payment-products`}
+                        method="POST">
                         <input
                           type="hidden"
                           id="pricesId"

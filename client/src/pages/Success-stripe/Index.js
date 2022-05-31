@@ -3,7 +3,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-
 export const SuccessDisplay = ({ sessionId }) => {
   return (
     <section>
@@ -13,7 +12,7 @@ export const SuccessDisplay = ({ sessionId }) => {
           <h3>Subscription to starter plan successful!</h3>
         </div>
       </div>
-      <form action="/create-portal-session" method="POST">
+      <form action={`${process.env.REACT_APP_SERVER_INDEX}/create-portal-session`} method="POST">
         <input type="hidden" id="session-id" name="session_id" value={sessionId} />
         <button id="checkout-and-portal-button" type="submit">
           Manage your billing information

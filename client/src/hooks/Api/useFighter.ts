@@ -5,19 +5,6 @@ import GetFighterTypes from '../../types/CreateFighterTypes';
 
 
 
-// //@ts-ignore
-// const createFighter = async (FormData): Promise<CreateFighterTypes> => {
-//   const { data } = await axios.post('http://localhost:8080/api/fighter', FormData);
-
-//   localStorage.setItem('fighter', JSON.stringify(data.user));
-
-//   return data;
-// };
-
-// //@ts-ignore
-// export function useCreateFighter(FormData) {
-//   return useMutation(() => createFighter(FormData));
-// }
 
 
 const getFighter = async (id: string): Promise<GetFighterTypes> => {
