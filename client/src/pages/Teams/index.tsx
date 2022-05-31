@@ -7,6 +7,7 @@ import { FiHeart } from 'react-icons/fi';
 import { HiChevronDoubleRight } from 'react-icons/hi';
 import MapHomeTeams from '../../components/UI/Map-home-teams';
 import Pagination from '../../components/UI/Pagination';
+import { ToastContainer } from 'react-toastify';
 
 function Teams() {
   const { data, isLoading, isError } = useGetTeams();
@@ -79,6 +80,7 @@ function Teams() {
 
   return (
     <>
+      <ToastContainer />
       <main className="flex">
         <section className="flex-grow pt-14 px-6">
           <div className=" container mt-14 h-full flex flex-col  ">
@@ -188,52 +190,7 @@ function Teams() {
                       </div>
                     </div>
                   </div>
-
-                  // <li
-                  //   key={team._id}
-                  //   className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
-                  //   <div className="w-full flex items-center justify-between p-6 space-x-6">
-                  //     <div className="flex-1 truncate">
-                  //       <div className="flex justify-between space-x-3">
-                  //         <Link to={`/team/${team._id}`}>
-                  //           <h3 className="text-gray-900 text-sm font-medium truncate">{team.clubName}</h3>
-                  //         </Link>
-                  //         <img
-                  //           className="w-10 h-10 mb-4 bg-gray-300 rounded-full flex-shrink-0"
-                  //           src={team.logo}
-                  //           alt=""
-                  //         />
-                  //       </div>
-
-                  //       <div className="flex flex-col">
-                  //         {team.discipline.map((item: string, i: any) => (
-                  //           <span
-                  //             className="flex-shrink-0 inline-block px-2 mb-1 py-0.5 text-red-800 text-xs font-medium bg-red-100 rounded-full"
-                  //             key={i}>
-                  //             {' '}
-                  //             {item}
-                  //           </span>
-                  //         ))}
-                  //       </div>
-                  //       <p className="mt-4 text-sm truncate">{team.city}</p>
-                  //       <p className="mt-4  text-sm truncate">{team.address}</p>
-                  //       <p className="mt-1  text-sm truncate">{team.postalCode}</p>
-                  //     </div>
-                  //   </div>
-                  //   <div>
-                  //     <div className="-mt-px flex divide-x divide-gray-200">
-                  //       <div className="w-0 flex-1 flex">
-                  //         <div className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:">
-                  //           <Link to={`/team/${team._id}`}>
-                  //             <span className="ml-3 text-red-600 ">+ d informations</span>
-                  //           </Link>
-                  //         </div>
-                  //       </div>
-                  //     </div>
-                  //   </div>
-                  // </li>
                 ))}
-            {/* </ul> */}
             <Pagination
               goToPreviousPage={goToPreviousPage}
               getPaginationGroup={getPaginationGroup}

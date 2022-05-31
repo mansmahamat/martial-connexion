@@ -50,7 +50,7 @@ const LoginScreen = () => {
       <div className="flex-1 overflow-hidden flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
-            <h2 className="mt-6 text-3xl font-extrabold ">Sign in to your account</h2>
+            <h2 className="mt-6 text-3xl font-extrabold ">Se connecter</h2>
           </div>
 
           <div className="mt-8">
@@ -63,7 +63,7 @@ const LoginScreen = () => {
                 className="space-y-6">
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium ">
-                    Email address
+                    Email
                   </label>
                   <div className="mt-1">
                     <input
@@ -80,7 +80,7 @@ const LoginScreen = () => {
 
                 <div className="space-y-1">
                   <label htmlFor="password" className="block text-sm font-medium ">
-                    Password
+                    Mot de passe
                   </label>
                   <div className="mt-1">
                     <input
@@ -107,7 +107,7 @@ const LoginScreen = () => {
                     <div className="flex items-center justify-between">
                       <div className="text-sm">
                         <Link to="/forgotpassword" className="font-medium underline ">
-                          Forgot your password?
+                          Mot de passe oublié ?
                         </Link>
                       </div>
                     </div>
@@ -120,7 +120,7 @@ const LoginScreen = () => {
                     <Link
                       to="/register"
                       className="font-medium underline text-red-600 hover:text-red-500">
-                      Don't have an account ? Register
+                      Pas de compte ? Inscrivez-vous
                     </Link>
                   </div>
                 </div>

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 // Routing
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -44,6 +44,7 @@ import CreateProduct from './pages/Create-product';
 import Payment from './pages/AccountPro/Payment';
 import Balance from './pages/AccountPro/Balance';
 import HomePro from './pages/AccountPro/HomePro';
+import LandingGym from './pages/LandingGym/LandingGym';
 
 const App = () => {
   const [user, setUser] = useState<User>({
@@ -67,6 +68,8 @@ const App = () => {
       setUser(foundUser);
     }
   }, [window.localStorage.getItem('user')]);
+
+  const location = useLocation();
 
   return (
     <div className="h-screen">
@@ -95,7 +98,6 @@ const App = () => {
         <Route
           path="/update-fighter-profile/:id"
           element={
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             //@ts-ignore
             <PrivateRoute>
               <UpdateFighterProfile />
@@ -107,7 +109,15 @@ const App = () => {
         <Route path="/account" element={<Account />} />
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/forgotpassword" element={<ForgotPasswordScreen />} />
-        <Route path="/create-club" element={<CreateClub />} />
+        <Route
+          path="/create-club"
+          element={
+            //@ts-ignore
+            <PrivateRoute>
+              <CreateClub />
+            </PrivateRoute>
+          }
+        />
         <Route path="/pricing" element={<Pricing User={user} />} />
         <Route path="/stripe/success" element={<StripeSuccess />} />
         <Route path="/stripe/cancel" element={<StripeCancel />} />
@@ -117,6 +127,7 @@ const App = () => {
           <Route path="balance" element={<Balance />} />
         </Route>
         <Route path="/teams" element={<Teams />} />
+        <Route path="/gym/pro" element={<LandingGym />} />
         <Route path="/setup-account" element={<SetupAccount />} />
         <Route path="/create-product" element={<CreateProduct />} />
         <Route path="/team/:id" element={<TeamPage />} />

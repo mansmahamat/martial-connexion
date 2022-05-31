@@ -316,6 +316,8 @@ app.post(
       case "checkout.session.completed":
         const checkoutcompleted = event.data.object
 
+        console.log(checkoutcompleted)
+
         user = await User.findOneAndUpdate(
           { billingID: checkoutcompleted.customer },
           {

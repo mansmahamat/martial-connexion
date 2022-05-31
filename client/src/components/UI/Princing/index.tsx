@@ -43,8 +43,22 @@ type Props = {
 };
 
 function PricingTable({ prices, User }: Props) {
-  const [authToken] = useContext(UserContext);
+  const { state } = useContext(UserContext);
   const [userSubscriptions, setUserSubscriptions] = useState([]);
+
+  useEffect(() => {
+    const getSubscriptions = async () => {
+      const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/subscriptions`);
+      setUserSubscriptions(data.data);
+    };
+
+    getSubscriptions();
+  }, [state]);
+
+  //@ts-ignore
+  const oneSub = userSubscriptions?.filter((item) => item.customer === User?.state?.billingID);
+
+  console.log(oneSub);
 
   const history = useNavigate();
 
@@ -55,12 +69,12 @@ function PricingTable({ prices, User }: Props) {
       history(`/${price.nickname.toLowerCase()}`);
       return;
     }
-    if (authToken) {
-      console.log('plan clicked', price);
-
+    if (state) {
       const { data } = await axios.post(`${process.env.REACT_APP_SERVER}/create-subscription`, {
         priceId: price.id,
-        email: User?.email
+        //@ts-ignore
+        email: User?.state.email,
+        billingId: User?.billingID
       });
       window.open(data);
     } else {
@@ -69,7 +83,7 @@ function PricingTable({ prices, User }: Props) {
   };
 
   const buttonText = () => {
-    return authToken ? 'Buy the plan' : 'Sign up';
+    return state ? 'Buy the plan' : 'Sign up';
   };
 
   return (
@@ -95,8 +109,8 @@ function PricingTable({ prices, User }: Props) {
           <div className="absolute inset-0 h-3/4 bg-gray-900" />
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-md mx-auto space-y-4 lg:max-w-5xl lg:grid lg:grid-cols-2 lg:gap-5 lg:space-y-0">
-              {prices.map((tier) => (
-                <div key={tier.id} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
+              {prices.map((tier, index) => (
+                <div key={index} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
                   <div className="px-6 py-8 bg-white sm:p-10 sm:pb-6">
                     <div>
                       <h3
@@ -138,17 +152,19 @@ function PricingTable({ prices, User }: Props) {
                         <p className="ml-3 text-base text-gray-700"> Pariatur quod similique</p>
                       </li>
                     </ul>
-                    <div className="rounded-md shadow">
-                      <button
-                        onClick={() => handleSubscription(tier)}
-                        type="button"
-                        className="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
-                        aria-describedby="tier-standard">
-                        {/* @ts-ignore */}
-                        {userSubscriptions && userSubscriptions.includes(tier.id)
-                          ? 'Access plan'
-                          : buttonText()}
-                      </button>
+                    <div className="rounded-md flex justify-center">
+                      {tier.unit_amount !== 0 && (
+                        <button
+                          onClick={() => handleSubscription(tier)}
+                          type="button"
+                          className="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900"
+                          aria-describedby="tier-standard">
+                          {/* @ts-ignore */}
+                          {userSubscriptions && userSubscriptions.includes(tier.id)
+                            ? 'Access plan'
+                            : buttonText()}
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -156,9 +172,7 @@ function PricingTable({ prices, User }: Props) {
             </div>
           </div>
         </div>
-        <div className="mt-4 relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:mt-5">
-          <div className="max-w-md mx-auto lg:max-w-5xl"></div>
-        </div>
+        <div className="mt-4 relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:mt-5"></div>
       </div>
     </div>
   );

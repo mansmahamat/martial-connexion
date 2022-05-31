@@ -107,14 +107,14 @@ const RegisterScreen = () => {
   };
 
   return (
-    <div className="flex justify-center mt-32 h-full items-center ">
+    <div className="flex justify-center my-32  items-center ">
       <form
         onSubmit={(e) => {
           e.preventDefault();
           submitForm();
         }}
         className="">
-        <h1 className=" text-center font-bold text-2xl mb-1">Register</h1>
+        <h1 className=" text-center font-bold text-2xl mb-1">S'inscrire</h1>
 
         <div className="max-w-2xl rounded-lg  ">
           <div className="m-4  text-center">
@@ -128,7 +128,7 @@ const RegisterScreen = () => {
                 <button
                   onClick={removeSelectedImage}
                   className="w-full mt-4 px-4 py-2 text-white bg-red-600 rounded shadow-xl">
-                  Remove This Image
+                  Supprimer l'image
                 </button>
               </div>
             )}
@@ -156,7 +156,7 @@ const RegisterScreen = () => {
                         />
                       </svg>
                       <p className="pt-1 text-sm tracking-wider text-red-700 group-hover:text-gray-600">
-                        Attach a profile pic
+                        Selectionner une photo de profil
                       </p>
                     </div>
                     <input
@@ -174,7 +174,7 @@ const RegisterScreen = () => {
                 <button
                   onClick={removeSelectedImage}
                   className="w-full px-4 py-2 my-2 text-white bg-red-600 rounded shadow-xl">
-                  Remove This Image
+                  Supprimer l'image
                 </button>
               </>
             )}
@@ -185,7 +185,7 @@ const RegisterScreen = () => {
 
         <div>
           <label htmlFor="email" className="block text-sm font-medium ">
-            Email address
+            Email
           </label>
           <div className="mt-1">
             <input
@@ -202,7 +202,7 @@ const RegisterScreen = () => {
 
         <div className="space-y-1">
           <label htmlFor="password" className="block text-sm font-medium ">
-            Password
+            Mot de passe
           </label>
           <div className="mt-1">
             <input
@@ -232,7 +232,7 @@ const RegisterScreen = () => {
 
         <div className="space-y-1">
           <label htmlFor="password" className="block text-sm font-medium ">
-            Confirm Password
+            Confirmer le mot de passe
           </label>
           <div className="mt-1">
             <input
@@ -249,35 +249,35 @@ const RegisterScreen = () => {
         </div>
 
         <div className="mt-4 content-center">
-          <label className="ml-3 text-sm font-bold  tracking-wide">First Name</label>
+          <label className="ml-3 text-sm font-bold  tracking-wide">Prénom</label>
           <input
             className="w-full content-center text-gray-800  my-2 text-base px-4 py-2 border  border-gray-300 focus:outline-none focus:border-indigo-500"
             id="firstName"
             type="text"
             name="firstName"
             onChange={handleChange}
-            placeholder="First Name"
+            placeholder="John"
           />
           <span className="text-red-700  italic ml-3 mt-2"> {errors.firstName}</span>
         </div>
 
         <div className="mt-4 content-center">
-          <label className="ml-3 text-sm font-bold  tracking-wide">Last Name</label>
+          <label className="ml-3 text-sm font-bold  tracking-wide">Nom de famille</label>
           <input
             className="w-full content-center text-gray-800   my-2 text-base px-4 py-2 border  border-gray-300 focus:outline-none focus:border-indigo-500"
             id="lastName"
             type="text"
             name="lastName"
             onChange={handleChange}
-            placeholder="Last Name"
+            placeholder="Doe"
           />
           <span className="text-red-700  italic ml-3 mt-2"> {errors.lastName}</span>
         </div>
 
         <div className="mt-4 content-center">
-          <label className="ml-3 text-sm font-bold  tracking-wide">City</label>
+          <label className="ml-3 text-sm font-bold  tracking-wide">Ville</label>
           <AlgoliaPlaces
-            placeholder="Write an address here"
+            placeholder="Paris"
             options={{
               appId: process.env.REACT_APP_ALGOLIA_ID,
               apiKey: process.env.REACT_APP_ALGOLIA_API_KEY,
@@ -309,7 +309,7 @@ const RegisterScreen = () => {
         <div className="flex items-center mt-4 justify-between">
           <div className="text-sm">
             <Link to="/login" className="font-medium underline text-red-600 hover:text-red-500">
-              Already an account ? Login
+              Déja un compte ? Connectez-vous
             </Link>
           </div>
         </div>

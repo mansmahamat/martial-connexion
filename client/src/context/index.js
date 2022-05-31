@@ -11,9 +11,9 @@ const UserProvider = ({ children }) => {
   const [state, setState] = useState();
   const [team, setTeam] = useState();
 
-  // const [authToken, setAuthToken] = useState({
-  //   token: ''
-  // });
+  const [authToken, setAuthToken] = useState({
+    token: ''
+  });
 
   useEffect(() => {
     setState(JSON.parse(localStorage.getItem('user')));
@@ -36,12 +36,12 @@ const UserProvider = ({ children }) => {
     fetchMyAPI();
   }, [state]);
 
-  // axios config
-  // const token = authToken && authToken ? authToken : '';
-  // axios.defaults.baseURL = 'http://localhost:8080/api';
-  // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  //axios config
+  const token = authToken && authToken ? authToken : '';
+  axios.defaults.baseURL = 'http://localhost:8080/api';
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-  return <UserContext.Provider value={{ state, team }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ state, team, authToken }}>{children}</UserContext.Provider>;
 };
 
 export { UserContext, UserProvider };

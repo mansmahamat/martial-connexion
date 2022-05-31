@@ -37,6 +37,7 @@ interface IPaymentStatus {
 
 function Account() {
   const [subscriptions, setSubscriptions] = useState([]);
+  const [subscriptionsIsLoading, setSubscriptionsIsLoading] = useState(false);
   const [customerBalance, setCustomerBalance] = useState([]);
   const [user, setUser] = useState<IUser>();
   const [userInfos, setUserInfos] = useState<IPaymentStatus>();
@@ -64,7 +65,12 @@ function Account() {
 
   useEffect(() => {
     const getSubscriptions = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/subscriptions`);
+      setSubscriptionsIsLoading(true);
+      const { data } = await axios
+        .get(`${process.env.REACT_APP_SERVER}/subscriptions`)
+        .finally(() => {
+          setSubscriptionsIsLoading(false);
+        });
       setSubscriptions(data.data);
     };
 
@@ -152,6 +158,7 @@ function Account() {
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-9/12 px-4">
                     <pre className="mx-12 my-12">
+                      {subscriptionsIsLoading && <p>LOADING...</p>}
                       {subscriptions &&
                         oneSub.map((sub) => (
                           // @ts-ignore
@@ -178,7 +185,7 @@ function Account() {
                               <p>
                                 Période: {/*  @ts-ignore */}
                                 {moment(sub.current_period_end * 1000)
-                                  .format('dddd, D MMMM YYYY')
+                                  .format(' D/MM/YYYY')
                                   .toString()}
                               </p>
                               {/*  @ts-ignore */}

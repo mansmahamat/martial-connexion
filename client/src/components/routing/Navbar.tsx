@@ -1,17 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/* This example requires Tailwind CSS v2.0+ */
-import React, { Fragment, useContext } from 'react';
-//@ts-ignore
-
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-//@ts-ignore
-
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-
-//@ts-ignore
 import { PlusSmIcon } from '@heroicons/react/solid';
-// import Toggle from './ToggleTheme';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context';
 
@@ -22,9 +14,9 @@ const user = {
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
 };
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '/teams', current: false },
-  { name: 'Projects', href: '#', current: false },
+  { name: 'Homepage', href: '/', current: true },
+  { name: 'Liste des clubs', href: '/teams', current: false },
+  { name: 'Espace clubs', href: '/gym/pro', current: false },
   { name: 'Calendar', href: '#', current: false }
 ];
 
@@ -58,13 +50,20 @@ const logoutHandler = () => {
 };
 
 export default function Navbar({ User }: Props) {
+  const [isAuth, setIsAuth] = useState<any>('');
+
   const userNavigation = [
     { name: 'Mon profil', href: `/account` },
     { name: 'Settings', href: '#' }
   ];
   const context = useContext(UserContext);
 
-  console.log(context?.state);
+  useEffect(() => {
+    // @ts-ignore
+    setIsAuth(localStorage.getItem('authToken'));
+  }, []);
+
+  console.log(isAuth);
 
   return (
     <Disclosure as="nav" className=" bg-black ">
@@ -114,9 +113,9 @@ export default function Navbar({ User }: Props) {
                   ))}
                 </div>
               </div>
-              <div className="flex items-center">
+              <div className="flex  items-center">
                 {!context?.state && (
-                  <div className="flex-shrink-0 flex ">
+                  <div className="flex-shrink-0 mx-2 flex ">
                     <Link
                       to="/login"
                       className="relative hover:text-white inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-black bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-red-500">
@@ -126,17 +125,7 @@ export default function Navbar({ User }: Props) {
                   </div>
                 )}
 
-                {!context?.state && (
-                  <div className="flex-shrink-0 mx-2 flex ">
-                    <Link
-                      to="/register"
-                      className="relative hover:text-white inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-black bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-red-500">
-                      <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-                      <span>S'inscrire</span>
-                    </Link>
-                  </div>
-                )}
-
+                {/* @ts-ignore */}
                 {!context?.state?.isTeam && (
                   <div className="flex-shrink-0 flex ">
                     <Link
@@ -148,12 +137,12 @@ export default function Navbar({ User }: Props) {
                   </div>
                 )}
                 <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
-                  <button
+                  {/* <button
                     type="button"
                     className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                     <span className="sr-only">View notifications</span>
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
+                  </button> */}
 
                   {/* Profile dropdown */}
                   <Menu as="div" className="ml-3 relative">

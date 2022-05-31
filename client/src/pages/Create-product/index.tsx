@@ -81,7 +81,9 @@ function CreateProduct() {
           draggable: true,
           progress: undefined
         });
-        navigate(`/team/${context?.team?._id}`);
+        setTimeout(() => {
+          navigate(`/teams`);
+        }, 1000);
       })
       .catch((err) => console.log(err?.response?.data));
   };

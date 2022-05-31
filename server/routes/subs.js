@@ -25,6 +25,8 @@ router.post("/create-subscription", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email })
 
+    console.log(user)
+
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       payment_method_types: ["card"],
