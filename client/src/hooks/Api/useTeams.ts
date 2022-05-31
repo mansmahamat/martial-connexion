@@ -4,9 +4,14 @@ import { useMutation, useQuery } from 'react-query';
 import getTeamsTypes from '../../types/getTeamsTypes';
 
 
+
+
+
+
+
 const getTeams = async () => {
   const r = await axios.get<getTeamsTypes[]>(
-    `https://martial-connexion.herokuapp.com/api/teams`
+    `${process.env.REACT_APP_SERVER}/teams`
   );
 
   return r.data;
@@ -19,7 +24,7 @@ export function useGetTeams() {
 
 const getTeamByID = async (id: string) : Promise<getTeamsTypes> => {
   const  {data}  = await axios.get<getTeamsTypes>(
-    `https://martial-connexion.herokuapp.com/api/team/${id}`
+    `${process.env.REACT_APP_SERVER}/team/${id}`
   );
 
   return data;
