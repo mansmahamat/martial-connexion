@@ -4,11 +4,6 @@ import { useMutation, useQuery } from 'react-query';
 import getTeamsTypes from '../../types/getTeamsTypes';
 
 
-
-
-
-
-
 const getTeams = async () => {
   const r = await axios.get<getTeamsTypes[]>(
     `${process.env.REACT_APP_SERVER}/teams`

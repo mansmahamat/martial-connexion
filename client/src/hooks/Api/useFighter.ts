@@ -3,10 +3,6 @@ import axios from 'axios';
 import { useMutation, useQuery } from 'react-query';
 import GetFighterTypes from '../../types/CreateFighterTypes';
 
-
-
-
-
 const getFighter = async (id: string): Promise<GetFighterTypes> => {
   const { data } = await axios.get<GetFighterTypes>(
     `${process.env.REACT_APP_SERVER}/api/fighters/${id}`
