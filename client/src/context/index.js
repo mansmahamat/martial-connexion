@@ -38,7 +38,6 @@ const UserProvider = ({ children }) => {
 
   //axios config
   const token = authToken && authToken ? authToken : '';
-  axios.defaults.baseURL = 'https://martial-connexion.herokuapp.com/api';
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
   return <UserContext.Provider value={{ state, team, authToken }}>{children}</UserContext.Provider>;
