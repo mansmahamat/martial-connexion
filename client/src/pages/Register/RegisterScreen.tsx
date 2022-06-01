@@ -93,7 +93,7 @@ const RegisterScreen = () => {
     }
 
     await axios
-      .post(`${process.env.REACT_APP_DEV}/user/register`, formaData)
+      .post(`https://martial-connexion.herokuapp.com/api/user/register`, formaData)
       .then((res) => {
         const user = {
           //@ts-ignore

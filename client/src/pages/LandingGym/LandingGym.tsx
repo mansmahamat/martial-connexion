@@ -18,13 +18,17 @@ function LandingGym() {
   }, []);
 
   const fetchProPrices = async () => {
-    const { data } = await axios.get(`${process.env.REACT_APP_DEV}/price/${proPriceID}`);
+    const { data } = await axios.get(
+      `https://martial-connexion.herokuapp.com/api/price/${proPriceID}`
+    );
     //@ts-ignore
     setTablePrices((tablePrices) => [...tablePrices, data]);
   };
 
   const fetchFreePrices = async () => {
-    const { data } = await axios.get(`${process.env.REACT_APP_DEV}/price/${freePriceID}`);
+    const { data } = await axios.get(
+      `https://martial-connexion.herokuapp.com/api/price/${freePriceID}`
+    );
     //@ts-ignore
     setTablePrices((tablePrices) => [...tablePrices, data]);
   };

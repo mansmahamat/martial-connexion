@@ -24,7 +24,7 @@ export function useGetTeams() {
 
 const getTeamByID = async (id: string) : Promise<getTeamsTypes> => {
   const  {data}  = await axios.get<getTeamsTypes>(
-    `${process.env.REACT_APP_DEV}/team/${id}`
+    `https://martial-connexion.herokuapp.com/api/team/${id}`
   );
 
   return data;

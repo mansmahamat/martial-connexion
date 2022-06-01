@@ -48,10 +48,13 @@ function Account() {
   //@ts-ignore
 
   const manageSubscriptions = async () => {
-    const { data } = await axios.post(`${process.env.REACT_APP_DEV}/customer-portal`, {
-      //@ts-ignore
-      user: user
-    });
+    const { data } = await axios.post(
+      `https://martial-connexion.herokuapp.com/api/customer-portal`,
+      {
+        //@ts-ignore
+        user: user
+      }
+    );
     window.open(data);
   };
 
@@ -66,9 +69,11 @@ function Account() {
   useEffect(() => {
     const getSubscriptions = async () => {
       setSubscriptionsIsLoading(true);
-      const { data } = await axios.get(`${process.env.REACT_APP_DEV}/subscriptions`).finally(() => {
-        setSubscriptionsIsLoading(false);
-      });
+      const { data } = await axios
+        .get(`https://martial-connexion.herokuapp.com/api/subscriptions`)
+        .finally(() => {
+          setSubscriptionsIsLoading(false);
+        });
       setSubscriptions(data.data);
     };
 
@@ -79,7 +84,7 @@ function Account() {
   useEffect(() => {
     const getCustomerBalance = async () => {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_DEV}/customer/balance/${user?.billingID}`
+        `https://martial-connexion.herokuapp.com/api/customer/balance/${user?.billingID}`
       );
       setCustomerBalance(data);
     };
@@ -90,7 +95,9 @@ function Account() {
 
   useEffect(() => {
     const getUserInfos = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_DEV}/user/user/${user?._id}`);
+      const { data } = await axios.get(
+        `https://martial-connexion.herokuapp.com/api/user/user/${user?._id}`
+      );
       setUserInfos(data);
       localStorage.setItem('user', JSON.stringify(data));
     };

@@ -16,10 +16,13 @@ function StripeSuccess() {
 
   useEffect(() => {
     const getSubscriptionStatus = async () => {
-      const { data } = await axios.post(`${process.env.REACT_APP_DEV}/subscription-status`, {
-        //@ts-ignore
-        user: state
-      });
+      const { data } = await axios.post(
+        `https://martial-connexion.herokuapp.com/api/subscription-status`,
+        {
+          //@ts-ignore
+          user: state
+        }
+      );
       console.log('SUBSCRIPTION STATUS => ', data);
       // if (data && data.length === 0) {
       //   history.push("/");

@@ -20,14 +20,18 @@ const UserProvider = ({ children }) => {
   }, []);
 
   const getCustomerInfo = async () => {
-    const { data } = await axios.get(`${process.env.REACT_APP_DEV}/team/${state?.teamId}`);
+    const { data } = await axios.get(
+      `https://martial-connexion.herokuapp.com/api/team/${state?.teamId}`
+    );
     localStorage.setItem('team', JSON.stringify(data));
     setTeam(JSON.parse(localStorage.getItem('team')));
   };
 
   useEffect(() => {
     async function fetchMyAPI() {
-      const { data } = await axios.get(`${process.env.REACT_APP_DEV}/team/${state?.teamId}`);
+      const { data } = await axios.get(
+        `https://martial-connexion.herokuapp.com/api/team/${state?.teamId}`
+      );
       console.log(data);
       localStorage.setItem('team', JSON.stringify(data));
       setTeam(JSON.parse(localStorage.getItem('team')));

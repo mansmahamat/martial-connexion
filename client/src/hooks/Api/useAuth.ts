@@ -6,7 +6,7 @@ import RegisterTypes from '../../types/RegisterTypes';
 import ResetPassword from '../../types/ResetPassword';
 
 const postLogin = async (email : string, password: string): Promise<LoginTypes> => {
-  const { data } = await axios.post(`${process.env.REACT_APP_DEV}/user/login`, {
+  const { data } = await axios.post(`https://martial-connexion.herokuapp.com/api/user/login`, {
     email,
     password
   });
@@ -22,7 +22,7 @@ export function usePostLogin(email: string, password: string) {
 }
 
 const postRegister = async (email : string, password: string): Promise<RegisterTypes> => {
-  const { data } = await axios.post(`${process.env.REACT_APP_DEV}/api/user/register`, {
+  const { data } = await axios.post(`https://martial-connexion.herokuapp.com/api/api/user/register`, {
     email,
     password
   });
@@ -37,7 +37,7 @@ export function usePostRegister(email: string, password: string) {
 
 
 const forgotPassword = async (email : string): Promise<ForgotPassword> => {
-  const { data } = await axios.post(`${process.env.REACT_APP_DEV}/user/forgotpassword`, {
+  const { data } = await axios.post(`https://martial-connexion.herokuapp.com/api/user/forgotpassword`, {
     email,
   });
 
@@ -51,7 +51,7 @@ export function useForgotPassword(email: string) {
 }
 
 const resetPassword = async (password : string, resetToken: string): Promise<ResetPassword> => {
-  const { data } = await axios.put(`${process.env.REACT_APP_DEV}/user/resetpassword/${resetToken}`, {
+  const { data } = await axios.put(`https://martial-connexion.herokuapp.com/api/user/resetpassword/${resetToken}`, {
     password,
   });
 
@@ -65,7 +65,7 @@ export function useResetPassword(password : string, resetToken: string) {
 }
 
 const getUser = async (id: string) => {
-  const { data } = await axios.get(`${process.env.REACT_APP_DEV}/user/user/${id}`)
+  const { data } = await axios.get(`https://martial-connexion.herokuapp.com/api/user/user/${id}`)
 
   return data
 }

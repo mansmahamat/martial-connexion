@@ -48,7 +48,7 @@ function PricingTable({ prices, User }: Props) {
 
   useEffect(() => {
     const getSubscriptions = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_DEV}/subscriptions`);
+      const { data } = await axios.get(`https://martial-connexion.herokuapp.com/api/subscriptions`);
       setUserSubscriptions(data.data);
     };
 
@@ -70,12 +70,15 @@ function PricingTable({ prices, User }: Props) {
       return;
     }
     if (state) {
-      const { data } = await axios.post(`${process.env.REACT_APP_DEV}/create-subscription`, {
-        priceId: price.id,
-        //@ts-ignore
-        email: User?.state.email,
-        billingId: User?.billingID
-      });
+      const { data } = await axios.post(
+        `https://martial-connexion.herokuapp.com/api/create-subscription`,
+        {
+          priceId: price.id,
+          //@ts-ignore
+          email: User?.state.email,
+          billingId: User?.billingID
+        }
+      );
       window.open(data);
     } else {
       //   history.push("/register");
