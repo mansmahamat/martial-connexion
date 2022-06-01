@@ -18,13 +18,13 @@ function LandingGym() {
   }, []);
 
   const fetchProPrices = async () => {
-    const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/price/${proPriceID}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_DEV}/price/${proPriceID}`);
     //@ts-ignore
     setTablePrices((tablePrices) => [...tablePrices, data]);
   };
 
   const fetchFreePrices = async () => {
-    const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/price/${freePriceID}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_DEV}/price/${freePriceID}`);
     //@ts-ignore
     setTablePrices((tablePrices) => [...tablePrices, data]);
   };

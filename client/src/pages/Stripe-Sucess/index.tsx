@@ -16,7 +16,7 @@ function StripeSuccess() {
 
   useEffect(() => {
     const getSubscriptionStatus = async () => {
-      const { data } = await axios.post(`${process.env.REACT_APP_SERVER}/subscription-status`, {
+      const { data } = await axios.post(`${process.env.REACT_APP_DEV}/subscription-status`, {
         //@ts-ignore
         user: state
       });

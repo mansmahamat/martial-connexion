@@ -26,9 +26,7 @@ function Home({ User }: Props) {
   return (
     <div className="">
       <Hero />
-
       {/* <PricingTable User={User} prices={prices} /> */}
-
       <SectionHomepage />
     </div>
   );

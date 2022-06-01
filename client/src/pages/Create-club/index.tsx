@@ -98,7 +98,7 @@ export default function CreateClub() {
     formaData.append(`price`, JSON.stringify(price));
 
     await axios
-      .post(`${process.env.REACT_APP_SERVER}/team`, formaData)
+      .post(`${process.env.REACT_APP_DEV}/team`, formaData)
       .then((res) => {
         const team = {
           //@ts-ignore

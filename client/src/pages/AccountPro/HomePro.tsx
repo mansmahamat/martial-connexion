@@ -54,7 +54,7 @@ function HomePro() {
 
   useEffect(() => {
     const getLoginLinks = async () => {
-      const { data } = await axios.post(`${process.env.REACT_APP_SERVER}/login_links`, {
+      const { data } = await axios.post(`${process.env.REACT_APP_DEV}/login_links`, {
         //@ts-ignore
         accountId: user?.accountId
       });
@@ -67,7 +67,7 @@ function HomePro() {
   }, [user?.accountId]);
 
   const getCustomerInfo = async (id: string) => {
-    const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/customers/${id}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_DEV}/customers/${id}`);
     setUserSelected(data);
   };
 

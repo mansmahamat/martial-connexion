@@ -93,7 +93,7 @@ const RegisterScreen = () => {
     }
 
     await axios
-      .post(`${process.env.REACT_APP_SERVER}/user/register`, formaData)
+      .post(`${process.env.REACT_APP_DEV}/user/register`, formaData)
       .then((res) => {
         const user = {
           //@ts-ignore

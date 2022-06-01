@@ -48,7 +48,7 @@ function Account() {
   //@ts-ignore
 
   const manageSubscriptions = async () => {
-    const { data } = await axios.post(`${process.env.REACT_APP_SERVER}/customer-portal`, {
+    const { data } = await axios.post(`${process.env.REACT_APP_DEV}/customer-portal`, {
       //@ts-ignore
       user: user
     });
@@ -66,11 +66,9 @@ function Account() {
   useEffect(() => {
     const getSubscriptions = async () => {
       setSubscriptionsIsLoading(true);
-      const { data } = await axios
-        .get(`${process.env.REACT_APP_SERVER}/subscriptions`)
-        .finally(() => {
-          setSubscriptionsIsLoading(false);
-        });
+      const { data } = await axios.get(`${process.env.REACT_APP_DEV}/subscriptions`).finally(() => {
+        setSubscriptionsIsLoading(false);
+      });
       setSubscriptions(data.data);
     };
 
@@ -81,7 +79,7 @@ function Account() {
   useEffect(() => {
     const getCustomerBalance = async () => {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_SERVER}/customer/balance/${user?.billingID}`
+        `${process.env.REACT_APP_DEV}/customer/balance/${user?.billingID}`
       );
       setCustomerBalance(data);
     };
@@ -92,7 +90,7 @@ function Account() {
 
   useEffect(() => {
     const getUserInfos = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/user/user/${user?._id}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_DEV}/user/user/${user?._id}`);
       setUserInfos(data);
       localStorage.setItem('user', JSON.stringify(data));
     };
