@@ -11,7 +11,7 @@ import getTeamsTypes from '../../types/getTeamsTypes';
 
 const getTeams = async () => {
   const r = await axios.get<getTeamsTypes[]>(
-    `https://martial-connexion.herokuapp.com/api/teams`
+    `${process.env.REACT_APP_DEV}/teams`
   );
 
   return r.data;
