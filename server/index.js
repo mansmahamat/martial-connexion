@@ -68,7 +68,7 @@ const stripe = require("stripe")(
   "sk_test_51KEwIMLXQl0DCJw6d0bLud77pQXePWgdms4nsY9BxszujE3ZTXCtvua7NzlOy0CcdnsBhHQrYDWgjAepP6Pr2Y6Z00vkDwTP76"
 )
 
-const YOUR_DOMAIN = "http://localhost:3000"
+const YOUR_DOMAIN = "https://confident-visvesvaraya-394dab.netlify.app"
 const endpointSecret =
   "whsec_c97489f47f7559faad2df4a224626a0cecffbfa2bf50be67ade0ebb23a31fc78"
 
@@ -148,7 +148,7 @@ app.post("/api/complete-profile", async (req, res) => {
   const accountLink = await stripe.accountLinks.create({
     account: accountId,
     refresh_url: "https://example.com/reauth",
-    return_url: "http://localhost:3000/pro",
+    return_url: "https://confident-visvesvaraya-394dab.netlify.app/pro",
     type: "account_onboarding",
   })
   res.send(accountLink.url)
@@ -461,8 +461,8 @@ app.post("/create-payment-products", async (req, res) => {
       },
     ],
     mode: "payment",
-    success_url: "http://localhost:3000",
-    cancel_url: "http://localhost:3000/teams",
+    success_url: "https://confident-visvesvaraya-394dab.netlify.app",
+    cancel_url: "https://confident-visvesvaraya-394dab.netlify.app/teams",
     // customer_email: userEmail,
     customer: customerId,
     client_reference_id: customerId,

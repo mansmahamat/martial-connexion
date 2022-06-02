@@ -19,7 +19,7 @@ const getCustomerByID = async (id) => {
 const createBillingSession = async (customer) => {
   const session = await stripe.billingPortal.sessions.create({
     customer,
-    return_url: "http://localhost:3000/",
+    return_url: "https://confident-visvesvaraya-394dab.netlify.app/",
   })
   return session
 }

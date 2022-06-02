@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
@@ -7,6 +8,9 @@ import Map, { Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import TeamCalendar from '../../components/TeamCalendar';
 import TableDiscipline from '../../components/UI/Table-discipline';
+
+//@ts-ignore
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 //@ts-ignore
 function classNames(...classes) {

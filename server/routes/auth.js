@@ -178,7 +178,7 @@ router.post("/forgotpassword", async (req, res, next) => {
     await user.save()
 
     // Create reset url to email to provided email
-    const resetUrl = `http://localhost:3000/passwordreset/${resetToken}`
+    const resetUrl = `https://confident-visvesvaraya-394dab.netlify.app/passwordreset/${resetToken}`
 
     // HTML Message
     const message = `
