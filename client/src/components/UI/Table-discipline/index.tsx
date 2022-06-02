@@ -37,7 +37,7 @@ function TableDiscipline({ prices, accountId, userEmail, customerId, userName }:
 
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <form
-                        action={`https://martial-connexion.herokuapp.com/api/create-payment-products`}
+                        action={`https://martial-connexion.herokuapp.com/create-payment-products`}
                         method="POST">
                         <input
                           type="hidden"

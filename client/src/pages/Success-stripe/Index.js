@@ -12,9 +12,7 @@ export const SuccessDisplay = ({ sessionId }) => {
           <h3>Subscription to starter plan successful!</h3>
         </div>
       </div>
-      <form
-        action={`https://martial-connexion.herokuapp.com/api/create-portal-session`}
-        method="POST">
+      <form action={`https://martial-connexion.herokuapp.com/create-portal-session`} method="POST">
         <input type="hidden" id="session-id" name="session_id" value={sessionId} />
         <button id="checkout-and-portal-button" type="submit">
           Manage your billing information
