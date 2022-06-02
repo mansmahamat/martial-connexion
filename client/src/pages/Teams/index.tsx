@@ -128,10 +128,7 @@ function Teams() {
                         <p className="text-sm  flex-grow">{team.postalCode}</p>
 
                         <div>
-                          <p className="flex items-center">
-                            {/* <StarIcon className="h-5 text-red-400" /> */}
-                            {team.city}
-                          </p>
+                          <p className="flex items-center">{team.city}</p>
                           <div className="flex justify-between items-end">
                             <Link to={`/team/${team._id}`}>
                               <span className="text-lg flex  items-center text-gray-900 font-semibold lg:text-2xl pb-2">
