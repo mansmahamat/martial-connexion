@@ -1,9 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint @typescript-eslint/no-var-requires: "off" */
 import React, { useEffect, useState } from 'react';
 import { getCenter } from 'geolib';
 import Map, { Marker, Popup, NavigationControl, GeolocateControl } from 'react-map-gl';
+import mapboxgl from 'mapbox-gl';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+
+//@ts-ignore
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 function MapHomeTeams({ data, selectData }: any) {
   const [selectedLocation, setSelectedLocation] = useState({});

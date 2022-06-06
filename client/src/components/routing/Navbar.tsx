@@ -197,6 +197,7 @@ export default function Navbar({ User }: Props) {
                             )}
                           </Menu.Item>
                         )}
+
                         <Menu.Item>
                           {/* @ts-ignore */}
                           {({ active }) => (

@@ -23,5 +23,6 @@
       "@typescript-eslint"
   ],
   "rules": {
+    "import/no-webpack-loader-syntax": "on"
   }
 }
