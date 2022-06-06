@@ -12,7 +12,7 @@ const registerValidation = (data) => {
     postalCode: Joi.string().min(5).required(),
     email: Joi.string().min(6).required(),
     password: Joi.string().min(6).required(),
-    discipline: Joi.array().required(),
+    discipline: Joi.array(),
   }
 
   return Joi.validate(data, schema)
