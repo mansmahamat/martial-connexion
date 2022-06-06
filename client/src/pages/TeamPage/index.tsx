@@ -136,7 +136,7 @@ function TeamPage() {
                           // @ts-ignore
                           userName={user?.firstName + ' ' + user?.lastName}
                           // @ts-ignore
-                          customerId={user.billingID}
+                          customerId={user?.billingID}
                           // @ts-ignore
                           accountId={data?.userId[0]?.accountId}
                           prices={prices}
