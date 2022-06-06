@@ -23,14 +23,14 @@ const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true,
-    min: 3,
+    min: 2,
     max: 100,
   },
   lastName: {
     type: String,
     required: true,
     max: 100,
-    min: 6,
+    min: 2,
   },
   avatar: {
     type: String,
@@ -58,7 +58,7 @@ const userSchema = new mongoose.Schema({
   },
   discipline: {
     type: Array,
-    required: true,
+    required: false,
     max: 1024,
     min: 2,
   },

@@ -293,19 +293,6 @@ const RegisterScreen = () => {
           />
         </div>
 
-        <div className="mt-2 content-center">
-          <label className="ml-3 text-sm font-bold  tracking-wide">Discipline</label>
-
-          <Select
-            options={sports}
-            isMulti
-            className="basic-multi-select"
-            classNamePrefix="select"
-            name="sport"
-            onChange={OnHandleChange}
-          />
-        </div>
-
         <div className="flex items-center mt-4 justify-between">
           <div className="text-sm">
             <Link to="/login" className="font-medium underline text-red-600 hover:text-red-500">
