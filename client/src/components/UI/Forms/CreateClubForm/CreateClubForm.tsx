@@ -1,11 +1,19 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 //@ts-ignore
 import AlgoliaPlaces from 'algolia-places-react';
 import Select from 'react-select';
 import { sports } from '../../../../data/sport';
 import { CreateClubFormValidation } from './validation';
 import { useFormik } from 'formik';
+import GooglePlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng
+} from 'react-google-places-autocomplete';
+
+interface GooglePlace {
+  label?: string;
+}
 
 type Props = {
   setSelectSteps: React.Dispatch<React.SetStateAction<number>>;
@@ -15,7 +23,7 @@ type Props = {
   setLogo: any;
   setEmailContact: React.Dispatch<React.SetStateAction<string>>;
   setCity: React.Dispatch<React.SetStateAction<string>>;
-  setAddress: React.Dispatch<React.SetStateAction<string>>;
+  setAddress: React.Dispatch<React.SetStateAction<any>>;
   setPostalCode: React.Dispatch<React.SetStateAction<string>>;
   setCounty: React.Dispatch<React.SetStateAction<string>>;
   setNumber: React.Dispatch<React.SetStateAction<number>>;
@@ -50,8 +58,12 @@ function CreateClubForm({
 }: Props) {
   const [fileArray, setfileArray] = useState([]);
   const [isSave, setIsSave] = useState(false);
-
+  const [value, setValue] = useState<GooglePlace | undefined>();
   const [selectedImage, setSelectedImage] = useState();
+
+  const onClick = () => {
+    //@ts-ignore
+  };
 
   const onSubmit = () => {
     setClubName(values.clubName);
@@ -118,8 +130,6 @@ function CreateClubForm({
   const submitForm = async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   };
-
-  console.log(values.email);
 
   return (
     <form
@@ -194,83 +204,23 @@ function CreateClubForm({
               <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">
                 Street address
               </label>
-              <div className="mt-1">
-                <AlgoliaPlaces
-                  placeholder="Write an address here"
-                  options={{
-                    appId: process.env.REACT_APP_ALGOLIA_ID,
-                    apiKey: process.env.REACT_APP_ALGOLIA_API_KEY,
-                    type: 'address',
-                    language: 'fr',
-                    countries: ['FR']
+              <div className="mt-1 flex flex-col">
+                <GooglePlacesAutocomplete
+                  apiKey={process.env.REACT_APP_GOOGLE_PLACE_API}
+                  selectProps={{
+                    value,
+                    onChange: setAddress
                   }}
-                  //@ts-ignore
-                  onChange={(suggestion) => {
-                    setLatitude(suggestion.suggestion.latlng.lat);
-                    setLongitude(suggestion.suggestion.latlng.lng);
-                    setAddress(suggestion.suggestion.name);
-                    setCity(suggestion.suggestion.city);
-                    setPostalCode(suggestion.suggestion.postcode);
-                    setCounty(suggestion.suggestion.administrative);
-                  }}
-                  //@ts-ignore
-                  onClear={() => {
-                    setCity('');
-                    setPostalCode('');
-                    setCounty('');
+                  apiOptions={{ language: 'fr', region: 'fr' }}
+                  autocompletionRequest={{
+                    componentRestrictions: {
+                      country: ['fr']
+                    }
                   }}
                 />
-              </div>
-            </div>
-
-            <div className="sm:col-span-2">
-              <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                City
-              </label>
-              <div className="mt-1">
-                <input
-                  readOnly
-                  type="text"
-                  name="city"
-                  id="city"
-                  value={city}
-                  autoComplete="address-level2"
-                  className="shadow-sm focus:ring-indigo-500 px-3 py-2 border focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-2">
-              <label htmlFor="region" className="block text-sm font-medium text-gray-700">
-                State / Province
-              </label>
-              <div className="mt-1">
-                <input
-                  value={county}
-                  readOnly
-                  type="text"
-                  name="region"
-                  id="region"
-                  autoComplete="address-level1"
-                  className="shadow-sm focus:ring-indigo-500 px-3 py-2 border focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-2">
-              <label htmlFor="postal-code" className="block text-sm font-medium text-gray-700">
-                ZIP / Postal code
-              </label>
-              <div className="mt-1">
-                <input
-                  value={postalCode}
-                  readOnly
-                  type="text"
-                  name="postal-code"
-                  id="postal-code"
-                  autoComplete="postal-code"
-                  className="shadow-sm focus:ring-indigo-500 px-3 py-2 border focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                />
+                <button className="bg-red-300 py-4 px-4 mt-6" onClick={onClick}>
+                  Confirmer
+                </button>
               </div>
             </div>
           </div>

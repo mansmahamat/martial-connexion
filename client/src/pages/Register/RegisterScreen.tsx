@@ -18,8 +18,6 @@ import { sports } from '../../data/sport';
 const RegisterScreen = () => {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [city, setCity] = useState<string | ''>('');
-  const [postalCode, setPostalCode] = useState<string | ''>('');
   const [discipline, setDiscipline] = useState<Array<string>>([]);
   const [selectedImage, setSelectedImage] = useState();
   const [item, setItem] = useState({
@@ -36,8 +34,6 @@ const RegisterScreen = () => {
     firstName: '',
     lastName: '',
     avatar: '',
-    city: '',
-    postalCode: '',
     discipline: '',
     email: '',
     password: '',
@@ -83,8 +79,6 @@ const RegisterScreen = () => {
     formaData.append('avatar', item, item.name);
     formaData.append('firstName', Capitalize(values.firstName));
     formaData.append('lastName', Capitalize(values.lastName));
-    formaData.append('city', Capitalize(city));
-    formaData.append('postalCode', postalCode);
     formaData.append('email', values.email);
     formaData.append('password', values.password);
 
@@ -93,7 +87,7 @@ const RegisterScreen = () => {
     }
 
     await axios
-      .post(`https://martial-connexion.herokuapp.com/api/user/register`, formaData)
+      .post(`${process.env.REACT_APP_SERVER}/user/register`, formaData)
       .then((res) => {
         const user = {
           //@ts-ignore
@@ -272,25 +266,6 @@ const RegisterScreen = () => {
             placeholder="Doe"
           />
           <span className="text-red-700  italic ml-3 mt-2"> {errors.lastName}</span>
-        </div>
-
-        <div className="mt-4 content-center">
-          <label className="ml-3 text-sm font-bold  tracking-wide">Ville</label>
-          <AlgoliaPlaces
-            placeholder="Paris"
-            options={{
-              appId: process.env.REACT_APP_ALGOLIA_ID,
-              apiKey: process.env.REACT_APP_ALGOLIA_API_KEY,
-              type: 'city',
-              language: 'fr',
-              countries: ['FR']
-            }}
-            //@ts-ignore
-            onChange={(suggestion) => {
-              setCity(suggestion.suggestion.name);
-              setPostalCode(suggestion.suggestion.postcode);
-            }}
-          />
         </div>
 
         <div className="flex items-center mt-4 justify-between">

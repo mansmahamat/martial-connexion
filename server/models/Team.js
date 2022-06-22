@@ -43,7 +43,7 @@ const TeamSchema = new mongoose.Schema({
   },
   city: {
     type: String,
-    required: true,
+    required: false,
     max: 1024,
     min: 6,
   },

@@ -6,6 +6,10 @@ import InputPrice from '../../components/UI/Input-price-club';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import GooglePlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng
+} from 'react-google-places-autocomplete';
 
 import 'react-toastify/dist/ReactToastify.css';
 import GetFighterTypes from '../../types/CreateFighterTypes';
@@ -15,6 +19,10 @@ const steps = [
   { id: 2, name: 'Planning', href: '#', status: 'current' },
   { id: 3, name: 'Create', href: '#', status: 'upcoming' }
 ];
+
+interface GooglePlace {
+  label?: string;
+}
 
 export default function CreateClub() {
   const [user, setUser] = useState<GetFighterTypes>();
@@ -33,7 +41,7 @@ export default function CreateClub() {
     webkitRelativePath: ''
   });
   const [city, setCity] = useState<string | ''>('');
-  const [address, setAddress] = useState<string | ''>('');
+  const [address, setAddress] = useState<GooglePlace | undefined>(undefined);
   const [postalCode, setPostalCode] = useState<string | ''>('');
   const [county, setCounty] = useState<string | ''>('');
   const [latitude, setLatitude] = useState<string | ''>('');
@@ -49,6 +57,16 @@ export default function CreateClub() {
     // @ts-ignore
     setUser(JSON.parse(localStorage.getItem('user')));
   }, []);
+
+  useEffect(() => {
+    //@ts-ignore
+    geocodeByAddress(address?.label)
+      .then((results) => getLatLng(results[0]))
+      .then(({ lat, lng }) => {
+        setLatitude(lat.toString());
+        setLongitude(lng.toString());
+      });
+  }, [address?.label]);
 
   const Capitalize = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -66,7 +84,7 @@ export default function CreateClub() {
     return str;
   }
 
-  console.log(emailContact);
+  console.log(latitude, longitude);
 
   const submitForm = async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -78,7 +96,8 @@ export default function CreateClub() {
     formaData.append('number', number.toString());
     formaData.append('description', Capitalize(description));
     formaData.append('city', Capitalize(city));
-    formaData.append('address', Capitalize(address));
+    //@ts-ignore
+    formaData.append('address', address?.label);
     formaData.append('postalCode', postalCode);
     formaData.append('latitude', latitude);
     formaData.append('longitude', longitude);
@@ -98,7 +117,7 @@ export default function CreateClub() {
     formaData.append(`price`, JSON.stringify(price));
 
     await axios
-      .post(`https://martial-connexion.herokuapp.com/api/team`, formaData)
+      .post(`${process.env.REACT_APP_SERVER}/team`, formaData)
       .then((res) => {
         const team = {
           //@ts-ignore

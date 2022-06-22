@@ -40,8 +40,6 @@ function TeamPage() {
   //@ts-ignore
   const events = JSON.parse(data?.schedule);
 
-  console.log(user);
-
   return (
     <>
       <div className="min-h-full">
@@ -52,7 +50,7 @@ function TeamPage() {
               <div className="flex-shrink-0">
                 <div className="relative ">
                   <img
-                    className="h-20  w-20  rounded-full"
+                    className="h-24   "
                     //@ts-ignore
                     src={data?.logo}
                     alt={data?.logo}

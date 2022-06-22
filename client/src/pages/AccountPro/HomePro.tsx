@@ -54,7 +54,7 @@ function HomePro() {
 
   useEffect(() => {
     const getLoginLinks = async () => {
-      const { data } = await axios.post(`https://martial-connexion.herokuapp.com/api/login_links`, {
+      const { data } = await axios.post(`${process.env.REACT_APP_SERVER}/login_links`, {
         //@ts-ignore
         accountId: user?.accountId
       });
@@ -67,7 +67,7 @@ function HomePro() {
   }, [user?.accountId]);
 
   const getCustomerInfo = async (id: string) => {
-    const { data } = await axios.get(`https://martial-connexion.herokuapp.com/api/customers/${id}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/customers/${id}`);
     setUserSelected(data);
   };
 
@@ -254,7 +254,7 @@ function HomePro() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {user?.paymentReceived.map((sub: any) => (
+                    {user?.paymentReceived?.map((sub: any) => (
                       <tr key={sub.paymentIntent.id} className="bg-white">
                         <td className="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           <div className="flex">

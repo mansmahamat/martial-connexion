@@ -20,18 +20,14 @@ const UserProvider = ({ children }) => {
   }, []);
 
   const getCustomerInfo = async () => {
-    const { data } = await axios.get(
-      `https://martial-connexion.herokuapp.com/api/team/${state?.teamId}`
-    );
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/team/${state?.teamId}`);
     localStorage.setItem('team', JSON.stringify(data));
     setTeam(JSON.parse(localStorage.getItem('team')));
   };
 
   useEffect(() => {
     async function fetchMyAPI() {
-      const { data } = await axios.get(
-        `https://martial-connexion.herokuapp.com/api/team/${state?.teamId}`
-      );
+      const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/team/${state?.teamId}`);
       console.log(data);
       localStorage.setItem('team', JSON.stringify(data));
       setTeam(JSON.parse(localStorage.getItem('team')));
@@ -42,7 +38,7 @@ const UserProvider = ({ children }) => {
 
   //axios config
   const token = authToken && authToken ? authToken : '';
-  // axios.defaults.baseURL = 'https://martial-connexion.herokuapp.com/api';
+  // axios.defaults.baseURL = '${process.env.REACT_APP_SERVER}';
   // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
   return <UserContext.Provider value={{ state, team, authToken }}>{children}</UserContext.Provider>;

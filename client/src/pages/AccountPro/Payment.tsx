@@ -41,7 +41,7 @@ function Payment() {
   }, []);
 
   const getCustomerInfo = async (id: string) => {
-    const { data } = await axios.get(`https://martial-connexion.herokuapp.com/api/customers/${id}`);
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER}/customers/${id}`);
     setUserSelected(data);
   };
 

@@ -17,13 +17,10 @@ function SetupAccount() {
 
   useEffect(() => {
     const getSubscriptionStatus = async () => {
-      const { data } = await axios.post(
-        `https://martial-connexion.herokuapp.com/api/complete-profile`,
-        {
-          //@ts-ignore
-          accountId: user?.accountId
-        }
-      );
+      const { data } = await axios.post(`${process.env.REACT_APP_SERVER}/complete-profile`, {
+        //@ts-ignore
+        accountId: user?.accountId
+      });
       setLink(data);
     };
 

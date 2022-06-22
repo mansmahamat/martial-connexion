@@ -91,8 +91,6 @@ router.post("/register", upload.single("avatar"), async (req, res) => {
     lastName: req.body.lastName,
     avatar: result.secure_url,
     //avatar: req.body.avatar,
-    city: req.body.city,
-    postalCode: req.body.postalCode,
     discipline: req.body.discipline,
     userId: req.body.userId,
     cloudinary_id: result.public_id,

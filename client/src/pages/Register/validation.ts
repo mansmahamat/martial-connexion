@@ -7,7 +7,6 @@ export const RegisterValidation = Yup.object().shape({
      .oneOf([Yup.ref('password'), null], 'Passwords must match'),
      firstName: Yup.string().required("Obligatoire").min(2, "Minimum 2 caractères"),
     lastName: Yup.string().required("Obligatoire").min(2, "Minimum 2 caractères"),
-    city: Yup.string().required("Obligatoire"),
     //discipline: Yup.string().required("Obligatoire"),
     avatar: Yup.mixed()
     .test("fileSize", "The file is too large", (value, context) => {

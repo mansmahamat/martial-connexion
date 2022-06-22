@@ -68,7 +68,7 @@ export default function Example({ history }: any) {
   useEffect(() => {
     const getBalance = async () => {
       const { data } = await axios.get(
-        `https://martial-connexion.herokuapp.com/api/gym/balance/${user?.accountId}`
+        `${process.env.REACT_APP_SERVER}/gym/balance/${user?.accountId}`
       );
       setBalance(data);
     };
@@ -81,7 +81,7 @@ export default function Example({ history }: any) {
   useEffect(() => {
     const getAccountInfos = async () => {
       const { data } = await axios.get(
-        `https://martial-connexion.herokuapp.com/api/account/${user?.accountId}`
+        `${process.env.REACT_APP_SERVER}/account/${user?.accountId}`
       );
       setAccount(data);
     };
